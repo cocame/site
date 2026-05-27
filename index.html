@@ -289,18 +289,118 @@
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.3; }
     }
 
-    /* ─── Placeholder section below hero ───────────────────────── */
-    .below-fold {
-      height: 100vh;
+    /* ─── TOUR CARD SECTION ─────────────────────────────────────── */
+    .tour-section {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      min-height: 560px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0a0a0a;
-      color: rgba(255,255,255,0.15);
-      font-size: 14px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      align-items: flex-end;
     }
+
+    /* Photo */
+    .tour-section__photo {
+      position: absolute;
+      inset: 0;
+      will-change: transform;
+    }
+    .tour-section__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Gradient: subtle top, heavy bottom */
+    .tour-section__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15)  0%,
+        rgba(0,0,0,0)     25%,
+        rgba(0,0,0,0.05)  55%,
+        rgba(0,0,0,0.82) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Content — bottom-left */
+    .tour-section__content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(36px, 6vw, 80px) clamp(28px, 6vw, 80px);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      max-width: min(720px, 90vw);
+    }
+
+    .tour-section__tag {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .tour-section__title {
+      font-size: clamp(2rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #fff;
+      text-shadow: 0 2px 32px rgba(0,0,0,0.45);
+      /* GSAP starts here — will be set by fromTo */
+    }
+
+    .tour-section__subtitle {
+      font-size: clamp(15px, 2vw, 20px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.75);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Ghost outline button */
+    .btn-tour {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 14px 32px;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-size: clamp(14px, 1.5vw, 16px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(255,255,255,0.45);
+      border-radius: 980px;
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.25s ease,
+                  border-color 0.25s ease,
+                  transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-tour:hover {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.80);
+      transform: scale(1.03);
+    }
+    .btn-tour:active { transform: scale(0.97); }
+    .btn-tour svg {
+      width: 15px; height: 15px; flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .btn-tour:hover svg { transform: translateX(3px); }
 
     /* ─── Mobile nav collapse ───────────────────────────────────── */
     @media (max-width: 600px) {
@@ -381,10 +481,40 @@
   </section>
 
 
-  <!-- ═══════════════════ BELOW FOLD (placeholder) ═══════════════════ -->
-  <div class="below-fold" id="tours">
-    Экскурсии — coming soon
-  </div>
+  <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
+  <section class="tour-section" id="tours">
+
+    <div class="tour-section__photo" id="banaPhoto">
+      <img
+        src="images/bana.jpg"
+        alt="Ба На Хиллс — Золотой мост"
+        decoding="async"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="tour-section__gradient"></div>
+
+    <div class="tour-section__content" id="banaContent">
+      <p class="tour-section__tag">Экскурсия · Ба На Хиллс</p>
+
+      <h2 class="tour-section__title" id="banaTitle">
+        Ба На Хиллс —<br />Золотой мост
+      </h2>
+
+      <p class="tour-section__subtitle">
+        Путешествие в облака&nbsp;·&nbsp;от 47$
+      </p>
+
+      <a href="#" class="btn-tour">
+        Узнать подробнее
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+  </section>
 
 
   <!-- ═══════════════════ GSAP ANIMATIONS ═══════════════════ -->
@@ -488,7 +618,66 @@
       },
     });
 
-    /* ── 5. Smooth scroll for nav links ── */
+    /* ── 5. BA NA HILLS: title slides in from left on scroll ── */
+
+    // Tag — fades up subtly first
+    gsap.fromTo(
+      '#banaContent .tour-section__tag',
+      { opacity: 0, y: 14 },
+      {
+        opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '#tours',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Title — sweeps in from left with slight overshoot
+    gsap.fromTo(
+      '#banaTitle',
+      { opacity: 0, x: -90, skewX: 4 },
+      {
+        opacity: 1, x: 0, skewX: 0,
+        duration: 1.0, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#tours',
+          start: 'top 72%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Subtitle + button — stagger after title
+    gsap.fromTo(
+      ['#banaContent .tour-section__subtitle', '#banaContent .btn-tour'],
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.75, ease: 'power2.out',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: '#tours',
+          start: 'top 65%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Parallax on Ba Na photo
+    gsap.to('#banaPhoto', {
+      yPercent: 12,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#tours',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5,
+      },
+    });
+
+    /* ── 7. Smooth scroll for nav links ── */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
         const target = document.querySelector(anchor.getAttribute('href'));
