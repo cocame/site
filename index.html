@@ -213,6 +213,16 @@
       opacity: 0; /* GSAP */
     }
 
+    /* Meta line — small info below CTA */
+    .hero__meta {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      margin-top: 20px;
+      opacity: 0; /* GSAP */
+    }
+
     /* CTA — Apple white pill */
     .btn-cta {
       display: inline-flex;
@@ -441,16 +451,20 @@
       <p class="hero__eyebrow" id="heroEyebrow">Вьетнам · Да Нанг</p>
 
       <h1 class="hero__title" id="heroTitle">
-        Добро пожаловать<br>в Дананг
+        Добро пожаловать в Дананг
       </h1>
 
       <p class="hero__subtitle" id="heroSubtitle">
-        Экскурсии с русскоязычным гидом · Трансфер от отеля
+        В этот фантастический город
       </p>
 
       <a href="#tours" class="btn-cta" id="heroCta">
-        Выбрать экскурсию
+        Экскурсии из Дананга →
       </a>
+
+      <p class="hero__meta" id="heroMeta">
+        С русскоязычным гидом · Трансфер от отеля
+      </p>
 
     </div>
 
@@ -572,7 +586,15 @@
       1.15
     );
 
-    // 6. Scroll hint — last
+    // 6. Meta line
+    intro.fromTo(
+      '#heroMeta',
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+      1.35
+    );
+
+    // 7. Scroll hint — last
     intro.fromTo(
       '#scrollHint',
       { opacity: 0 },
@@ -592,33 +614,6 @@
         start: 'top top',
         end: 'bottom top',
         scrub: 1,
-      },
-    });
-
-
-    /* ─────────────────────────────────────────────
-       SCROLL: Fade hero content out
-    ───────────────────────────────────────────── */
-    gsap.to('#heroContent', {
-      opacity: 0,
-      y: -20,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: '28% top',
-        scrub: 0.8,
-      },
-    });
-
-    gsap.to('#scrollHint', {
-      opacity: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: '15% top',
-        scrub: 0.6,
       },
     });
 
