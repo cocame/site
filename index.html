@@ -191,21 +191,33 @@
     }
 
     .hero__subtitle {
-      font-size: clamp(15px, 2vw, 19px);
+      font-size: clamp(17px, 2.4vw, 23px);
       font-weight: 400;
       letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.70);
+      color: rgba(255,255,255,0.95);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      /* Pill backdrop for contrast over any photo */
+      background: rgba(0,0,0,0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 980px;
+      padding: 10px 24px;
+      /* Crisp text shadow for extra pop */
+      text-shadow:
+        0 1px 6px rgba(0,0,0,0.55),
+        0 0 20px rgba(0,0,0,0.30);
     }
     .hero__subtitle::before,
     .hero__subtitle::after {
       content: '';
       display: block;
-      width: clamp(24px, 3vw, 40px);
+      width: clamp(20px, 2.5vw, 32px);
       height: 1px;
-      background: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.35);
+      flex-shrink: 0;
     }
 
     /* CTA button — Apple pill */
