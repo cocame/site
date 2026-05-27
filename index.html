@@ -254,46 +254,36 @@
       opacity: 0.8;
     }
 
-    /* CTA button — тёмный золотой */
+    /* CTA button — стеклянная прозрачная */
     .btn-cta {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       margin-top: 4px;
       padding: 16px 40px;
-      background: linear-gradient(135deg, #C9A96E 0%, #a87c3e 100%);
-      color: #0a0a0a;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
       font-size: clamp(14px, 1.5vw, 16px);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       border-radius: 8px;
       text-decoration: none;
-      border: none;
       cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
-                  box-shadow 0.3s ease,
-                  filter 0.2s ease;
-      box-shadow:
-        0 4px 24px rgba(201,169,110,0.30),
-        0 1px 0 rgba(255,255,255,0.15) inset;
+                  background 0.2s ease,
+                  box-shadow 0.3s ease;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
     }
     .btn-cta:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.55);
       transform: scale(1.04) translateY(-1px);
-      box-shadow:
-        0 12px 48px rgba(201,169,110,0.45),
-        0 1px 0 rgba(255,255,255,0.15) inset;
-      filter: brightness(1.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
     }
     .btn-cta:active { transform: scale(0.98); }
-
-    .btn-cta svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-    }
-    .btn-cta:hover svg { transform: translateX(3px); }
 
     /* ─── Scroll indicator ──────────────────────────────────────── */
     .scroll-hint {
@@ -483,7 +473,7 @@
     <!-- Background photo — parallax layer -->
     <div class="hero__photo" id="heroPhoto">
       <img
-        src="images/hero.jpg"
+        src="images/danang-arts/danang-15.jpg"
         alt="Панорама Дананга"
         fetchpriority="high"
         decoding="async"
@@ -499,7 +489,7 @@
       <p class="hero__eyebrow">Вьетнам&nbsp;&nbsp;·&nbsp;&nbsp;Да Нанг</p>
 
       <h1 class="hero__title">
-        <em>Экскурсии</em><br />из Дананга
+        <em>Добро пожаловать</em><br />в Дананг
       </h1>
 
       <p class="hero__subtitle" id="heroSubtitle">
@@ -509,10 +499,7 @@
       </p>
 
       <a href="#tours" class="btn-cta">
-        Выбрать экскурсию
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        Экскурсии из Дананга →
       </a>
     </div>
 
