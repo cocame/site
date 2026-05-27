@@ -198,13 +198,14 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      /* Pill backdrop for contrast over any photo */
-      background: rgba(0,0,0,0.18);
+      /* Pill backdrop — GSAP animates these in from 0 */
+      background: rgba(0,0,0,0.12);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: 980px;
       padding: 10px 24px;
+      will-change: backdrop-filter, background-color;
       /* Crisp text shadow for extra pop */
       text-shadow:
         0 1px 6px rgba(0,0,0,0.55),
@@ -358,7 +359,7 @@
         Экскурсии<br />из Дананга
       </h1>
 
-      <p class="hero__subtitle">
+      <p class="hero__subtitle" id="heroSubtitle">
         С русскоязычным гидом&nbsp;·&nbsp;Трансфер от отеля
       </p>
 
@@ -401,12 +402,33 @@
       0
     );
 
-    // Content: 3-step stagger from below
+    // Content: fade-up from below
     tl.fromTo(
       '#heroContent',
       { opacity: 0, y: 48 },
       { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
       0.35
+    );
+
+    // Subtitle pill: blur + background materialise slowly after text appears
+    // Start fully transparent (glass effect = 0), ease into final values
+    tl.fromTo(
+      '#heroSubtitle',
+      {
+        backdropFilter:        'blur(0px)',
+        webkitBackdropFilter:  'blur(0px)',
+        backgroundColor:       'rgba(0,0,0,0)',
+        borderColor:           'rgba(255,255,255,0)',
+      },
+      {
+        backdropFilter:        'blur(14px)',
+        webkitBackdropFilter:  'blur(14px)',
+        backgroundColor:       'rgba(0,0,0,0.12)',
+        borderColor:           'rgba(255,255,255,0.10)',
+        duration: 1.8,
+        ease: 'power1.inOut',
+      },
+      0.8   // starts 0.8s in — text is already fading up, pill catches up late
     );
 
     // Scroll hint fades in last
