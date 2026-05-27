@@ -1,40 +1,34 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Narada Travels — Экскурсии из Дананга</title>
   <meta name="description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter — единственный шрифт -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- GSAP + ScrollTrigger CDN -->
+  <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Segoe UI"', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
 
   <style>
     /* ─── Reset & Base ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
 
     body {
       background: #0a0a0a;
       color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       overflow-x: hidden;
     }
 
@@ -48,12 +42,9 @@
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 clamp(24px, 5vw, 60px);
-      /* Glass backdrop */
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.55) 0%,
-        rgba(0,0,0,0) 100%
-      );
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      /* GSAP handles all background/blur transitions — no CSS transition here */
     }
 
     .nav-left {
@@ -93,10 +84,11 @@
     }
 
     .btn-nav {
+      font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 500;
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.35);
       border-radius: 980px;
       padding: 8px 20px;
       text-decoration: none;
@@ -108,27 +100,31 @@
       transition: background 0.25s ease, border-color 0.25s ease;
     }
     .btn-nav:hover {
-      background: rgba(255,255,255,0.18);
-      border-color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.65);
     }
 
-    /* ─── HERO — Dark Premium ───────────────────────────────────── */
+    /* ─── HERO ──────────────────────────────────────────────────── */
     .hero {
       position: relative;
       width: 100%;
       height: 100svh;
-      min-height: 600px;
-      background: #0a0a0a;
+      min-height: 640px;
+      background: #000;
       overflow: hidden;
+      /* Left-aligned, bottom — Apple layout */
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: clamp(80px, 10vh, 120px);
+      padding-left: clamp(24px, 6vw, 80px);
+      padding-right: clamp(24px, 6vw, 80px);
     }
 
-    /* Photo layer — animated by GSAP */
+    /* Photo — Ken Burns via GSAP, parallax on scroll */
     .hero__photo {
       position: absolute;
-      inset: -10%;
+      inset: -12%;
       will-change: transform;
       transform-origin: center center;
     }
@@ -136,186 +132,147 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 35%;
+      object-position: center 40%;
       display: block;
       user-select: none;
       pointer-events: none;
     }
 
-    /* Dark premium overlay — 70% black + gold-tinted gradient */
+    /* Gradient — light at top, strong at bottom for text legibility */
     .hero__gradient {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          160deg,
-          rgba(10,10,10,0.82) 0%,
-          rgba(10,10,10,0.60) 40%,
-          rgba(10,10,10,0.75) 100%
-        ),
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.55) 0%,
-          rgba(0,0,0,0.10) 35%,
-          rgba(0,0,0,0.10) 60%,
-          rgba(0,0,0,0.88) 100%
-        );
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15)  0%,
+        rgba(0,0,0,0.08) 25%,
+        rgba(0,0,0,0.40) 60%,
+        rgba(0,0,0,0.75) 100%
+      );
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Золотая горизонтальная черта — акцентный разделитель */
-    .hero__gold-line {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        #C9A96E 30%,
-        #e8c98a 50%,
-        #C9A96E 70%,
-        transparent 100%
-      );
-      z-index: 3;
-      opacity: 0.7;
-    }
-
-    /* Content */
+    /* Content block — left, bottom */
     .hero__content {
       position: relative;
       z-index: 2;
-      text-align: center;
-      padding: 0 clamp(24px, 6vw, 80px);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      opacity: 0;
-      max-width: 1100px;
+      align-items: flex-start;
+      max-width: 820px;
     }
 
+    /* Caption — minimal, no gold */
     .hero__eyebrow {
-      font-size: clamp(10px, 1.2vw, 13px);
-      font-weight: 500;
-      letter-spacing: 0.26em;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #C9A96E;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .hero__eyebrow::before,
-    .hero__eyebrow::after {
-      content: '';
-      display: block;
-      width: clamp(24px, 3vw, 48px);
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #C9A96E);
-    }
-    .hero__eyebrow::after {
-      background: linear-gradient(90deg, #C9A96E, transparent);
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 22px;
+      opacity: 0; /* GSAP */
     }
 
+    /* Headline */
     .hero__title {
-      font-size: clamp(3.2rem, 8.5vw, 7.5rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.95;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
       color: #ffffff;
-      text-shadow:
-        0 0 120px rgba(201,169,110,0.12),
-        0 4px 60px rgba(0,0,0,0.6);
-      /* Тонкий золотой отблеск на первом слове */
-    }
-    .hero__title em {
-      font-style: normal;
-      background: linear-gradient(135deg, #e8c98a 0%, #C9A96E 50%, #a87c3e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      margin-bottom: 0;
     }
 
+    /* Word wrappers for stagger animation */
+    .hero__title .word {
+      display: inline-block;
+      overflow: hidden;
+      line-height: 1.1;
+      vertical-align: bottom;
+    }
+    .hero__title .word + .word {
+      margin-left: 0.22em;
+    }
+    .hero__title .word-inner {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(32px);
+      will-change: transform, opacity;
+    }
+
+    /* Subheadline */
     .hero__subtitle {
-      font-size: clamp(15px, 2vw, 20px);
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.70);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .hero__subtitle .sep {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #C9A96E;
-      flex-shrink: 0;
-      opacity: 0.8;
+      font-size: clamp(17px, 2vw, 21px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      margin-top: 20px;
+      margin-bottom: 36px;
+      opacity: 0; /* GSAP */
     }
 
-    /* CTA button — стеклянная прозрачная */
+    /* CTA — Apple white pill */
     .btn-cta {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-      padding: 16px 40px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      font-size: clamp(14px, 1.5vw, 16px);
+      padding: 16px 32px;
+      background: #ffffff;
+      color: #1d1d1f;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      border-radius: 8px;
+      letter-spacing: -0.01em;
+      border-radius: 980px;
       text-decoration: none;
+      border: none;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
-                  background 0.2s ease,
-                  box-shadow 0.3s ease;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      opacity: 0; /* GSAP */
+      will-change: transform, opacity;
+      transition: opacity 0.3s ease,
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .btn-cta:hover {
-      background: rgba(255,255,255,0.25);
-      border-color: rgba(255,255,255,0.55);
-      transform: scale(1.04) translateY(-1px);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      opacity: 0.85 !important;
+      transform: scale(1.03);
     }
-    .btn-cta:active { transform: scale(0.98); }
+    .btn-cta:active {
+      transform: scale(0.97);
+      transition-duration: 0.1s;
+    }
 
-    /* ─── Scroll indicator ──────────────────────────────────────── */
+    /* Scroll indicator — right side, vertical text */
     .scroll-hint {
       position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: clamp(28px, 4vh, 48px);
+      right: clamp(24px, 4vw, 56px);
       z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      opacity: 0; /* animated in */
+      gap: 12px;
+      opacity: 0; /* GSAP */
     }
     .scroll-hint__label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.35);
+      writing-mode: vertical-rl;
     }
     .scroll-hint__line {
       width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-      animation: scrollLine 2s ease-in-out infinite;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
+      animation: scrollLine 2.4s ease-in-out infinite;
     }
     @keyframes scrollLine {
       0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
       50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
       51%  { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.3; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
     }
 
     /* ─── TOUR CARD SECTION ─────────────────────────────────────── */
@@ -329,7 +286,6 @@
       align-items: flex-end;
     }
 
-    /* Photo */
     .tour-section__photo {
       position: absolute;
       inset: 0;
@@ -345,21 +301,19 @@
       pointer-events: none;
     }
 
-    /* Gradient: subtle top, heavy bottom */
     .tour-section__gradient {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(0,0,0,0.15)  0%,
-        rgba(0,0,0,0)     25%,
-        rgba(0,0,0,0.05)  55%,
+        rgba(0,0,0,0.12)  0%,
+        rgba(0,0,0,0)     22%,
+        rgba(0,0,0,0.04)  55%,
         rgba(0,0,0,0.82) 100%
       );
       pointer-events: none;
     }
 
-    /* Content — bottom-left */
     .tour-section__content {
       position: relative;
       z-index: 2;
@@ -372,44 +326,43 @@
     }
 
     .tour-section__tag {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.5);
     }
 
     .tour-section__title {
       font-size: clamp(2rem, 5.5vw, 4.5rem);
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.05;
       color: #fff;
-      text-shadow: 0 2px 32px rgba(0,0,0,0.45);
-      /* GSAP starts here — will be set by fromTo */
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
     }
 
     .tour-section__subtitle {
       font-size: clamp(15px, 2vw, 20px);
       font-weight: 400;
       letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.75);
-      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+      color: rgba(255,255,255,0.72);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
     }
 
-    /* Ghost outline button */
     .btn-tour {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       margin-top: 8px;
-      padding: 14px 32px;
+      padding: 14px 30px;
       background: rgba(255,255,255,0.10);
       color: #fff;
+      font-family: 'Inter', sans-serif;
       font-size: clamp(14px, 1.5vw, 16px);
       font-weight: 500;
       letter-spacing: -0.01em;
-      border: 1px solid rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.40);
       border-radius: 980px;
       text-decoration: none;
       cursor: pointer;
@@ -417,11 +370,11 @@
       -webkit-backdrop-filter: blur(10px);
       transition: background 0.25s ease,
                   border-color 0.25s ease,
-                  transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .btn-tour:hover {
       background: rgba(255,255,255,0.20);
-      border-color: rgba(255,255,255,0.80);
+      border-color: rgba(255,255,255,0.75);
       transform: scale(1.03);
     }
     .btn-tour:active { transform: scale(0.97); }
@@ -431,12 +384,14 @@
     }
     .btn-tour:hover svg { transform: translateX(3px); }
 
-    /* ─── Mobile nav collapse ───────────────────────────────────── */
+    /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       .nav-left { display: none; }
       .nav { grid-template-columns: auto 1fr; gap: 0; }
       .nav-logo { justify-content: flex-start; }
       .nav-right { grid-column: 2; }
+      .hero__title { letter-spacing: -0.025em; }
+      .scroll-hint { display: none; }
     }
   </style>
 </head>
@@ -445,9 +400,9 @@
   <!-- ═══════════════════ NAV ═══════════════════ -->
   <nav class="nav" id="mainNav">
     <div class="nav-left">
-      <a href="#tours"  class="nav-link">Экскурсии</a>
-      <a href="#guide"  class="nav-link">Гид</a>
-      <a href="#faq"    class="nav-link">FAQ</a>
+      <a href="#tours" class="nav-link">Экскурсии</a>
+      <a href="#guide" class="nav-link">Гид</a>
+      <a href="#faq"   class="nav-link">FAQ</a>
     </div>
 
     <div class="nav-logo">
@@ -467,10 +422,7 @@
   <!-- ═══════════════════ HERO ═══════════════════ -->
   <section class="hero" id="hero">
 
-    <!-- Gold accent line top -->
-    <div class="hero__gold-line"></div>
-
-    <!-- Background photo — parallax layer -->
+    <!-- Background — Ken Burns on load, parallax on scroll -->
     <div class="hero__photo" id="heroPhoto">
       <img
         src="images/danang-arts/danang-15.jpg"
@@ -480,33 +432,32 @@
       />
     </div>
 
-    <!-- Dark 70% overlay + gradient -->
+    <!-- Gradient overlay -->
     <div class="hero__gradient"></div>
 
-    <!-- Main content -->
+    <!-- Content — left-aligned, anchored to bottom -->
     <div class="hero__content" id="heroContent">
 
-      <p class="hero__eyebrow">Вьетнам&nbsp;&nbsp;·&nbsp;&nbsp;Да Нанг</p>
+      <p class="hero__eyebrow" id="heroEyebrow">Вьетнам · Да Нанг</p>
 
-      <h1 class="hero__title">
-        <em>Добро пожаловать</em><br />в Дананг
+      <h1 class="hero__title" id="heroTitle">
+        Добро пожаловать<br>в Дананг
       </h1>
 
       <p class="hero__subtitle" id="heroSubtitle">
-        С русскоязычным гидом
-        <span class="sep"></span>
-        Трансфер от отеля
+        Экскурсии с русскоязычным гидом · Трансфер от отеля
       </p>
 
-      <a href="#tours" class="btn-cta">
-        Экскурсии из Дананга →
+      <a href="#tours" class="btn-cta" id="heroCta">
+        Выбрать экскурсию
       </a>
+
     </div>
 
-    <!-- Scroll hint -->
+    <!-- Scroll indicator -->
     <div class="scroll-hint" id="scrollHint">
       <div class="scroll-hint__line"></div>
-      <span class="scroll-hint__label">Листать</span>
+      <span class="scroll-hint__label">Scroll</span>
     </div>
 
   </section>
@@ -534,7 +485,7 @@
       </h2>
 
       <p class="tour-section__subtitle">
-        Путешествие в облака&nbsp;·&nbsp;от 47$
+        Путешествие в облака · от 47$
       </p>
 
       <a href="#" class="btn-tour">
@@ -548,97 +499,162 @@
   </section>
 
 
-  <!-- ═══════════════════ GSAP ANIMATIONS ═══════════════════ -->
+  <!-- ═══════════════════ GSAP ═══════════════════ -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ── 1. ENTRANCE: photo zoom + content fade-up ── */
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    /* ─────────────────────────────────────────────
+       WORD SPLITTER
+       Wraps each word in .word > .word-inner
+       Preserves <br> line breaks
+    ───────────────────────────────────────────── */
+    (function splitTitle() {
+      const el = document.getElementById('heroTitle');
+      const raw = el.innerHTML;
+      const segments = raw.split(/(<br\s*\/?>)/gi);
+      let html = '';
+      segments.forEach(seg => {
+        if (/^<br/i.test(seg)) {
+          html += seg; // keep line break
+        } else {
+          seg.trim().split(/\s+/).filter(Boolean).forEach((word, i, arr) => {
+            html += `<span class="word"><span class="word-inner">${word}</span></span>`;
+            if (i < arr.length - 1) html += ' ';
+          });
+        }
+      });
+      el.innerHTML = html;
+    })();
 
-    // Photo: scale 1.1 → 1.0 over 2s
-    tl.fromTo(
+
+    /* ─────────────────────────────────────────────
+       ENTRANCE SEQUENCE
+    ───────────────────────────────────────────── */
+    const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Ken Burns — photo scales from 1.0 to 1.06 over 8s
+    intro.fromTo(
       '#heroPhoto',
-      { scale: 1.1 },
-      { scale: 1.0, duration: 2.2, ease: 'power2.out' },
+      { scale: 1.0 },
+      { scale: 1.06, duration: 8, ease: 'none' },
       0
     );
 
-    // Content: fade-up from below
-    tl.fromTo(
-      '#heroContent',
-      { opacity: 0, y: 48 },
-      { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
-      0.35
-    );
-
-    // Subtitle — fade in with slight upward travel
-    tl.fromTo(
-      '#heroSubtitle',
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 1.1, ease: 'power2.out' },
-      0.75
-    );
-
-    // Scroll hint fades in last
-    tl.fromTo(
-      '#scrollHint',
+    // 2. Caption line
+    intro.fromTo(
+      '#heroEyebrow',
       { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-      1.4
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+      0.25
     );
 
-    /* ── 2. SCROLL PARALLAX on hero photo ── */
-    ScrollTrigger.create({
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.2,
-      onUpdate: (self) => {
-        // Translate photo downward as user scrolls — true parallax depth
-        const yOffset = self.progress * 14; // 14% vertical travel
-        gsap.set('#heroPhoto', { yPercent: yOffset });
-      },
-    });
+    // 3. Headline words — stagger fade + rise
+    intro.fromTo(
+      '#heroTitle .word-inner',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.0, stagger: 0.08, ease: 'power3.out' },
+      0.4
+    );
 
-    /* ── 3. SCROLL: fade out hero content on scroll ── */
-    gsap.to('#heroContent', {
-      opacity: 0,
-      y: -30,
+    // 4. Subheadline — after headline clears (4 words × 0.08s stagger ≈ 0.32s + 0.4 start + 1s dur)
+    intro.fromTo(
+      '#heroSubtitle',
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+      0.9
+    );
+
+    // 5. CTA
+    intro.fromTo(
+      '#heroCta',
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+      1.15
+    );
+
+    // 6. Scroll hint — last
+    intro.fromTo(
+      '#scrollHint',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.8, ease: 'power2.out' },
+      1.6
+    );
+
+
+    /* ─────────────────────────────────────────────
+       SCROLL: PARALLAX on hero photo
+    ───────────────────────────────────────────── */
+    gsap.to('#heroPhoto', {
+      yPercent: 20,
       ease: 'none',
       scrollTrigger: {
         trigger: '#hero',
         start: 'top top',
-        end: '35% top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+    });
+
+
+    /* ─────────────────────────────────────────────
+       SCROLL: Fade hero content out
+    ───────────────────────────────────────────── */
+    gsap.to('#heroContent', {
+      opacity: 0,
+      y: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: '28% top',
         scrub: 0.8,
       },
     });
 
-    /* ── 4. NAV: transparent → frosted glass on scroll ── */
+    gsap.to('#scrollHint', {
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: '15% top',
+        scrub: 0.6,
+      },
+    });
+
+
+    /* ─────────────────────────────────────────────
+       SCROLL: NAV — transparent → glass past 50px
+    ───────────────────────────────────────────── */
     ScrollTrigger.create({
-      trigger: '#hero',
-      start: 'top top',
-      end: '10% top',
-      onLeave: () => {
+      trigger: 'body',
+      start: '50px top',
+      onEnter() {
         gsap.to('#mainNav', {
-          background: 'rgba(10,10,10,0.82)',
-          backdropFilter: 'blur(20px)',
-          duration: 0.4,
+          background: 'rgba(0,0,0,0.72)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          borderBottomColor: 'rgba(255,255,255,0.08)',
+          duration: 0.45,
           ease: 'power2.out',
+          overwrite: 'auto',
         });
       },
-      onEnterBack: () => {
+      onLeaveBack() {
         gsap.to('#mainNav', {
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)',
-          backdropFilter: 'blur(0px)',
-          duration: 0.4,
+          background: 'transparent',
+          backdropFilter: 'blur(0px) saturate(100%)',
+          borderBottomColor: 'transparent',
+          duration: 0.45,
           ease: 'power2.out',
+          overwrite: 'auto',
         });
       },
     });
 
-    /* ── 5. BA NA HILLS: title slides in from left on scroll ── */
 
-    // Tag — fades up subtly first
+    /* ─────────────────────────────────────────────
+       BA NA HILLS — scroll-triggered animations
+    ───────────────────────────────────────────── */
     gsap.fromTo(
       '#banaContent .tour-section__tag',
       { opacity: 0, y: 14 },
@@ -652,10 +668,9 @@
       }
     );
 
-    // Title — sweeps in from left with slight overshoot
     gsap.fromTo(
       '#banaTitle',
-      { opacity: 0, x: -90, skewX: 4 },
+      { opacity: 0, x: -80, skewX: 3 },
       {
         opacity: 1, x: 0, skewX: 0,
         duration: 1.0, ease: 'power3.out',
@@ -667,10 +682,9 @@
       }
     );
 
-    // Subtitle + button — stagger after title
     gsap.fromTo(
       ['#banaContent .tour-section__subtitle', '#banaContent .btn-tour'],
-      { opacity: 0, x: -40 },
+      { opacity: 0, x: -36 },
       {
         opacity: 1, x: 0,
         duration: 0.75, ease: 'power2.out',
@@ -683,7 +697,6 @@
       }
     );
 
-    // Parallax on Ba Na photo
     gsap.to('#banaPhoto', {
       yPercent: 12,
       ease: 'none',
@@ -695,17 +708,16 @@
       },
     });
 
-    /* ── 7. Smooth scroll for nav links ── */
+
+    /* ─────────────────────────────────────────────
+       SMOOTH SCROLL for nav anchor links
+    ───────────────────────────────────────────── */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
+      anchor.addEventListener('click', e => {
         const target = document.querySelector(anchor.getAttribute('href'));
         if (!target) return;
         e.preventDefault();
-        gsap.to(window, {
-          scrollTo: target,
-          duration: 1.2,
-          ease: 'power3.inOut',
-        });
+        target.scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
