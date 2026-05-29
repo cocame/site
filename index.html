@@ -133,16 +133,16 @@
       pointer-events: none;
     }
 
-    /* Gradient — darkened overlay */
+    /* Gradient — overlay */
     .hero__gradient {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(0,0,0,0.72)  0%,
-        rgba(0,0,0,0.40) 35%,
-        rgba(0,0,0,0.40) 60%,
-        rgba(0,0,0,0.80) 100%
+        rgba(0,0,0,0.68)  0%,
+        rgba(0,0,0,0.30) 35%,
+        rgba(0,0,0,0.30) 60%,
+        rgba(0,0,0,0.50) 100%
       );
       z-index: 1;
       pointer-events: none;
@@ -204,6 +204,7 @@
       line-height: 1.2;
       margin-top: clamp(12px, 1.5vw, 22px);
       white-space: normal;
+      text-align: center;
     }
 
     .hero__subtitle {
@@ -297,43 +298,27 @@
 
     .comfort__title {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-      font-size: clamp(2rem, 5vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
+      font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
       color: #fff;
-      max-width: 900px;
-      margin: 0 auto 48px;
+      max-width: 720px;
+      margin: 0 auto 24px;
     }
 
-    .comfort__pills {
+    .comfort__list {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .comfort__pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 980px;
-      font-size: clamp(14px, 1.6vw, 17px);
+    .comfort__item {
+      font-size: clamp(14px, 1.6vw, 18px);
       font-weight: 400;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.48);
       letter-spacing: -0.01em;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .comfort__pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.35);
-      flex-shrink: 0;
     }
 
     /* ─── TOUR CARD SECTION ─────────────────────────────────────── */
@@ -640,14 +625,13 @@
     <div class="hero-top">
       <h1 class="hero__title">
         <span class="t-main">Добро пожаловать в Дананг</span>
-        <span class="t-sub">Этот фантастический город.</span>
+        <span class="t-sub">Этот фантастический город</span>
       </h1>
     </div>
 
-    <!-- Bottom block — button + meta -->
+    <!-- Bottom block — button -->
     <div class="hero-bottom">
       <a href="#tours" class="btn-cta">Экскурсии из Дананга →</a>
-      <p class="hero__meta">С русскоязычным гидом · Трансфер от отеля</p>
     </div>
 
     <!-- Scroll indicator -->
@@ -662,15 +646,9 @@
   <!-- ═══════════════════ COMFORT ═══════════════════ -->
   <section class="comfort">
     <h2 class="comfort__title">Мы берем на себя организацию вашего комфорта</h2>
-    <div class="comfort__pills">
-      <span class="comfort__pill">
-        <span class="comfort__pill-dot"></span>
-        Русскоязычный гид
-      </span>
-      <span class="comfort__pill">
-        <span class="comfort__pill-dot"></span>
-        Трансфер от отеля и обратно
-      </span>
+    <div class="comfort__list">
+      <span class="comfort__item">Русскоязычный гид</span>
+      <span class="comfort__item">Трансфер от отеля и обратно</span>
     </div>
   </section>
 
