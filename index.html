@@ -172,7 +172,6 @@
       left: 0; right: 0;
       z-index: 2;
       padding: 0 clamp(20px, 4vw, 56px);
-      overflow: hidden;
     }
 
     /* Full-width title — JS sets font-size per line */
@@ -188,17 +187,23 @@
       width: 100%;
     }
 
-    /* Each line stretches to fill container width (set by JS) */
-    .t-line {
+    /* Main line — fills full width (set by JS) */
+    .t-main {
       display: block;
       white-space: nowrap;
-      transform-origin: left center;
-      overflow: visible;
+      font-size: clamp(2.5rem, 8vw, 9rem); /* fallback if JS fails */
     }
 
-    /* Muted middle line — like Apple's dimmed style */
-    .t-dim {
-      color: rgba(255,255,255,0.38);
+    /* Sub line — Apple style like "Фильмы, удостоенные наград." */
+    .t-sub {
+      display: block;
+      font-size: clamp(1.3rem, 2.6vw, 2.4rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.68);
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-top: clamp(12px, 1.5vw, 22px);
+      white-space: normal;
     }
 
     .hero__subtitle {
@@ -634,8 +639,8 @@
     <!-- Top block — big full-width title -->
     <div class="hero-top">
       <h1 class="hero__title">
-        <span class="t-line">Добро пожаловать в Дананг</span>
-        <span class="t-line t-dim">ЭТОТ ФАНТАСТИЧЕСКИЙ ГОРОД</span>
+        <span class="t-main">Добро пожаловать в Дананг</span>
+        <span class="t-sub">Этот фантастический город.</span>
       </h1>
     </div>
 
@@ -931,19 +936,25 @@
       });
     }
 
-    /* ── FitText: scale each headline line to fill container width ── */
+    /* ── FitText: main headline fills 100% of its parent's content width ── */
     function fitHeroLines() {
-      var lines = document.querySelectorAll('.t-line');
-      var container = document.querySelector('.hero-top');
-      if (!container || !lines.length) return;
-      var availableWidth = container.offsetWidth;
+      var lines = document.querySelectorAll('.t-main');
+      if (!lines.length) return;
 
       lines.forEach(function(line) {
-        line.style.fontSize = '200px';
-        var naturalWidth = line.scrollWidth;
-        if (naturalWidth === 0) return;
-        var newSize = Math.floor(200 * availableWidth / naturalWidth);
-        newSize = Math.max(newSize, 16);
+        // Step 1: reset to small size — at display:block this fills parent's content width
+        line.style.fontSize = '16px';
+        var availableWidth = line.offsetWidth;
+        if (!availableWidth) return;
+
+        // Step 2: measure text at reference size
+        line.style.fontSize = '160px';
+        var textWidth = line.scrollWidth;
+        if (!textWidth) return;
+
+        // Step 3: scale to exactly fill available width
+        var newSize = Math.floor(160 * availableWidth / textWidth);
+        newSize = Math.max(newSize, 12);
         line.style.fontSize = newSize + 'px';
       });
     }
