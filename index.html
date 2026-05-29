@@ -164,64 +164,79 @@
       animation: fadeUp 0.8s ease 0.1s both;
     }
 
-    /* Big title block — centered vertically in hero */
-    .hero-top {
+    /* All hero content — centered block with title + description + comfort */
+    .hero__content {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-52%);
       left: 0; right: 0;
       z-index: 2;
       padding: 0 clamp(20px, 4vw, 56px);
     }
 
-    /* Full-width title — JS sets font-size per line */
+    /* Full-width title */
     .hero__title {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
       font-weight: 700;
       letter-spacing: -0.04em;
       line-height: 0.93;
       color: #ffffff;
-      margin: 0;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.7), 0 1px 10px rgba(0,0,0,0.6);
+      margin: 0 0 clamp(12px, 2vh, 24px);
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5), 0 1px 10px rgba(0,0,0,0.4);
       animation: fadeUp 1s ease 0.2s both;
       width: 100%;
     }
 
-    /* Main line — fills full width (set by JS) */
+    /* Main line — fills full width via JS */
     .t-main {
       display: block;
       white-space: nowrap;
-      font-size: clamp(2.5rem, 8vw, 9rem); /* fallback if JS fails */
+      font-size: clamp(2.5rem, 8vw, 9rem);
     }
 
-    /* Sub line — Apple style like "Фильмы, удостоенные наград." */
+    /* Sub line — Apple tagline style */
     .t-sub {
       display: block;
-      font-size: clamp(1.3rem, 2.6vw, 2.4rem);
+      font-size: clamp(1.1rem, 2.2vw, 2rem);
       font-weight: 400;
-      color: rgba(255,255,255,0.68);
+      color: rgba(255,255,255,0.65);
       letter-spacing: -0.015em;
-      line-height: 1.2;
-      margin-top: clamp(12px, 1.5vw, 22px);
+      margin-top: clamp(10px, 1.2vw, 18px);
       white-space: normal;
-      text-align: center;
     }
 
-    .hero__subtitle {
-      display: none;
+    /* Comfort block — inside hero */
+    .hero__comfort {
+      margin-top: clamp(20px, 3.5vh, 44px);
+      animation: fadeUp 0.8s ease 0.4s both;
     }
 
-    /* Bottom block — button + meta, anchored bottom */
+    .hero__comfort-title {
+      font-size: clamp(1rem, 1.8vw, 1.55rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: clamp(6px, 1vh, 12px);
+    }
+
+    .hero__comfort-items {
+      font-size: clamp(13px, 1.3vw, 17px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: -0.01em;
+    }
+
+    .hero__subtitle { display: none; }
+
+    /* Button — anchored to bottom of hero */
     .hero-bottom {
       position: absolute;
-      bottom: clamp(50px, 8vh, 90px);
+      bottom: clamp(44px, 7vh, 76px);
       left: 0; right: 0;
       z-index: 2;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 16px;
+      justify-content: center;
     }
 
     /* CTA — white outline pill (Apple ghost style) */
@@ -289,37 +304,6 @@
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
     }
 
-    /* ─── COMFORT SECTION ──────────────────────────────────────── */
-    .comfort {
-      background: #0a0a0a;
-      padding: clamp(72px, 10vw, 120px) clamp(24px, 6vw, 80px);
-      text-align: center;
-    }
-
-    .comfort__title {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-      font-size: clamp(1.4rem, 2.8vw, 2.6rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      color: #fff;
-      max-width: 720px;
-      margin: 0 auto 24px;
-    }
-
-    .comfort__list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .comfort__item {
-      font-size: clamp(14px, 1.6vw, 18px);
-      font-weight: 400;
-      color: rgba(255,255,255,0.48);
-      letter-spacing: -0.01em;
-    }
 
     /* ─── TOUR CARD SECTION ─────────────────────────────────────── */
     .tour-section {
@@ -557,8 +541,9 @@
       .nav-logo { justify-content: flex-start; }
       .nav-right { grid-column: 2; }
 
-      .hero-top {
-        padding: 0 clamp(12px, 3vw, 24px);
+      .hero__content {
+        padding: 0 clamp(16px, 4vw, 28px);
+        transform: translateY(-50%);
       }
 
       .hero__title {
@@ -567,7 +552,7 @@
       }
 
       .btn-cta { width: 85%; }
-      .hero-bottom { bottom: 36px; }
+      .hero-bottom { bottom: 28px; }
       .scroll-hint { display: none; }
 
       .tours-grid__grid {
@@ -621,15 +606,20 @@
     <!-- Eyebrow — top center -->
     <p class="hero__eyebrow">Вьетнам · Да Нанг</p>
 
-    <!-- Top block — big full-width title -->
-    <div class="hero-top">
+    <!-- Unified content block -->
+    <div class="hero__content">
       <h1 class="hero__title">
         <span class="t-main">Добро пожаловать в Дананг</span>
         <span class="t-sub">Этот фантастический город</span>
       </h1>
+
+      <div class="hero__comfort">
+        <p class="hero__comfort-title">Мы берем на себя организацию вашего комфорта</p>
+        <p class="hero__comfort-items">Русскоязычный гид · Трансфер от отеля и обратно</p>
+      </div>
     </div>
 
-    <!-- Bottom block — button -->
+    <!-- Button — bottom -->
     <div class="hero-bottom">
       <a href="#tours" class="btn-cta">Экскурсии из Дананга →</a>
     </div>
@@ -640,16 +630,6 @@
       <span class="scroll-hint__label">Scroll</span>
     </div>
 
-  </section>
-
-
-  <!-- ═══════════════════ COMFORT ═══════════════════ -->
-  <section class="comfort">
-    <h2 class="comfort__title">Мы берем на себя организацию вашего комфорта</h2>
-    <div class="comfort__list">
-      <span class="comfort__item">Русскоязычный гид</span>
-      <span class="comfort__item">Трансфер от отеля и обратно</span>
-    </div>
   </section>
 
 
@@ -914,26 +894,18 @@
       });
     }
 
-    /* ── FitText: main headline fills 100% of its parent's content width ── */
+    /* ── FitText: headline fills 100% of container content width ── */
     function fitHeroLines() {
       var lines = document.querySelectorAll('.t-main');
       if (!lines.length) return;
-
       lines.forEach(function(line) {
-        // Step 1: reset to small size — at display:block this fills parent's content width
         line.style.fontSize = '16px';
-        var availableWidth = line.offsetWidth;
-        if (!availableWidth) return;
-
-        // Step 2: measure text at reference size
+        var avail = line.offsetWidth;
+        if (!avail) return;
         line.style.fontSize = '160px';
-        var textWidth = line.scrollWidth;
-        if (!textWidth) return;
-
-        // Step 3: scale to exactly fill available width
-        var newSize = Math.floor(160 * availableWidth / textWidth);
-        newSize = Math.max(newSize, 12);
-        line.style.fontSize = newSize + 'px';
+        var tw = line.scrollWidth;
+        if (!tw) return;
+        line.style.fontSize = Math.max(Math.floor(160 * avail / tw), 12) + 'px';
       });
     }
 
