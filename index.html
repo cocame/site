@@ -38,8 +38,7 @@
 
     /* ─── CENTRAL CONTAINER ─────────────────────────────────────── */
     .page-wrap {
-      width: 100%;
-      max-width: 1680px;
+      width: min(100%, max(55%, 1680px));
       margin: 0 auto;
     }
 
@@ -535,30 +534,67 @@
     .water-card__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.08) 55%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%);
     }
 
     .water-card__body {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 20px 24px 24px;
+      top: clamp(16px, 8%, 40px);
+      left: 0; right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+      gap: 8px;
       z-index: 1;
     }
 
     .water-card__title {
-      font-size: clamp(16px, 2vw, 22px);
+      font-size: clamp(22px, 3vw, 42px);
       font-weight: 700;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.03em;
       color: #fff;
-      line-height: 1.2;
-      margin-bottom: 5px;
+      line-height: 1.1;
     }
 
     .water-card__sub {
-      font-size: clamp(12px, 1.2vw, 14px);
+      font-size: clamp(13px, 1.4vw, 18px);
       font-weight: 400;
-      color: rgba(255,255,255,0.72);
+      color: rgba(255,255,255,0.75);
     }
+
+    .water-card__btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .water-card__btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      border-radius: 980px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.25s, border-color 0.25s;
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .water-card__btn--solid {
+      background: rgba(255,255,255,0.92);
+      color: #000;
+      border-color: transparent;
+    }
+
+    .water-card__btn:hover { background: rgba(255,255,255,0.22); }
+    .water-card__btn--solid:hover { background: #fff; }
 
     .water-card__cta {
       position: absolute;
@@ -909,7 +945,7 @@
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
-        Ба На Хиллс —<br />магия в облаках
+        Ба На Хиллс —<br />сказка в облаках
       </h2>
       <p class="tour-section__subtitle">Канатка из книги рекордов Гиннесса · Мост «Руки Бога» · Маленькая Европа · от 47$</p>
       <div class="tour-section__btns">
@@ -949,7 +985,7 @@
       <h2 class="tour-section__title">
         Хойан —<br />наследие ЮНЕСКО
       </h2>
-      <p class="tour-section__subtitle">Древний город, кокосовые рощи, рисовые поля, фонарики на ночной реке · от 58$</p>
+      <p class="tour-section__subtitle">Старый город, кокосовые рощи, рисовые поля, фонарики на ночной реке · от 58$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
         <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
@@ -970,56 +1006,75 @@
         <div class="water-card__body">
           <p class="water-card__title">Острова Чам</p>
           <p class="water-card__sub">Снорклинг · Обед включён · от 60$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
       <div class="water-card">
         <img src="images/kalmar.jpg" alt="Охота на кальмара" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">Охота на кальмара</p>
           <p class="water-card__sub">Ночной тур · Эксклюзив · от 90$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
       <div class="water-card">
         <img src="images/surf.jpg" alt="Урок серфинга" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">Урок серфинга</p>
           <p class="water-card__sub">Инструктор включён · Пляж Мой Кхе</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
       <div class="water-card">
         <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">Морская прогулка</p>
           <p class="water-card__sub">Закат на воде · Ужин на борту</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
       <div class="water-card">
         <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">Горячие источники — гора удачи</p>
           <p class="water-card__sub">Онсэн · Аквапарк · от 72$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
       <div class="water-card">
         <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">VinWonders Хойан</p>
           <p class="water-card__sub">Сафари · Парк аттракционов · от 60$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="water-card__btn water-card__btn--solid">Написать нам</a>
+          </div>
         </div>
       </div>
 
