@@ -128,12 +128,11 @@
     .hero {
       position: relative;
       width: 100%;
-      height: calc(100svh - 156px - var(--peek));
+      height: calc(100svh - 80px - var(--peek));
       min-height: 400px;
       max-height: 1080px;
       background: #000;
       overflow: hidden;
-      margin-bottom: var(--sep);
     }
 
     /* Photo — Ken Burns + parallax via GSAP */
@@ -231,7 +230,7 @@
 
     /* ─── COMFORT STRIP — black bar ────────────────────────────── */
     .comfort-strip {
-      height: 156px;
+      height: 80px;
       background: #111;
       border-top: 1px solid rgba(255,255,255,0.07);
       display: flex;
@@ -835,10 +834,10 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .nav { grid-template-columns: auto 1fr auto; height: 52px; }
-      .nav-logo { justify-content: center; }
+      .nav { display: flex; align-items: center; height: 52px; position: relative; }
+      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
       .nav-right { display: none; }
-      .nav-burger { display: flex; }
+      .nav-burger { display: flex; margin-left: auto; }
       .nav-left {
         display: none;
         position: fixed; top: 52px; left: 0; right: 0;
