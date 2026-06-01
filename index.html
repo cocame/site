@@ -212,6 +212,8 @@
       white-space: nowrap;
       font-size: clamp(2.5rem, 8vw, 9rem);
     }
+    .t-line1, .t-line2 { font-size: inherit; }
+    .t-line2::before { content: '\00a0'; }
 
     /* Sub line */
     .t-sub {
@@ -864,8 +866,19 @@
 
       .hero__title {
         letter-spacing: -0.035em;
-        line-height: 0.9;
+        line-height: 1;
       }
+      .t-main {
+        white-space: normal;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: unset;
+        gap: 2px;
+      }
+      .t-line1 { font-size: 8.5vw; }
+      .t-line2 { font-size: 17vw; line-height: 0.9; }
+      .t-line2::before { content: none; }
 
       .btn-cta { width: 85%; }
       .hero-bottom { bottom: 24px; }
@@ -930,7 +943,10 @@
     <!-- Content block — title only -->
     <div class="hero__content">
       <h1 class="hero__title">
-        <span class="t-main">Добро пожаловать в Дананг</span>
+        <span class="t-main">
+          <span class="t-line1">Добро пожаловать</span>
+          <span class="t-line2">в Дананг</span>
+        </span>
         <span class="t-sub">В ЭТОТ ФАНТАСТИЧЕСКИЙ ГОРОД</span>
       </h1>
     </div>
