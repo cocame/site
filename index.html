@@ -837,11 +837,11 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      /* Nav: flexbox — logo absolute center, burger right */
-      .nav { display: flex; align-items: center; height: 52px; padding: 0 20px; }
-      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
+      /* Nav: logo center, burger right */
+      .nav { display: flex; align-items: center; height: 56px; padding: 0 20px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; }
       .nav-right { display: none; }
-      .nav-burger { display: flex; margin-left: auto; }
+      .nav-burger { display: flex !important; margin-left: auto; width: 44px; height: 44px; justify-content: center; }
 
       /* Dropdown menu */
       .nav-left {
@@ -878,8 +878,8 @@
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
 
-      /* Tour sections — same height as water cards on mobile */
-      .tour-section { height: auto; min-height: 100svw; max-height: none; }
+      /* Tour sections — landscape ratio, no side cropping */
+      .tour-section { height: auto; min-height: unset; max-height: none; aspect-ratio: 4/3; }
 
       /* Water cards — single column, same proportions */
       .water-grid { padding: 0; }
