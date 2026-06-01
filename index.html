@@ -873,10 +873,11 @@
       /* Hero */
       .hero__content { transform: translate(-50%, -50%); }
       .hero__title { letter-spacing: -0.035em; line-height: 1; }
-      /* Title — 3 равные строки одинаковым шрифтом */
-      .t-main { white-space: normal; font-size: 11vw; display: block; }
+      /* Title — 3 строки, одинаковый шрифт, воздух */
+      .t-main { white-space: normal; font-size: 11vw; display: block; line-height: 1.18; letter-spacing: -0.03em; }
       .t-line1, .t-line2 { font-size: inherit; display: inline; }
       .t-line2::before { content: ' '; }
+      .hero__content { top: 38%; }
 
       .btn-cta { width: 85%; }
       .hero-wa { display: inline-flex; width: auto; padding: 14px 28px; }
@@ -885,7 +886,7 @@
       /* Hero photo — голова дракона справа */
       .hero { height: 75svh; }
       .hero__photo { inset: 0; }
-      .hero__photo img { object-fit: cover; object-position: 78% 40%; }
+      .hero__photo img { object-fit: cover; object-position: center 40%; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
@@ -947,12 +948,15 @@
 
     <!-- Background — Ken Burns on load, parallax on scroll (GSAP only) -->
     <div class="hero__photo" id="heroPhoto">
-      <img
-        src="images/danang-hero.jpg"
-        alt="Панорама Дананга"
-        fetchpriority="high"
-        decoding="async"
-      />
+      <picture>
+        <source media="(max-width: 600px)" srcset="images/danang-hero-mobile.jpg" />
+        <img
+          src="images/danang-hero.jpg"
+          alt="Панорама Дананга"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
 
     <!-- Gradient overlay -->
