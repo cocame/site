@@ -617,9 +617,10 @@
     .water-card:hover .water-card__cta { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 600px) {
+      .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; }
       .water-card { aspect-ratio: 4/3; }
-      .water-card__cta { opacity: 1; transform: none; }
+      .water-card__cta { display: none; }
     }
 
     /* ─── ALL TOURS GRID ───────────────────────────────────────── */
@@ -813,10 +814,10 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .nav-left { display: none; }
-      .nav { grid-template-columns: auto 1fr; gap: 0; }
-      .nav-logo { justify-content: flex-start; }
-      .nav-right { grid-column: 2; }
+      .nav { grid-template-columns: 1fr; gap: 8px; height: auto; padding: 10px clamp(16px, 4vw, 28px); flex-wrap: wrap; }
+      .nav-left { display: flex; justify-content: center; order: 2; }
+      .nav-logo { justify-content: center; order: 1; }
+      .nav-right { justify-content: center; order: 3; }
 
       .hero__content {
         padding: 0 clamp(16px, 4vw, 28px);
@@ -1002,7 +1003,6 @@
       <div class="water-card">
         <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
         <div class="water-card__overlay"></div>
-        <a href="#" class="water-card__cta">Подробнее</a>
         <div class="water-card__body">
           <p class="water-card__title">Острова Чам</p>
           <p class="water-card__sub">Снорклинг · Обед включён · от 60$</p>
