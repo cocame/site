@@ -12,20 +12,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
-    /* ─── SF Pro (San Francisco) — Apple's typeface ─────────────── */
+    /* ─── SF Pro Display — заголовки (как на apple.com) ─────────── */
     @font-face {
-      font-family: "SF Pro";
-      src: url("fonts/SFNS.ttf") format("truetype");
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
+      font-family: "SF Pro Display";
+      src: url("fonts/sf/sf-pro-display_regular.woff2") format("woff2");
+      font-weight: 400; font-style: normal; font-display: swap;
     }
     @font-face {
-      font-family: "SF Pro";
-      src: url("fonts/SFNSItalic.ttf") format("truetype");
-      font-weight: 100 900;
-      font-style: italic;
-      font-display: swap;
+      font-family: "SF Pro Display";
+      src: url("fonts/sf/sf-pro-display_semibold.woff2") format("woff2");
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "SF Pro Display";
+      src: url("fonts/sf/sf-pro-display_bold.woff2") format("woff2");
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    /* ─── SF Pro Text — основной текст ──────────────────────────── */
+    @font-face {
+      font-family: "SF Pro Text";
+      src: url("fonts/sf/sf-pro-text_regular.woff2") format("woff2");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "SF Pro Text";
+      src: url("fonts/sf/sf-pro-text_semibold.woff2") format("woff2");
+      font-weight: 600; font-style: normal; font-display: swap;
     }
 
     /* ─── Peek & gap — как на Apple.com ────────────────────────── */
@@ -48,7 +60,7 @@
     body {
       background: #fff;
       color: #1d1d1f;
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       overflow-x: hidden;
     }
 
@@ -92,7 +104,7 @@
     .nav-link {
       font-size: 15px;
       font-weight: 400;
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
       color: rgba(255,255,255,0.88);
       text-decoration: none;
       letter-spacing: -0.01em;
@@ -121,7 +133,7 @@
     }
 
     .btn-nav {
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
       font-size: 14px;
       font-weight: 500;
       color: #fff;
@@ -212,7 +224,7 @@
     }
 
     .hero__title {
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       font-weight: 700;
       letter-spacing: -0.04em;
       line-height: 0.93;
@@ -290,7 +302,7 @@
       flex-shrink: 0;
       font-size: clamp(12px, 1.1vw, 14px);
       font-weight: 500;
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
       color: #fff;
       border: 1px solid rgba(255,255,255,0.45);
       border-radius: 980px;
@@ -473,7 +485,7 @@
       padding: 14px 30px;
       background: rgba(255,255,255,0.10);
       color: #fff;
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
       font-size: clamp(14px, 1.5vw, 16px);
       font-weight: 500;
       letter-spacing: -0.01em;
@@ -663,7 +675,7 @@
     }
 
     .tours-grid__title {
-      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       font-size: clamp(1.8rem, 4vw, 3.2rem);
       font-weight: 700;
       letter-spacing: -0.035em;
