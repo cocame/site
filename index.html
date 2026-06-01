@@ -841,11 +841,23 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      /* Nav: logo center, burger right */
-      .nav { display: flex; align-items: center; height: 56px; padding: 0 20px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; }
+      /* Nav: fixed bar, logo center, burger absolute right */
+      .nav {
+        height: 56px; padding: 0 20px;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .nav-left { display: none; }
       .nav-right { display: none; }
-      .nav-burger { display: flex !important; margin-left: auto; width: 44px; height: 44px; justify-content: center; }
+      .nav-logo { justify-content: center; }
+      .nav-burger {
+        display: flex !important;
+        position: absolute;
+        right: 20px; top: 50%;
+        transform: translateY(-50%);
+        z-index: 101;
+      }
 
       /* Dropdown menu */
       .nav-left {
@@ -883,7 +895,7 @@
       /* Hero photo: show full width on mobile */
       .hero { height: 75svh; }
       .hero__photo { inset: 0; }
-      .hero__photo img { object-fit: cover; object-position: 40% 55%; }
+      .hero__photo img { object-fit: cover; object-position: 40% 35%; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
@@ -964,7 +976,7 @@
 
     <!-- Button — bottom -->
     <div class="hero-bottom">
-      <a href="#tours" class="btn-cta">Экскурсии из Дананга →</a>
+      <a href="#tours" class="btn-cta">Экскурсии из Дананга</a>
       <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-cta btn-cta--wa hero-wa">Написать нам</a>
     </div>
 
