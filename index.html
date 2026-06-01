@@ -908,11 +908,11 @@
       .hero__content { top: 38%; }
 
       .btn-cta { width: 85%; }
-      .hero-wa { display: inline-flex !important; width: auto; padding: 14px 28px; }
-      .hero-bottom { bottom: 24px; gap: 10px; flex-direction: column; align-items: center; }
+      .hero-wa { display: none !important; }
+      .hero-bottom { bottom: 24px; gap: 10px; align-items: center; }
 
-      /* Hero photo — голова дракона справа */
-      .hero { height: 75svh; }
+      /* Hero photo — aspect-ratio от изображения, ноль кропа */
+      .hero { height: auto; aspect-ratio: 21/10; min-height: unset; max-height: unset; }
       .hero__photo { inset: 0; }
       .hero__photo img { object-fit: cover; object-position: center 40%; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
@@ -1004,7 +1004,6 @@
     <!-- Button — bottom -->
     <div class="hero-bottom">
       <a href="#tours" class="btn-cta">Экскурсии из Дананга</a>
-      <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-cta btn-cta--wa hero-wa">Написать нам</a>
     </div>
 
     <!-- Scroll indicator -->
@@ -1041,7 +1040,6 @@
       <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · от 64$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
-        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
       </div>
     </div>
   </section>
@@ -1060,7 +1058,6 @@
       <p class="tour-section__subtitle">Канатка из книги рекордов Гиннесса · Мост «Руки Бога» · Маленькая Европа · от 47$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
-        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
       </div>
     </div>
   </section>
@@ -1079,7 +1076,6 @@
       <p class="tour-section__subtitle">Здесь драконы шепчут легенды: запретный город, дух старого Востока и величие династий · от 85$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
-        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
       </div>
     </div>
   </section>
@@ -1098,7 +1094,6 @@
       <p class="tour-section__subtitle">Старый город, кокосовые джунгли, рисовые поля, фонарики на ночной реке · от 58$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
-        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
       </div>
     </div>
   </section>
