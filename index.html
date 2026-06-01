@@ -12,6 +12,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
+    /* ─── Peek & gap — как на Apple.com ────────────────────────── */
+    :root {
+      --peek: 80px;
+      --sep:  12px;
+      --site-width: 1680px;
+    }
+
     /* ─── Reset & Base ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,13 +26,21 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      background: #fff;
     }
 
     body {
-      background: #0a0a0a;
-      color: #fff;
+      background: #fff;
+      color: #1d1d1f;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
       overflow-x: hidden;
+    }
+
+    /* ─── CENTRAL CONTAINER ─────────────────────────────────────── */
+    .page-wrap {
+      width: 100%;
+      max-width: 1680px;
+      margin: 0 auto;
     }
 
     /* ─── CSS ANIMATIONS — надёжнее GSAP для текста ────────────── */
@@ -37,7 +52,11 @@
     /* ─── NAV ───────────────────────────────────────────────────── */
     .nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--site-width);
       z-index: 100;
       height: 64px;
       display: grid;
@@ -110,8 +129,9 @@
     .hero {
       position: relative;
       width: 100%;
-      height: calc(100svh - 156px);
-      min-height: 480px;
+      height: calc(100svh - 156px - var(--peek));
+      min-height: 400px;
+      max-height: 1080px;
       background: #000;
       overflow: hidden;
     }
@@ -164,17 +184,17 @@
       animation: fadeUp 0.8s ease 0.1s both;
     }
 
-    /* All hero content — centered block with title + description + comfort */
+    /* Hero content — centered, max-width like Apple */
     .hero__content {
       position: absolute;
-      top: 50%;
-      transform: translateY(-52%);
-      left: 0; right: 0;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88%;
       z-index: 2;
-      padding: 0 clamp(20px, 4vw, 56px);
+      text-align: center;
     }
 
-    /* Full-width title */
     .hero__title {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
       font-weight: 700;
@@ -187,19 +207,19 @@
       width: 100%;
     }
 
-    /* Main line — fills full width via JS */
+    /* Main line — FitText fills container width (88vw) */
     .t-main {
       display: block;
       white-space: nowrap;
       font-size: clamp(2.5rem, 8vw, 9rem);
     }
 
-    /* Sub line — Apple tagline style, centered, uppercase */
+    /* Sub line */
     .t-sub {
       display: block;
-      font-size: clamp(1.1rem, 2.2vw, 2rem);
+      font-size: clamp(1rem, 2vw, 1.8rem);
       font-weight: 400;
-      color: rgba(255,255,255,0.65);
+      color: #fff;
       letter-spacing: 0.04em;
       margin-top: clamp(10px, 1.2vw, 18px);
       white-space: normal;
@@ -208,7 +228,7 @@
 
     .hero__subtitle { display: none; }
 
-    /* ─── COMFORT STRIP — bottom bar like Apple One ─────────────── */
+    /* ─── COMFORT STRIP — black bar ────────────────────────────── */
     .comfort-strip {
       height: 156px;
       background: #111;
@@ -217,6 +237,7 @@
       align-items: center;
       padding: 0 clamp(24px, 5vw, 64px);
       flex-shrink: 0;
+      margin-bottom: var(--sep);
     }
 
     .comfort-strip__inner {
@@ -236,7 +257,6 @@
 
     .comfort-strip__text { flex: 1; }
 
-    /* Both lines — same size and weight */
     .comfort-strip__title,
     .comfort-strip__sub {
       font-size: clamp(13px, 1.35vw, 16px);
@@ -247,7 +267,6 @@
       text-align: center;
     }
 
-    /* "Узнать больше" button — outline style */
     .comfort-strip__btn {
       flex-shrink: 0;
       font-size: clamp(12px, 1.1vw, 14px);
@@ -266,6 +285,7 @@
       background: rgba(255,255,255,0.1);
       border-color: rgba(255,255,255,0.75);
     }
+
 
     /* Button — anchored to bottom of hero */
     .hero-bottom {
@@ -347,16 +367,17 @@
     .tour-section {
       position: relative;
       width: 100%;
-      height: 100svh;
-      min-height: 560px;
+      height: calc(100svh - var(--peek));
+      min-height: 500px;
+      max-height: 1080px;
       overflow: hidden;
-      display: flex;
-      align-items: flex-end;
+      margin-bottom: var(--sep);
+      background: #111;
     }
 
     .tour-section__photo {
       position: absolute;
-      inset: 0;
+      inset: -10% 0;
       will-change: transform;
     }
     .tour-section__photo img {
@@ -374,23 +395,26 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(0,0,0,0.12)  0%,
-        rgba(0,0,0,0)     22%,
-        rgba(0,0,0,0.04)  55%,
-        rgba(0,0,0,0.82) 100%
+        rgba(0,0,0,0.72)  0%,
+        rgba(0,0,0,0.30) 35%,
+        rgba(0,0,0,0.05) 65%,
+        rgba(0,0,0,0.10) 100%
       );
       pointer-events: none;
     }
 
     .tour-section__content {
-      position: relative;
+      position: absolute;
+      top: clamp(80px, 10vh, 130px);
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2;
-      padding: clamp(36px, 6vw, 80px) clamp(28px, 6vw, 80px);
+      width: min(680px, 88vw);
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      text-align: center;
       gap: 16px;
-      max-width: min(720px, 90vw);
     }
 
     .tour-section__tag {
@@ -414,7 +438,7 @@
       font-size: clamp(15px, 2vw, 20px);
       font-weight: 400;
       letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.72);
+      color: #fff;
       text-shadow: 0 1px 8px rgba(0,0,0,0.45);
     }
 
@@ -451,6 +475,116 @@
       transition: transform 0.25s ease;
     }
     .btn-tour:hover svg { transform: translateX(3px); }
+
+    /* Second button — solid white ("Написать нам") */
+    .btn-tour--solid {
+      background: rgba(255,255,255,0.92);
+      color: #1d1d1f;
+      border-color: transparent;
+    }
+    .btn-tour--solid:hover {
+      background: #fff;
+      border-color: transparent;
+      transform: scale(1.03);
+    }
+    .btn-tour--solid svg { color: #1d1d1f; }
+
+    /* Buttons row */
+    .tour-section__btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .tour-section__tag { display: none; }
+
+    /* ─── WATER EXCURSIONS GRID ─────────────────────────────────── */
+    .water-grid {
+      background: #fff;
+      padding: 0 var(--sep);
+      margin-bottom: var(--sep);
+    }
+
+    .water-grid__inner { display: contents; }
+
+    .water-grid__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sep);
+    }
+
+    .water-card {
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+      aspect-ratio: 2/1;
+      cursor: pointer;
+      background: #1a1a1a;
+    }
+
+    .water-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .water-card:hover img { transform: scale(1.05); }
+
+    .water-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.08) 55%);
+    }
+
+    .water-card__body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 24px 24px;
+      z-index: 1;
+    }
+
+    .water-card__title {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .water-card__sub {
+      font-size: clamp(12px, 1.2vw, 14px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .water-card__cta {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 980px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 14px;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 2;
+    }
+    .water-card:hover .water-card__cta { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      .water-grid__grid { grid-template-columns: 1fr; }
+      .water-card { aspect-ratio: 4/3; }
+      .water-card__cta { opacity: 1; transform: none; }
+    }
 
     /* ─── ALL TOURS GRID ───────────────────────────────────────── */
     .tours-grid {
@@ -572,6 +706,75 @@
       transform: translateY(0);
     }
 
+    /* ─── STICKY BOTTOM BAR (Apple One style) ───────────────────── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--site-width);
+      z-index: 200;
+      height: 64px;
+      background: rgba(22,22,22,0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(24px, 5vw, 64px);
+      gap: clamp(12px, 2vw, 24px);
+      transform: translateX(-50%) translateY(100%); /* hidden state */
+      opacity: 0;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.45s ease;
+      pointer-events: none;
+    }
+    .sticky-bar.is-visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .sticky-bar__logo {
+      width: 32px; height: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+      mix-blend-mode: screen;
+    }
+    .sticky-bar__text {
+      flex: 1;
+      font-size: clamp(12px, 1.2vw, 14px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-bar__btn {
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 980px;
+      padding: 7px 18px;
+      text-decoration: none;
+      white-space: nowrap;
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .sticky-bar__btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    /* ─── Zoom-out: viewport height > 1500px = страница уменьшена ── */
+    @media (min-height: 1500px) {
+      .hero       { max-height: 480px; }
+      .tour-section { max-height: 480px; }
+    }
+
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       .nav-left { display: none; }
@@ -605,6 +808,8 @@
 </head>
 <body>
 
+  <div class="page-wrap">
+
   <!-- ═══════════════════ NAV ═══════════════════ -->
   <nav class="nav" id="mainNav">
     <div class="nav-left">
@@ -633,7 +838,7 @@
     <!-- Background — Ken Burns on load, parallax on scroll (GSAP only) -->
     <div class="hero__photo" id="heroPhoto">
       <img
-        src="images/danang-arts/danang-15.jpg"
+        src="images/danang-arts/danang-gyg.jpg"
         alt="Панорама Дананга"
         fetchpriority="high"
         decoding="async"
@@ -643,14 +848,11 @@
     <!-- Gradient overlay -->
     <div class="hero__gradient"></div>
 
-    <!-- Eyebrow — top center -->
-    <p class="hero__eyebrow">Вьетнам · Да Нанг</p>
-
     <!-- Content block — title only -->
     <div class="hero__content">
       <h1 class="hero__title">
         <span class="t-main">Добро пожаловать в Дананг</span>
-        <span class="t-sub">ЭТОТ ФАНТАСТИЧЕСКИЙ ГОРОД</span>
+        <span class="t-sub">В ЭТОТ ФАНТАСТИЧЕСКИЙ ГОРОД</span>
       </h1>
     </div>
 
@@ -680,198 +882,158 @@
   </div>
 
 
-  <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
+  <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
   <section class="tour-section" id="tours">
-
-    <div class="tour-section__photo" id="banaPhoto">
-      <img
-        src="images/bana.jpg"
-        alt="Ба На Хиллс — Золотой мост"
-        decoding="async"
-        loading="lazy"
-      />
+    <div class="tour-section__photo" id="danangPhoto">
+      <img src="images/danang-fire.jpg" alt="Дананг за один день" decoding="async" loading="lazy" />
     </div>
-
     <div class="tour-section__gradient"></div>
-
-    <div class="tour-section__content" id="banaContent">
-      <p class="tour-section__tag">Экскурсия · Ба На Хиллс</p>
-
-      <h2 class="tour-section__title" id="banaTitle">
-        Ба На Хиллс —<br />Золотой мост
+    <div class="tour-section__content">
+      <h2 class="tour-section__title">
+        Дананг<br />за один день
       </h2>
-
-      <p class="tour-section__subtitle">
-        Путешествие в облака · от 47$
-      </p>
-
-      <a href="#" class="btn-tour">
-        Узнать подробнее
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · от 64$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
+      </div>
     </div>
+  </section>
 
+
+  <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
+  <section class="tour-section" id="bana">
+    <div class="tour-section__photo" id="banaPhoto">
+      <img src="images/bana.jpg" alt="Ба На Хиллс — Золотой мост" decoding="async" loading="lazy" />
+    </div>
+    <div class="tour-section__gradient"></div>
+    <div class="tour-section__content">
+      <h2 class="tour-section__title">
+        Ба На Хиллс —<br />магия в облаках
+      </h2>
+      <p class="tour-section__subtitle">Канатка из книги рекордов Гиннесса · Мост «Руки Бога» · Маленькая Европа · от 47$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
+      </div>
+    </div>
   </section>
 
 
   <!-- ═══════════════════ ХЮЭ ═══════════════════ -->
   <section class="tour-section" id="hue">
-
     <div class="tour-section__photo" id="huePhoto">
       <img src="images/hue.jpg" alt="Хюэ — Императорская цитадель" decoding="async" loading="lazy" />
     </div>
-
     <div class="tour-section__gradient"></div>
-
     <div class="tour-section__content">
-      <p class="tour-section__tag">Экскурсия · Однодневный тур</p>
       <h2 class="tour-section__title">
-        Хюэ — здесь<br />драконы шепчут<br />легенды
+        Императорский Хюэ
       </h2>
-      <p class="tour-section__subtitle">Ежедневно · Русский гид · от 85$</p>
-      <a href="#" class="btn-tour">
-        Узнать подробнее
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <p class="tour-section__subtitle">Здесь драконы шепчут легенды: запретный город, дух старого Востока и величие династий · от 85$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
+      </div>
     </div>
-
-  </section>
-
-
-  <!-- ═══════════════════ ОСТРОВА ЧАМ ═══════════════════ -->
-  <section class="tour-section" id="cham">
-
-    <div class="tour-section__photo" id="chamPhoto">
-      <img src="images/cham.jpg" alt="Острова Чам — ЮНЕСКО" decoding="async" loading="lazy" />
-    </div>
-
-    <div class="tour-section__gradient"></div>
-
-    <div class="tour-section__content">
-      <p class="tour-section__tag">Морской тур · ЮНЕСКО</p>
-      <h2 class="tour-section__title">
-        Острова Чам —<br />снорклинг<br />и обед включён
-      </h2>
-      <p class="tour-section__subtitle">Снорклинг · Обед включён · от 60$</p>
-      <a href="#" class="btn-tour">
-        Узнать подробнее
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-
   </section>
 
 
   <!-- ═══════════════════ ХОЙАН ═══════════════════ -->
   <section class="tour-section" id="hoian">
-
     <div class="tour-section__photo" id="hoianPhoto">
       <img src="images/hoian.jpg" alt="Хойан — древний город ЮНЕСКО" decoding="async" loading="lazy" />
     </div>
-
     <div class="tour-section__gradient"></div>
-
     <div class="tour-section__content">
-      <p class="tour-section__tag">Экскурсия · Город-музей</p>
       <h2 class="tour-section__title">
-        Хойан —<br />древний город<br />ЮНЕСКО
+        Хойан —<br />наследие ЮНЕСКО
       </h2>
-      <p class="tour-section__subtitle">Ежедневно · Русский гид · от 58$</p>
-      <a href="#" class="btn-tour">
-        Узнать подробнее
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <p class="tour-section__subtitle">Древний город, кокосовые рощи, рисовые поля, фонарики на ночной реке · от 58$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-tour btn-tour--solid">Написать нам</a>
+      </div>
     </div>
-
   </section>
 
 
-  <!-- ═══════════════════ ВСЕ ТУРЫ — СЕТКА ═══════════════════ -->
-  <section class="tours-grid" id="all-tours">
+  <!-- ═══════════════════ СЕТКА ЭКСКУРСИЙ ═══════════════════ -->
+  <section class="water-grid" id="cham">
+    <div class="water-grid__inner">
+    <div class="water-grid__grid">
 
-    <div class="tours-grid__header">
-      <h2 class="tours-grid__title">Все экскурсии</h2>
-      <a href="#form" class="tours-grid__link">Забронировать →</a>
-    </div>
-
-    <div class="tours-grid__grid">
-
-      <div class="tour-card tour-card--wide">
-        <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Релакс · Онсэн</p>
-          <p class="tour-card__name">Горячие источники — гора удачи</p>
-          <p class="tour-card__price">Онсэн · Аквапарк · от 72$</p>
+      <div class="water-card">
+        <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">Острова Чам</p>
+          <p class="water-card__sub">Снорклинг · Обед включён · от 60$</p>
         </div>
       </div>
 
-      <div class="tour-card">
-        <img src="images/danang-city.jpg" alt="Дананг" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Сити-тур</p>
-          <p class="tour-card__name">Дананг за один день</p>
-          <p class="tour-card__price">Шоу Дракона · от 64$</p>
-        </div>
-      </div>
-
-      <div class="tour-card">
+      <div class="water-card">
         <img src="images/kalmar.jpg" alt="Охота на кальмара" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Ночной тур · Эксклюзив</p>
-          <p class="tour-card__name">Охота на кальмара</p>
-          <p class="tour-card__price">Эксклюзив · от 90$</p>
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">Охота на кальмара</p>
+          <p class="water-card__sub">Ночной тур · Эксклюзив · от 90$</p>
         </div>
       </div>
 
-      <div class="tour-card">
-        <img src="images/vinwonders.jpg" alt="VinWonders" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Парк · Сафари</p>
-          <p class="tour-card__name">VinWonders Хойан</p>
-          <p class="tour-card__price">Сафари · от 60$</p>
+      <div class="water-card">
+        <img src="images/surf.jpg" alt="Урок серфинга" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">Урок серфинга</p>
+          <p class="water-card__sub">Инструктор включён · Пляж Мой Кхе</p>
         </div>
       </div>
 
-      <div class="tour-card">
-        <img src="images/surf.jpg" alt="Сёрфинг" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Активный отдых</p>
-          <p class="tour-card__name">Урок сёрфинга</p>
-          <p class="tour-card__price">Инструктор включён</p>
-        </div>
-      </div>
-
-      <div class="tour-card tour-card--wide">
+      <div class="water-card">
         <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
-        <div class="tour-card__overlay"></div>
-        <a href="#" class="tour-card__cta">Подробнее</a>
-        <div class="tour-card__body">
-          <p class="tour-card__tag">Морской тур</p>
-          <p class="tour-card__name">Морская прогулка</p>
-          <p class="tour-card__price">Закат на воде</p>
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">Морская прогулка</p>
+          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
+        </div>
+      </div>
+
+      <div class="water-card">
+        <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">Горячие источники — гора удачи</p>
+          <p class="water-card__sub">Онсэн · Аквапарк · от 72$</p>
+        </div>
+      </div>
+
+      <div class="water-card">
+        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <a href="#" class="water-card__cta">Подробнее</a>
+        <div class="water-card__body">
+          <p class="water-card__title">VinWonders Хойан</p>
+          <p class="water-card__sub">Сафари · Парк аттракционов · от 60$</p>
         </div>
       </div>
 
     </div>
+    </div>
   </section>
+
+
+  <!-- ═══════════════════ STICKY BOTTOM BAR ═══════════════════ -->
+  <div class="sticky-bar" id="stickyBar">
+    <img src="images/22.png" alt="Narada" class="sticky-bar__logo" />
+    <span class="sticky-bar__text">Русскоязычный гид · Трансфер от отеля и обратно</span>
+    <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="sticky-bar__btn">Написать нам</a>
+  </div>
 
 
   <!-- ═══════════════════ GSAP — фото только ═══════════════════ -->
@@ -919,10 +1081,16 @@
         },
       });
 
+      /* Parallax на Дананг */
+      gsap.to('#danangPhoto', {
+        yPercent: 12, ease: 'none',
+        scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+      });
+
       /* Parallax на Ba Na photo */
       gsap.to('#banaPhoto', {
         yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+        scrollTrigger: { trigger: '#bana', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
 
       gsap.to('#huePhoto', {
@@ -962,6 +1130,20 @@
       document.fonts.ready.then(fitHeroLines);
     }
 
+    /* Sticky bar — появляется после скрола за hero */
+    (function() {
+      var bar = document.getElementById('stickyBar');
+      var threshold = window.innerHeight * 0.8;
+      function onScroll() {
+        if (window.scrollY > threshold) {
+          bar.classList.add('is-visible');
+        } else {
+          bar.classList.remove('is-visible');
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
     /* Smooth scroll */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
@@ -972,6 +1154,9 @@
       });
     });
   </script>
+
+  </div><!-- /page-wrap -->
+
 
 </body>
 </html>
