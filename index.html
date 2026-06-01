@@ -877,8 +877,13 @@
       .t-line2::before { content: none; }
 
       .btn-cta { width: 85%; }
-      .hero-wa { display: inline-flex; width: 85%; }
-      .hero-bottom { bottom: 24px; gap: 10px; }
+      .hero-wa { display: inline-flex; width: auto; padding: 14px 28px; }
+      .hero-bottom { bottom: 24px; gap: 10px; flex-direction: column; align-items: center; }
+
+      /* Hero photo: show full width on mobile */
+      .hero { height: 75svh; }
+      .hero__photo { inset: 0; }
+      .hero__photo img { object-fit: cover; object-position: center center; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
