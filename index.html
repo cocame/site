@@ -890,8 +890,13 @@
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
 
-      /* Tour sections — landscape ratio, no side cropping */
+      /* Tour sections — landscape ratio, content near top */
       .tour-section { height: auto; min-height: unset; max-height: none; aspect-ratio: 4/3; }
+      .tour-section__content { top: 18px; gap: 8px; width: 92vw; }
+      .tour-section__title { font-size: clamp(1.5rem, 7vw, 2.2rem); line-height: 1.05; }
+      .tour-section__subtitle { font-size: clamp(11px, 3vw, 13px); }
+      .tour-section__btns { margin-top: 0; gap: 8px; }
+      .btn-tour { padding: 9px 18px; font-size: 13px; }
 
       /* Water cards — single column, same proportions */
       .water-grid { padding: 0; }
