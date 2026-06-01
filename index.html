@@ -298,7 +298,11 @@
       z-index: 2;
       display: flex;
       justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 0 20px;
     }
+    .hero-wa { display: none; }
 
     /* CTA — white outline pill (Apple ghost style) */
     .btn-cta {
@@ -873,7 +877,8 @@
       .t-line2::before { content: none; }
 
       .btn-cta { width: 85%; }
-      .hero-bottom { bottom: 24px; }
+      .hero-wa { display: inline-flex; width: 85%; }
+      .hero-bottom { bottom: 24px; gap: 10px; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
@@ -955,6 +960,7 @@
     <!-- Button — bottom -->
     <div class="hero-bottom">
       <a href="#tours" class="btn-cta">Экскурсии из Дананга →</a>
+      <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="btn-cta btn-cta--wa hero-wa">Написать нам</a>
     </div>
 
     <!-- Scroll indicator -->
