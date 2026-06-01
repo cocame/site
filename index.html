@@ -878,11 +878,20 @@
       .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
       .scroll-hint { display: none; }
 
-      /* Cards */
+      /* Tour sections — same height as water cards on mobile */
+      .tour-section { height: auto; min-height: 100svw; max-height: none; }
+
+      /* Water cards — single column, same proportions */
       .water-grid { padding: 0; }
-      .water-grid__grid { grid-template-columns: 1fr; }
+      .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
       .water-card { aspect-ratio: 4/3; }
       .water-card__cta { display: none; }
+
+      /* Equal font sizes across all blocks */
+      .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
+      .water-card__title { font-size: clamp(28px, 9vw, 48px); }
+      .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
     }
   </style>
 </head>
@@ -1128,11 +1137,6 @@
 
 
   <!-- ═══════════════════ STICKY BOTTOM BAR ═══════════════════ -->
-  <div class="sticky-bar" id="stickyBar">
-    <img src="images/22.png" alt="Narada" class="sticky-bar__logo" />
-    <span class="sticky-bar__text">Русскоязычный гид · Трансфер от отеля и обратно</span>
-    <a href="https://wa.me/84123456789" target="_blank" rel="noopener" class="sticky-bar__btn">Написать нам</a>
-  </div>
 
 
   <!-- ═══════════════════ BURGER MENU ════════════════════════════ -->
