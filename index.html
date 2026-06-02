@@ -937,10 +937,10 @@
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Water cards — single column */
+      /* Water cards — single column, Apple-style full-viewport */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { aspect-ratio: 4/3; }
+      .water-card { height: calc(100svh - var(--sep) - 70px); aspect-ratio: unset; min-height: 300px; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
