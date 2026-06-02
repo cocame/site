@@ -869,18 +869,19 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      /* Nav: flex, logo center, burger right */
+      /* Nav: logo left — button + burger right */
       .nav {
-        display: flex; align-items: center;
-        height: 56px; padding: 0 20px;
+        display: flex; align-items: center; gap: 10px;
+        height: 56px; padding: 0 16px;
         background: rgba(0,0,0,0.55);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
       }
       .nav-left { display: none; }
-      .nav-right { display: none; }
-      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
-      .nav-burger { display: flex !important; margin-left: auto; }
+      .nav-logo { position: static; transform: none; flex-shrink: 0; }
+      .nav-right { display: flex; align-items: center; margin-left: auto; }
+      .btn-nav { font-size: 12px; padding: 7px 14px; }
+      .nav-burger { display: flex !important; }
 
       /* Dropdown menu */
       .nav-left.open {
@@ -902,11 +903,11 @@
       /* Hero */
       .hero__content { transform: translate(-50%, -50%); }
       .hero__title { letter-spacing: -0.035em; line-height: 1; }
-      /* Title — 3 строки, одинаковый шрифт, воздух */
-      .t-main { white-space: normal; font-size: 11vw; display: block; line-height: 1.18; letter-spacing: -0.03em; }
+      /* Title — 2 строки, не перекрывает кнопку */
+      .t-main { white-space: normal; font-size: 9vw; display: block; line-height: 1.18; letter-spacing: -0.03em; }
       .t-line1, .t-line2 { font-size: inherit; display: inline; }
       .t-line2::before { content: ' '; }
-      .hero__content { top: 50%; transform: translate(-50%, -50%); }
+      .hero__content { top: 46%; transform: translate(-50%, -50%); }
 
       .btn-cta { width: 85%; }
       .hero-wa { display: none !important; }
