@@ -913,30 +913,38 @@
       .hero-wa { display: none !important; }
       .hero-bottom { bottom: 28px; }
 
-      /* Hero: 16/9 — минимальный кроп, адекватная высота */
-      .hero { height: auto; aspect-ratio: 4/3; min-height: unset; max-height: unset; }
+      /* ── Apple-style: один блок = весь экран минус зазор минус пик ── */
+      /* Hero: герой+стрип = один фолд; 88px = высота стрипа, 70px = пик тур-блока */
+      .hero {
+        height: calc(100svh - 88px - var(--sep) - 70px);
+        aspect-ratio: unset; min-height: 280px; max-height: unset;
+      }
       .hero__photo { inset: 0; }
       .hero__photo img { object-fit: cover; object-position: center 40%; }
-      .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
-      .comfort-strip__logo { width: 40px; height: 40px; border-radius: 10px; }
+
+      /* Comfort strip: фиксированная высота → предсказуемая позиция */
+      .comfort-strip { height: 88px; padding: 0 16px; }
+      .comfort-strip__logo { width: 36px; height: 36px; border-radius: 8px; }
+      .comfort-strip__title { font-size: 12px; line-height: 1.45; }
       .scroll-hint { display: none; }
 
-      /* Tour sections — landscape ratio, content near top */
-      .tour-section { height: auto; min-height: unset; max-height: none; aspect-ratio: 4/3; }
-      .tour-section__content { top: 18px; gap: 8px; width: 92vw; }
-      .tour-section__title { font-size: clamp(1.5rem, 7vw, 2.2rem); line-height: 1.05; }
-      .tour-section__subtitle { font-size: clamp(11px, 3vw, 13px); }
+      /* Tour sections: каждый = полный экран минус зазор минус пик */
+      .tour-section {
+        height: calc(100svh - var(--sep) - 70px);
+        aspect-ratio: unset; min-height: 380px; max-height: none;
+      }
+      .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Water cards — single column, same proportions */
+      /* Water cards — single column */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
       .water-card { aspect-ratio: 4/3; }
       .water-card__cta { display: none; }
 
-      /* Equal font sizes across all blocks */
-      .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); }
+      /* Типографика блоков */
+      .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); line-height: 1.05; }
       .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
       .water-card__title { font-size: clamp(28px, 9vw, 48px); }
       .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
