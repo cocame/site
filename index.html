@@ -869,8 +869,9 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      /* Nav: fixed bar, logo center, burger absolute right */
+      /* Nav: flex, logo center, burger right */
       .nav {
+        display: flex; align-items: center;
         height: 56px; padding: 0 20px;
         background: rgba(0,0,0,0.55);
         backdrop-filter: blur(16px);
@@ -905,14 +906,14 @@
       .t-main { white-space: normal; font-size: 11vw; display: block; line-height: 1.18; letter-spacing: -0.03em; }
       .t-line1, .t-line2 { font-size: inherit; display: inline; }
       .t-line2::before { content: ' '; }
-      .hero__content { top: 38%; }
+      .hero__content { top: 50%; transform: translate(-50%, -50%); }
 
       .btn-cta { width: 85%; }
       .hero-wa { display: none !important; }
-      .hero-bottom { bottom: 24px; gap: 10px; align-items: center; }
+      .hero-bottom { bottom: 28px; }
 
-      /* Hero photo — aspect-ratio от изображения, ноль кропа */
-      .hero { height: auto; aspect-ratio: 21/10; min-height: unset; max-height: unset; }
+      /* Hero: 16/9 — минимальный кроп, адекватная высота */
+      .hero { height: auto; aspect-ratio: 4/3; min-height: unset; max-height: unset; }
       .hero__photo { inset: 0; }
       .hero__photo img { object-fit: cover; object-position: center 40%; }
       .comfort-strip { height: auto; padding: 20px clamp(16px, 4vw, 28px); }
@@ -1275,6 +1276,7 @@
 
     /* ── FitText: headline fills 100% of container content width ── */
     function fitHeroLines() {
+      if (window.innerWidth <= 600) return;
       var lines = document.querySelectorAll('.t-main');
       if (!lines.length) return;
       lines.forEach(function(line) {
