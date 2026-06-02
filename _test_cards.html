@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --sep: 12px; }
+body { background: #fff; font-family: -apple-system, sans-serif; }
+.water-grid__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sep);
+}
+.water-card {
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+  aspect-ratio: 3/2;
+  cursor: pointer;
+  background: #1a1a1a;
+}
+.water-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.water-card__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.08) 55%);
+}
+.water-card__body {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 24px 24px; z-index: 1;
+}
+.water-card__title { font-size: clamp(16px, 2vw, 22px); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 5px; }
+.water-card__sub { font-size: clamp(12px, 1.2vw, 14px); color: rgba(255,255,255,0.72); }
+</style>
+</head>
+<body>
+<div class="water-grid__grid">
+  <div class="water-card"><img src="images/cham.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">Острова Чам</p><p class="water-card__sub">Снорклинг · Обед включён · от 60$</p></div></div>
+  <div class="water-card"><img src="images/kalmar.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">Охота на кальмара</p><p class="water-card__sub">Ночной тур · Эксклюзив · от 90$</p></div></div>
+  <div class="water-card"><img src="images/surf.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">Урок серфинга</p><p class="water-card__sub">Инструктор включён · Пляж Мой Кхе</p></div></div>
+  <div class="water-card"><img src="images/sea.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">Морская прогулка</p><p class="water-card__sub">Закат на воде · Ужин на борту</p></div></div>
+  <div class="water-card"><img src="images/springs.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">Горячие источники</p><p class="water-card__sub">Онсэн · Аквапарк · от 72$</p></div></div>
+  <div class="water-card"><img src="images/vinwonders.jpg" alt=""><div class="water-card__overlay"></div><div class="water-card__body"><p class="water-card__title">VinWonders Хойан</p><p class="water-card__sub">Сафари · Парк аттракционов · от 60$</p></div></div>
+</div>
+</body>
+</html>
