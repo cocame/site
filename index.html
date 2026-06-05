@@ -986,15 +986,12 @@
 
     <!-- Background — Ken Burns on load, parallax on scroll (GSAP only) -->
     <div class="hero__photo" id="heroPhoto">
-      <picture>
-        <source media="(max-width: 600px)" srcset="images/danang-hero-mobile.jpg" />
-        <img
-          src="images/danang-hero.jpg"
-          alt="Панорама Дананга"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </picture>
+      <img
+        src="images/danang-hero.jpg"
+        alt="Панорама Дананга"
+        fetchpriority="high"
+        decoding="async"
+      />
     </div>
 
     <!-- Gradient overlay -->
@@ -1102,6 +1099,24 @@
         Древний Хойан —<br />наследие ЮНЕСКО
       </h2>
       <p class="tour-section__subtitle">Старый город, кокосовые джунгли, рисовые поля, фонарики на ночной реке · от 58$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════ ДУН ЗЯН — НЕБЕСНЫЕ ВРАТА ═══════════════════ -->
+  <section class="tour-section" id="dong-giang">
+    <div class="tour-section__photo" id="dongGiangPhoto">
+      <img src="images/dong-giang.webp" alt="Небесные врата Дун Зянг" decoding="async" loading="lazy" />
+    </div>
+    <div class="tour-section__gradient"></div>
+    <div class="tour-section__content">
+      <h2 class="tour-section__title">
+        Небесные врата<br />Дун Зянг
+      </h2>
+      <p class="tour-section__subtitle">Пещеры · Водопады · Стеклянный мост · Деревня Ко Ту · от 65$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
@@ -1282,6 +1297,11 @@
       gsap.to('#hoianPhoto', {
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '#hoian', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+      });
+
+      gsap.to('#dongGiangPhoto', {
+        yPercent: 12, ease: 'none',
+        scrollTrigger: { trigger: '#dong-giang', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
     }
 
