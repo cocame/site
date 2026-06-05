@@ -930,21 +930,21 @@
       .comfort-strip__title { font-size: 12px; line-height: 1.5; }
       .scroll-hint { display: none; }
 
-      /* Tour sections: 16:9 — фото видно целиком как на десктопе */
+      /* Tour sections: каждый = полный экран минус зазор минус пик */
       .tour-section {
-        height: auto;
-        aspect-ratio: 16/9; min-height: 220px; max-height: none;
+        height: calc(100svh - var(--sep) - 70px);
+        aspect-ratio: unset; min-height: 380px; max-height: none;
       }
       .tour-section__photo { inset: 0; }
       .tour-section__photo img { object-position: center center; }
-      .tour-section__content { top: 50%; transform: translate(-50%, -50%); gap: 8px; width: 92vw; }
+      .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Water cards — 16:9 чтобы фото было полным */
+      /* Water cards — single column, Apple-style full-viewport */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { height: auto; aspect-ratio: 16/9; min-height: 200px; }
+      .water-card { height: calc(100svh - var(--sep) - 70px); aspect-ratio: unset; min-height: 300px; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
