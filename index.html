@@ -535,7 +535,7 @@
 
     .tour-section__tag { display: none; }
 
-    #dongGiangPhoto img { object-position: center 55%; }
+    #dongGiangPhoto { background-image: url('images/dong-giang.webp'); background-size: cover; background-position: center center; }
 
     /* ─── WATER EXCURSIONS GRID ─────────────────────────────────── */
     .water-grid {
@@ -937,6 +937,7 @@
       }
       .tour-section__photo { inset: 0; }
       .tour-section__photo img { object-position: center center; }
+      #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
@@ -1124,12 +1125,7 @@
 
   <!-- ═══════════════════ ДОНГ ЗЯНГ — НЕБЕСНЫЕ ВРАТА ═══════════════════ -->
   <section class="tour-section" id="dong-giang">
-    <div class="tour-section__photo" id="dongGiangPhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/dong-giang-mobile.webp">
-        <img src="images/dong-giang.webp" alt="Небесные врата Донг Зянг" decoding="async" loading="lazy" />
-      </picture>
-    </div>
+    <div class="tour-section__photo" id="dongGiangPhoto"></div>
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
