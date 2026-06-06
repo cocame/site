@@ -1041,29 +1041,8 @@
   </div>
 
 
-  <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
-  <section class="tour-section" id="tours">
-    <div class="tour-section__photo" id="danangPhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/danang-fire-mobile.jpg">
-        <img src="images/danang-fire.jpg" alt="Дананг за один день" decoding="async" loading="lazy" />
-      </picture>
-    </div>
-    <div class="tour-section__gradient"></div>
-    <div class="tour-section__content">
-      <h2 class="tour-section__title">
-        Дананг<br />за один день
-      </h2>
-      <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
-      <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
-      </div>
-    </div>
-  </section>
-
-
   <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
-  <section class="tour-section" id="bana">
+  <section class="tour-section" id="tours">
     <div class="tour-section__photo" id="banaPhoto">
       <picture>
         <source media="(max-width: 768px)" srcset="images/bana-mobile.jpg?v=3">
@@ -1077,6 +1056,27 @@
         <br>Ba Na Hills
       </h2>
       <p class="tour-section__subtitle">Магия Маленькой Европы · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
+  <section class="tour-section" id="bana-old">
+    <div class="tour-section__photo" id="danangPhoto">
+      <picture>
+        <source media="(max-width: 768px)" srcset="images/danang-fire-mobile.jpg">
+        <img src="images/danang-fire.jpg" alt="Дананг за один день" decoding="async" loading="lazy" />
+      </picture>
+    </div>
+    <div class="tour-section__gradient"></div>
+    <div class="tour-section__content">
+      <h2 class="tour-section__title">
+        Дананг<br />за один день
+      </h2>
+      <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
@@ -1293,13 +1293,12 @@
       if (window.innerWidth > 600) {
       gsap.to('#danangPhoto', {
         yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+        scrollTrigger: { trigger: '#bana-old', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
 
-      /* Parallax на Ba Na photo */
       gsap.to('#banaPhoto', {
         yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#bana', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+        scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
 
       gsap.to('#huePhoto', {
