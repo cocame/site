@@ -350,7 +350,7 @@
       animation: fadeUp 0.8s ease 0.55s both;
       transition: background 0.25s ease,
                   border-color 0.25s ease,
-                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                  transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .btn-cta:hover  { background: rgba(255,255,255,0.12); border-color: #fff; transform: scale(1.03); }
     .btn-cta:active { transform: scale(0.97); transition-duration: 0.1s; }
@@ -497,7 +497,7 @@
       -webkit-backdrop-filter: blur(10px);
       transition: background 0.25s ease,
                   border-color 0.25s ease,
-                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                  transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .btn-tour:hover {
       background: rgba(255,255,255,0.20);
@@ -907,8 +907,8 @@
       .hero__title { letter-spacing: -0.035em; line-height: 1; }
       /* Title — 2 строки, не перекрывает кнопку */
       .t-main { white-space: normal; font-size: 9vw; display: block; line-height: 1.18; letter-spacing: -0.03em; }
-      .t-line1, .t-line2 { font-size: inherit; display: inline; }
-      .t-line2::before { content: ' '; }
+      .t-line1, .t-line2 { font-size: inherit; display: block; white-space: nowrap; }
+      .t-line2::before { content: ''; }
       .hero__content { top: 15%; transform: translate(-50%, 0); }
 
       .btn-cta { width: auto; padding: 12px 28px; font-size: 15px; border-width: 1px; border-color: rgba(255,255,255,0.5); }
@@ -1073,7 +1073,7 @@
       <h2 class="tour-section__title">
         Вечерний Ба На Хиллс
       </h2>
-      <p class="tour-section__subtitle">Сказка в облаках · Магия Золотого моста · Огни маленькой Европы<br>Канатка из книги рекордов Гиннесса · Мост «Руки Бога» · от 48$</p>
+      <p class="tour-section__subtitle">Сказка в облаках · Магия Золотого моста · Огни маленькой Европы · от 48$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
@@ -1322,7 +1322,7 @@
 
     /* ── FitText: headline fills 100% of container content width ── */
     function fitHeroLines() {
-      if (window.innerWidth <= 600) return;
+      if (window.innerWidth <= 768) return;
       var lines = document.querySelectorAll('.t-main');
       if (!lines.length) return;
       lines.forEach(function(line) {
