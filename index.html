@@ -1290,7 +1290,7 @@
         },
       });
 
-      /* Parallax на Дананг */
+      if (window.innerWidth > 600) {
       gsap.to('#danangPhoto', {
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
@@ -1321,6 +1321,7 @@
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '#dong-giang', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
+      } // end mobile parallax check
     }
 
     /* ── FitText: headline fills 100% of container content width ── */
