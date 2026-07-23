@@ -691,12 +691,14 @@
 
     /* ─── Карточка-мокап: несколько планшетов веером, фото только на переднем — как iPad Air на apple.com ── */
     .water-card--device {
-      aspect-ratio: 4/5;
+      grid-column: 1 / -1;
+      aspect-ratio: 16/9;
       background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(28px, 5%, 48px) 24px clamp(16px, 3%, 28px);
+      justify-content: center;
+      padding: clamp(24px, 4%, 40px) 24px;
     }
     .water-card__overlay--none { display: none; }
 
@@ -704,7 +706,8 @@
       position: static;
       flex: 0 0 auto;
       padding: 0;
-      margin-bottom: clamp(16px, 3%, 28px);
+      text-align: center;
+      margin-bottom: clamp(8px, 1.5%, 16px);
     }
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
@@ -728,27 +731,28 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: visible;
     }
     .tablet-mock__fan {
       position: relative;
-      width: 68%;
-      max-width: 300px;
+      height: 100%;
+      max-height: 420px;
       aspect-ratio: 3/4;
     }
     /* Задние корпуса — просто цвет, без фото, чуть смещены и повёрнуты */
     .tablet-mock__back {
       position: absolute;
       inset: 0;
-      border-radius: 16px;
+      border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
     .tablet-mock__back--1 {
       background: linear-gradient(135deg, #e3e6ea 0%, #c7ccd1 100%);
-      transform: rotate(10deg) translate(14%, 6%);
+      transform: rotate(11deg) translate(16%, 8%);
     }
     .tablet-mock__back--2 {
       background: linear-gradient(135deg, #4b4f56 0%, #24262b 100%);
-      transform: rotate(-9deg) translate(-13%, 4%);
+      transform: rotate(-10deg) translate(-15%, 6%);
     }
     /* Передний корпус — настоящая рамка устройства с фото внутри */
     .tablet-mock__frame {
@@ -756,22 +760,22 @@
       width: 100%;
       height: 100%;
       background: #101113;
-      border-radius: 16px;
-      padding: 4.5% 4.5% 4.5%;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.28), 0 6px 16px rgba(0,0,0,0.18);
+      border-radius: 20px;
+      padding: 3.5%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.18);
       transition: transform 0.4s ease;
     }
     .water-card--device:hover .tablet-mock__frame {
-      transform: translateY(-6px);
+      transform: translateY(-8px);
     }
     .tablet-mock__frame::before {
       content: "";
       position: absolute;
-      top: 2%;
+      top: 1.5%;
       left: 50%;
       transform: translateX(-50%);
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: rgba(255,255,255,0.35);
     }
@@ -784,13 +788,15 @@
     }
 
     @media (max-width: 600px) {
-      .tablet-mock__fan { width: 76%; }
+      .tablet-mock__fan { max-height: 280px; }
+      .water-card--device { aspect-ratio: 1/1; padding: 20px 16px; }
     }
 
     @media (max-width: 600px) {
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; }
       .water-card { aspect-ratio: 4/3; }
+      .water-card--device { aspect-ratio: 1/1; }
       .water-card__cta { display: none; }
     }
 
