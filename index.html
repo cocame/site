@@ -867,6 +867,39 @@
       .tour-section { max-height: 480px; }
     }
 
+    /* ─── ПЛАНШЕТ: 601–1024px — раньше этого диапазона не было вообще ── */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      .nav-left { display: none; }
+      .nav-logo { position: static; transform: none; flex-shrink: 0; }
+      .nav-right { display: flex; align-items: center; margin-left: auto; }
+      .nav-burger { display: flex !important; }
+      .nav {
+        display: flex; align-items: center; gap: 10px;
+        height: 60px; padding: 0 24px;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .nav-left.open {
+        display: flex;
+        position: fixed; top: 60px; left: 0; right: 0;
+        background: rgba(0,0,0,0.94);
+        backdrop-filter: blur(20px);
+        flex-direction: column; align-items: center;
+        padding: 20px 0 28px; gap: 0; z-index: 999;
+      }
+      .nav-left.open .nav-link {
+        width: 100%; text-align: center;
+        padding: 16px 0; font-size: 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .tour-section { height: auto; min-height: 640px; max-height: 900px; }
+      .tour-section__content { padding: 0 48px 64px; }
+
+      .hero__content { width: 90%; }
+    }
+
     /* ─── Burger button ─────────────────────────────────────────── */
     .nav-burger {
       display: none;
@@ -1352,6 +1385,7 @@
     /* Sticky bar — появляется после скрола за hero */
     (function() {
       var bar = document.getElementById('stickyBar');
+      if (!bar) return; // элемента нет в разметке — панели пока не существует, скрипт просто не делает ничего
       var threshold = window.innerHeight * 0.8;
       function onScroll() {
         if (window.scrollY > threshold) {
