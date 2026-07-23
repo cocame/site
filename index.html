@@ -613,6 +613,64 @@
 
     .water-grid__inner { display: contents; }
 
+    /* ─── Карусель "Ещё больше впечатлений" ── */
+    .carousel-section {
+      padding: clamp(32px, 5vw, 56px) 0 clamp(40px, 6vw, 64px);
+      background: #fff;
+    }
+    .carousel-section__title {
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1d1d1f;
+      padding: 0 clamp(20px, 4vw, 48px);
+      margin-bottom: clamp(16px, 2.5vw, 24px);
+    }
+    .carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .carousel::-webkit-scrollbar { display: none; }
+    .carousel__track {
+      display: flex;
+      gap: 16px;
+      padding: 0 clamp(20px, 4vw, 48px);
+      width: max-content;
+    }
+    .carousel__card {
+      display: block;
+      flex: 0 0 auto;
+      width: min(78vw, 340px);
+      scroll-snap-align: start;
+      text-decoration: none;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f4f4f4;
+      transition: transform 0.3s ease;
+    }
+    .carousel__card:hover { transform: translateY(-4px); }
+    .carousel__card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel__card-body { padding: 12px 4px 4px; }
+    .carousel__card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .carousel__card-sub {
+      font-size: 13px;
+      color: #6e6e73;
+      margin-top: 2px;
+    }
+
     .water-grid__grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -1306,7 +1364,7 @@
         </div>
       </div>
 
-      <div class="water-card water-card--light">
+      <div class="water-card">
         <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
@@ -1317,45 +1375,43 @@
           </div>
         </div>
       </div>
-
-      <div class="water-card water-card--device">
-        <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
-        <div class="water-card__overlay water-card__overlay--top"></div>
-        <div class="water-card__body water-card__body--device">
-          <p class="water-card__title">Морская прогулка</p>
-          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
-          <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="water-card">
-        <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
-        <div class="water-card__overlay"></div>
-        <div class="water-card__body">
-          <p class="water-card__title">Горячие источники — гора удачи</p>
-          <p class="water-card__sub">Онсэн · Аквапарк · 72$</p>
-          <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="water-card">
-        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
-        <div class="water-card__overlay"></div>
-        <div class="water-card__body">
-          <p class="water-card__title">VinWonders Хойан</p>
-          <p class="water-card__sub">Сафари · Парк аттракционов · 60$</p>
-          <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
-          </div>
-        </div>
-      </div>
       </div>
 
     </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ КАРУСЕЛЬ — БЕСКОНЕЧНЫЕ РАЗВЛЕЧЕНИЯ ═══════════════════ -->
+  <section class="carousel-section">
+    <h3 class="carousel-section__title">Ещё больше впечатлений</h3>
+    <div class="carousel">
+      <div class="carousel__track">
+
+        <a href="#" class="carousel__card">
+          <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
+          <div class="carousel__card-body">
+            <p class="carousel__card-title">Морская прогулка</p>
+            <p class="carousel__card-sub">Закат на воде · Ужин на борту</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
+          <div class="carousel__card-body">
+            <p class="carousel__card-title">Горячие источники — гора удачи</p>
+            <p class="carousel__card-sub">Онсэн · Аквапарк · 72$</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
+          <div class="carousel__card-body">
+            <p class="carousel__card-title">VinWonders Хойан</p>
+            <p class="carousel__card-sub">Сафари · Парк аттракционов · 60$</p>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
