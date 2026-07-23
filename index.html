@@ -689,14 +689,22 @@
     }
     .water-card:hover .water-card__cta { opacity: 1; transform: translateY(0); }
 
-    /* ─── Карточка-мокап: планшет на светлом фоне, как iPad Air на apple.com ── */
+    /* ─── Карточка-мокап: несколько планшетов веером, фото только на переднем — как iPad Air на apple.com ── */
     .water-card--device {
+      aspect-ratio: 4/5;
       background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(28px, 5%, 48px) 24px clamp(16px, 3%, 28px);
     }
     .water-card__overlay--none { display: none; }
 
     .water-card__body--device {
-      top: clamp(20px, 6%, 36px);
+      position: static;
+      flex: 0 0 auto;
+      padding: 0;
+      margin-bottom: clamp(16px, 3%, 28px);
     }
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
@@ -713,39 +721,70 @@
     }
 
     .tablet-mock {
+      position: relative;
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tablet-mock__fan {
+      position: relative;
+      width: 68%;
+      max-width: 300px;
+      aspect-ratio: 3/4;
+    }
+    /* Задние корпуса — просто цвет, без фото, чуть смещены и повёрнуты */
+    .tablet-mock__back {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 4%;
-      perspective: 1400px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
+    .tablet-mock__back--1 {
+      background: linear-gradient(135deg, #e3e6ea 0%, #c7ccd1 100%);
+      transform: rotate(10deg) translate(14%, 6%);
+    }
+    .tablet-mock__back--2 {
+      background: linear-gradient(135deg, #4b4f56 0%, #24262b 100%);
+      transform: rotate(-9deg) translate(-13%, 4%);
+    }
+    /* Передний корпус — настоящая рамка устройства с фото внутри */
     .tablet-mock__frame {
-      width: 62%;
-      max-width: 340px;
-      aspect-ratio: 3/4;
-      background: #111;
-      border-radius: 18px;
-      padding: 10px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15);
-      transform: rotateX(8deg) rotateZ(-4deg);
-      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #101113;
+      border-radius: 16px;
+      padding: 4.5% 4.5% 4.5%;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.28), 0 6px 16px rgba(0,0,0,0.18);
       transition: transform 0.4s ease;
     }
     .water-card--device:hover .tablet-mock__frame {
-      transform: rotateX(4deg) rotateZ(-2deg) translateY(-6px);
+      transform: translateY(-6px);
+    }
+    .tablet-mock__frame::before {
+      content: "";
+      position: absolute;
+      top: 2%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
     }
     .tablet-mock__frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 6px;
       display: block;
     }
 
     @media (max-width: 600px) {
-      .tablet-mock__frame { width: 72%; }
+      .tablet-mock__fan { width: 76%; }
     }
 
     @media (max-width: 600px) {
@@ -1322,17 +1361,20 @@
       </div>
 
       <div class="water-card water-card--device">
-        <div class="water-card__overlay water-card__overlay--none"></div>
-        <div class="tablet-mock">
-          <div class="tablet-mock__frame">
-            <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
-          </div>
-        </div>
         <div class="water-card__body water-card__body--device">
           <p class="water-card__title">Морская прогулка</p>
           <p class="water-card__sub">Закат на воде · Ужин на борту</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
+          </div>
+        </div>
+        <div class="tablet-mock">
+          <div class="tablet-mock__fan">
+            <div class="tablet-mock__back tablet-mock__back--1"></div>
+            <div class="tablet-mock__back tablet-mock__back--2"></div>
+            <div class="tablet-mock__frame">
+              <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
+            </div>
           </div>
         </div>
       </div>
