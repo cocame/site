@@ -624,11 +624,11 @@
     }
 
     .water-card__title {
-      font-size: clamp(28px, 4.5vw, 64px);
+      font-size: clamp(24px, 3vw, 40px);
       font-weight: 700;
       letter-spacing: -0.03em;
       color: #fff;
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     .water-card__sub {
@@ -689,25 +689,14 @@
     }
     .water-card:hover .water-card__cta { opacity: 1; transform: translateY(0); }
 
-    /* ─── Карточка-мокап: несколько планшетов веером, фото только на переднем — как iPad Air на apple.com ── */
+    /* ─── Карточка "Морская прогулка": реальная сгенерированная картинка устройства ── */
     .water-card--device {
       grid-column: 1 / -1;
-      aspect-ratio: 16/9;
-      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(24px, 4%, 40px) 24px;
+      aspect-ratio: 1829/860;
+      background: #dbe6f0;
     }
-    .water-card__overlay--none { display: none; }
-
-    .water-card__body--device {
-      position: static;
-      flex: 0 0 auto;
-      padding: 0;
-      text-align: center;
-      margin-bottom: clamp(8px, 1.5%, 16px);
+    .water-card__overlay--top {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 30%);
     }
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
@@ -723,73 +712,8 @@
       background: #fff;
     }
 
-    .tablet-mock {
-      position: relative;
-      flex: 1 1 auto;
-      width: 100%;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: visible;
-    }
-    .tablet-mock__fan {
-      position: relative;
-      height: 100%;
-      max-height: 420px;
-      aspect-ratio: 3/4;
-    }
-    /* Задние корпуса — просто цвет, без фото, чуть смещены и повёрнуты */
-    .tablet-mock__back {
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    .tablet-mock__back--1 {
-      background: linear-gradient(135deg, #e3e6ea 0%, #c7ccd1 100%);
-      transform: rotate(11deg) translate(16%, 8%);
-    }
-    .tablet-mock__back--2 {
-      background: linear-gradient(135deg, #4b4f56 0%, #24262b 100%);
-      transform: rotate(-10deg) translate(-15%, 6%);
-    }
-    /* Передний корпус — настоящая рамка устройства с фото внутри */
-    .tablet-mock__frame {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: #101113;
-      border-radius: 20px;
-      padding: 3.5%;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.18);
-      transition: transform 0.4s ease;
-    }
-    .water-card--device:hover .tablet-mock__frame {
-      transform: translateY(-8px);
-    }
-    .tablet-mock__frame::before {
-      content: "";
-      position: absolute;
-      top: 1.5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.35);
-    }
-    .tablet-mock__frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 6px;
-      display: block;
-    }
-
     @media (max-width: 600px) {
-      .tablet-mock__fan { max-height: 280px; }
-      .water-card--device { aspect-ratio: 1/1; padding: 20px 16px; }
+      .water-card--device { aspect-ratio: 4/3; }
     }
 
     @media (max-width: 600px) {
@@ -1124,7 +1048,7 @@
       /* Типографика блоков */
       .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); line-height: 1.05; }
       .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
-      .water-card__title { font-size: clamp(28px, 9vw, 48px); }
+      .water-card__title { font-size: clamp(22px, 7vw, 36px); }
       .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
     }
   </style>
@@ -1367,6 +1291,8 @@
       </div>
 
       <div class="water-card water-card--device">
+        <img src="images/sea-mockup.png" alt="Морская прогулка" loading="lazy" />
+        <div class="water-card__overlay water-card__overlay--top"></div>
         <div class="water-card__body water-card__body--device">
           <p class="water-card__title">Морская прогулка</p>
           <p class="water-card__sub">Закат на воде · Ужин на борту</p>
@@ -1374,15 +1300,7 @@
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
-        <div class="tablet-mock">
-          <div class="tablet-mock__fan">
-            <div class="tablet-mock__back tablet-mock__back--1"></div>
-            <div class="tablet-mock__back tablet-mock__back--2"></div>
-            <div class="tablet-mock__frame">
-              <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
 
     </div>
