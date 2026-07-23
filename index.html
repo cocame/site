@@ -592,6 +592,24 @@
       background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%);
     }
 
+    /* ─── Светлый вариант карточки — как чередование у Apple (iPad Air, Watch) ── */
+    .water-card--light .water-card__overlay {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 55%);
+    }
+    .water-card--light .water-card__title,
+    .water-card--light .water-card__sub {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .water-card--light .water-card__btn {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.55);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .water-card--light .water-card__btn:hover {
+      background: rgba(255,255,255,0.85);
+    }
+
     .water-card__body {
       position: absolute;
       top: clamp(16px, 8%, 40px);
@@ -1196,7 +1214,7 @@
     <div class="water-grid__inner">
     <div class="water-grid__grid">
 
-      <div class="water-card">
+      <div class="water-card water-card--light">
         <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
@@ -1220,7 +1238,7 @@
         </div>
       </div>
 
-      <div class="water-card">
+      <div class="water-card water-card--light">
         <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
