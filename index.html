@@ -494,6 +494,47 @@
       text-shadow: 0 1px 8px rgba(0,0,0,0.45);
     }
 
+    /* ─── Светлый вариант tour-section (Дананг за один день) ── */
+    .tour-section--light {
+      height: auto;
+      max-height: none;
+      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(40px, 6vw, 72px) 24px clamp(32px, 5vw, 56px);
+    }
+    .tour-section--light .tour-section__gradient { display: none; }
+    .tour-section--light .tour-section__content {
+      position: static;
+      transform: none;
+      width: min(680px, 88vw);
+      margin-bottom: clamp(20px, 3vw, 36px);
+    }
+    .tour-section--light .tour-section__title,
+    .tour-section--light .tour-section__subtitle {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .tour-section--light .btn-tour {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.7);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .tour-section--light .btn-tour:hover { background: #fff; }
+    .tour-section--light .tour-section__photo {
+      position: static;
+      inset: auto;
+      width: 100%;
+      max-width: 980px;
+    }
+    .tour-section--light .tour-section__photo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+    }
+
     .btn-tour {
       display: inline-flex;
       align-items: center;
@@ -1165,14 +1206,7 @@
 
 
   <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
-  <section class="tour-section" id="bana-old">
-    <div class="tour-section__photo" id="danangPhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/danang-fire-mobile.jpg">
-        <img src="images/danang-fire.jpg" alt="Дананг за один день" decoding="async" loading="lazy" />
-      </picture>
-    </div>
-    <div class="tour-section__gradient"></div>
+  <section class="tour-section tour-section--light" id="bana-old">
     <div class="tour-section__content">
       <h2 class="tour-section__title">
         Дананг<br />за один день
@@ -1182,6 +1216,10 @@
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
+    <div class="tour-section__photo" id="danangPhoto">
+      <img src="images/danang-mockup.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+    </div>
+    <div class="tour-section__gradient"></div>
   </section>
 
 
@@ -1272,12 +1310,12 @@
         </div>
       </div>
 
-      <div class="water-card">
-        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
-        <div class="water-card__overlay"></div>
-        <div class="water-card__body">
-          <p class="water-card__title">VinWonders Хойан</p>
-          <p class="water-card__sub">Сафари · Парк аттракционов · 60$</p>
+      <div class="water-card water-card--device">
+        <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
+        <div class="water-card__overlay water-card__overlay--top"></div>
+        <div class="water-card__body water-card__body--device">
+          <p class="water-card__title">Морская прогулка</p>
+          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
@@ -1296,12 +1334,12 @@
         </div>
       </div>
 
-      <div class="water-card water-card--device">
-        <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
-        <div class="water-card__overlay water-card__overlay--top"></div>
-        <div class="water-card__body water-card__body--device">
-          <p class="water-card__title">Морская прогулка</p>
-          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
+      <div class="water-card">
+        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <div class="water-card__body">
+          <p class="water-card__title">VinWonders Хойан</p>
+          <p class="water-card__sub">Сафари · Парк аттракционов · 60$</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
@@ -1381,11 +1419,12 @@
       });
 
       if (window.innerWidth > 600) {
+      if (!document.querySelector('#bana-old.tour-section--light')) {
       gsap.to('#danangPhoto', {
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '#bana-old', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
-
+      }
       gsap.to('#banaPhoto', {
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
