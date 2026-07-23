@@ -689,6 +689,65 @@
     }
     .water-card:hover .water-card__cta { opacity: 1; transform: translateY(0); }
 
+    /* ─── Карточка-мокап: планшет на светлом фоне, как iPad Air на apple.com ── */
+    .water-card--device {
+      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+    }
+    .water-card__overlay--none { display: none; }
+
+    .water-card__body--device {
+      top: clamp(20px, 6%, 36px);
+    }
+    .water-card__body--device .water-card__title,
+    .water-card__body--device .water-card__sub {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .water-card__body--device .water-card__btn {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.7);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .water-card__body--device .water-card__btn:hover {
+      background: #fff;
+    }
+
+    .tablet-mock {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 4%;
+      perspective: 1400px;
+    }
+    .tablet-mock__frame {
+      width: 62%;
+      max-width: 340px;
+      aspect-ratio: 3/4;
+      background: #111;
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15);
+      transform: rotateX(8deg) rotateZ(-4deg);
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+    }
+    .water-card--device:hover .tablet-mock__frame {
+      transform: rotateX(4deg) rotateZ(-2deg) translateY(-6px);
+    }
+    .tablet-mock__frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .tablet-mock__frame { width: 72%; }
+    }
+
     @media (max-width: 600px) {
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; }
@@ -1238,12 +1297,12 @@
         </div>
       </div>
 
-      <div class="water-card water-card--light">
-        <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
+      <div class="water-card">
+        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
-          <p class="water-card__title">Морская прогулка</p>
-          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
+          <p class="water-card__title">VinWonders Хойан</p>
+          <p class="water-card__sub">Сафари · Парк аттракционов · 60$</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
@@ -1262,12 +1321,16 @@
         </div>
       </div>
 
-      <div class="water-card">
-        <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
-        <div class="water-card__overlay"></div>
-        <div class="water-card__body">
-          <p class="water-card__title">VinWonders Хойан</p>
-          <p class="water-card__sub">Сафари · Парк аттракционов · 60$</p>
+      <div class="water-card water-card--device">
+        <div class="water-card__overlay water-card__overlay--none"></div>
+        <div class="tablet-mock">
+          <div class="tablet-mock__frame">
+            <img src="images/sea.jpg" alt="Морская прогулка" loading="lazy" />
+          </div>
+        </div>
+        <div class="water-card__body water-card__body--device">
+          <p class="water-card__title">Морская прогулка</p>
+          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
