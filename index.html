@@ -431,7 +431,8 @@
       inset: -10% 0;
       will-change: transform;
     }
-    .tour-section__photo img {
+    .tour-section__photo img,
+    .tour-section__photo video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -742,6 +743,10 @@
       background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
     }
     .carousel__card--light img { object-fit: contain; }
+    /* убираем полосы по бокам/сверху-снизу — точная пропорция под каждую картинку */
+    .carousel__card:has(img[src*="danang-mockup2"]) { aspect-ratio: 3/2; }
+    .carousel__card:has(img[src*="fishing-mockup-transparent"]) { aspect-ratio: 7/3; }
+    .carousel__card:has(img[src*="cham.jpg"]) { aspect-ratio: 4/3; }
     .carousel__card--light .carousel__card-gradient {
       background: linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%);
     }
@@ -800,6 +805,7 @@
     }
     .water-card--device img {
       object-fit: contain;
+      object-position: center center;
     }
     .water-card:hover img { transform: scale(1.05); }
     .water-card--device:hover img { transform: scale(1.03); }
@@ -1398,7 +1404,7 @@
   <!-- ═══════════════════ ОСТРОВА ЧАМ (полноширинный блок) ═══════════════════ -->
   <section class="tour-section" id="cham-hero">
     <div class="tour-section__photo" id="chamPhoto">
-      <img src="images/cham.jpg" alt="Острова Чам" decoding="async" loading="lazy" />
+      <video src="images/cham-video.mp4" poster="images/cham-video-poster.jpg" autoplay muted loop playsinline></video>
     </div>
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
