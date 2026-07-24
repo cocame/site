@@ -1280,6 +1280,26 @@
       .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
       .water-card__title { font-size: clamp(17px, 5vw, 22px); }
       .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
+
+      /* Карусель на мобильном — портретные карточки как у Apple */
+      .carousel-section { padding: clamp(24px, 6vw, 40px) 0 clamp(28px, 6vw, 44px); }
+      .carousel-section__title { font-size: clamp(26px, 8vw, 38px); text-align: center; }
+      .carousel__track { padding: 0 20px; gap: 12px; }
+      .carousel__card {
+        width: 85vw;
+        aspect-ratio: 3/4;
+      }
+      .carousel__card-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px;
+      }
+      .carousel__card-title {
+        font-size: clamp(17px, 5vw, 22px);
+        -webkit-line-clamp: 3;
+      }
+      .carousel__card-cta { font-size: 14px; padding: 9px 18px; }
     }
   </style>
 </head>
