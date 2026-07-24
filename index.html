@@ -947,14 +947,14 @@
     }
 
     @media (max-width: 600px) {
-      .water-card--device { aspect-ratio: 4/3; }
+      .water-card--device { aspect-ratio: unset; height: 80svh; }
     }
 
     @media (max-width: 600px) {
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; }
       .water-card { aspect-ratio: 4/3; }
-      .water-card--device { aspect-ratio: 4/3; }
+      .water-card--device { aspect-ratio: unset; height: 80svh; }
       .water-card__cta { display: none; }
     }
 
@@ -1268,10 +1268,11 @@
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Water cards — single column, Apple-style full-viewport */
+      /* Water cards — single column, каждая = весь экран как tour-section */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { aspect-ratio: 4/3; min-height: 280px; }
+      .water-card { aspect-ratio: unset; height: 80svh; min-height: 300px; max-height: none; }
+      .water-card--promo-light { height: 80svh; aspect-ratio: unset; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
