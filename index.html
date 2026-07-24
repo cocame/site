@@ -67,6 +67,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
@@ -658,6 +659,9 @@
     .carousel-nav__btn:disabled { opacity: 0.3; cursor: default; }
     .carousel {
       overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+      max-width: 100%;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -764,8 +768,6 @@
 
     /* ─── Фото, которые нельзя обрезать (например, руки/тело выходят за кадр) ── */
     .carousel__card--contain img { object-fit: contain; }
-    /* Острова Чам — восстановить ratio чтобы убрать чёрные полосы */
-    .carousel__card:has(img[src*="cham.jpg"]) { aspect-ratio: 4/3; }
     .carousel-dots {
       display: flex;
       justify-content: center;
@@ -1272,7 +1274,8 @@
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
       .water-card { aspect-ratio: unset; height: 80svh; min-height: 300px; max-height: none; }
-      .water-card--promo-light { height: 80svh; aspect-ratio: unset; }
+      /* Рыбалка (ландшафтный PNG) — оставить 4:3 чтобы фото не поплыло */
+      .water-card--promo-light { height: auto; aspect-ratio: 4/3; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
