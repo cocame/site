@@ -173,7 +173,7 @@
     .hero {
       position: relative;
       width: 100%;
-      height: calc(100svh - 156px - var(--peek));
+      height: calc(100svh - 88px - var(--peek));
       min-height: 400px;
       max-height: 1080px;
       background: #000;
@@ -277,7 +277,7 @@
 
     /* ─── COMFORT STRIP — black bar ────────────────────────────── */
     .comfort-strip {
-      height: 156px;
+      height: 88px;
       background: #111;
       border-top: 1px solid rgba(255,255,255,0.07);
       display: flex;
@@ -478,7 +478,7 @@
     }
 
     .tour-section__title {
-      font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.08;
@@ -674,7 +674,7 @@
       position: relative;
       display: block;
       flex: 0 0 auto;
-      width: min(82vw, 1100px);
+      width: min(72vw, 900px);
       aspect-ratio: 16/9;
       scroll-snap-align: center;
       text-decoration: none;
@@ -790,8 +790,8 @@
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      aspect-ratio: 11/5;
-      min-height: 78vh;
+      aspect-ratio: 4/3;
+      min-height: 300px;
       cursor: pointer;
       background: #1a1a1a;
     }
@@ -848,7 +848,7 @@
     }
 
     .water-card__title {
-      font-size: clamp(24px, 3vw, 40px);
+      font-size: clamp(28px, 3.5vw, 52px);
       font-weight: 700;
       letter-spacing: -0.03em;
       color: #fff;
@@ -967,7 +967,7 @@
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; }
       .water-card { aspect-ratio: 4/3; }
-      .water-card--device { aspect-ratio: 1/1; }
+      .water-card--device { aspect-ratio: 4/3; }
       .water-card__cta { display: none; }
     }
 
@@ -1153,11 +1153,6 @@
       background: rgba(255,255,255,0.12);
       border-color: rgba(255,255,255,0.7);
     }
-
-    /* ─── Zoom-out: viewport height > 1500px = страница уменьшена ── */
-    @media (min-height: 1500px) {
-      .hero       { max-height: 480px; }
-      .tour-section { max-height: 480px; }
     }
 
     /* ─── ПЛАНШЕТ: 601–1024px — раньше этого диапазона не было вообще ── */
@@ -1261,7 +1256,7 @@
       /* ── Apple-style: один блок = весь экран минус зазор минус пик ── */
       /* Hero: герой+стрип = один фолд; 88px = высота стрипа, 70px = пик тур-блока */
       .hero {
-        height: calc(100svh - 88px - var(--sep) - 70px);
+        height: calc(100svh - 88px - var(--sep) - 80px);
         aspect-ratio: unset; min-height: 280px; max-height: unset;
       }
       .hero__photo { inset: 0; background-image: url('images/danang-hero-mobile.jpg'); background-size: cover; background-position: center 55%; }
@@ -1289,7 +1284,7 @@
       /* Water cards — single column, Apple-style full-viewport */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { height: calc(100svh - var(--sep) - 70px); aspect-ratio: unset; min-height: 300px; }
+      .water-card { aspect-ratio: 4/3; min-height: 280px; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
@@ -1600,11 +1595,6 @@
 
       </div>
     </div>
-    <div class="carousel-footer">
-      <button type="button" class="carousel-nav__btn" id="carouselPrev" aria-label="Назад">‹</button>
-      <div class="carousel-dots" id="carouselDots"></div>
-      <button type="button" class="carousel-nav__btn" id="carouselNext" aria-label="Вперёд">›</button>
-    </div>
   </section>
 
 
@@ -1627,41 +1617,45 @@
     });
   </script>
 
-  <!-- ═══════════════════ КАРУСЕЛЬ: стрелки + точки ═══════════════════ -->
+  <!-- ═══════════════════ КАРУСЕЛЬ: автопрокрутка Apple-стиль ═══════════════════ -->
   <script>
     (function() {
-      const track = document.getElementById('carouselTrack');
+      var track = document.getElementById('carouselTrack');
       if (!track) return;
-      const prevBtn = document.getElementById('carouselPrev');
-      const nextBtn = document.getElementById('carouselNext');
-      const dotsContainer = document.getElementById('carouselDots');
-      const cards = track.querySelectorAll('.carousel__card');
+      var cards = track.querySelectorAll('.carousel__card');
       if (!cards.length) return;
 
-      // строим точки по фактическому числу карточек, а не вручную
-      cards.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'carousel-dots__dot' + (i === 0 ? ' is-active' : '');
-        dotsContainer.appendChild(dot);
+      var timer = null;
+      var INTERVAL = 4500;
+
+      function getStep() {
+        var card = cards[0];
+        return card.offsetWidth + 16;
+      }
+
+      function advance() {
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft >= maxScroll - 8) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: getStep(), behavior: 'smooth' });
+        }
+      }
+
+      function start() { timer = setInterval(advance, INTERVAL); }
+      function stop()  { clearInterval(timer); timer = null; }
+
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('touchstart', stop, { passive: true });
+      track.addEventListener('touchend', function() { setTimeout(start, 2000); }, { passive: true });
+
+      // Пауза когда вкладка неактивна
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) stop(); else start();
       });
-      const dots = document.querySelectorAll('#carouselDots .carousel-dots__dot');
 
-      function scrollByCard(dir) {
-        const card = cards[0];
-        const gap = 16;
-        track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
-      }
-      if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
-      if (nextBtn) nextBtn.addEventListener('click', () => scrollByCard(1));
-
-      function updateDots() {
-        const index = Math.round(track.scrollLeft / (cards[0].offsetWidth + 16));
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
-        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
-        if (nextBtn) nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
-      }
-      track.addEventListener('scroll', updateDots, { passive: true });
-      updateDots();
+      start();
     })();
   </script>
 
