@@ -665,6 +665,7 @@
     .carousel::-webkit-scrollbar { display: none; }
     .carousel__track {
       display: flex;
+      align-items: flex-start;
       gap: 16px;
       padding: 0 clamp(20px, 4vw, 48px);
       width: max-content;
@@ -783,8 +784,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--sep);
-      max-width: 1900px;
-      margin: 0 auto;
     }
 
     .water-card {
@@ -792,6 +791,7 @@
       border-radius: 0;
       overflow: hidden;
       aspect-ratio: 11/5;
+      min-height: 56vh;
       cursor: pointer;
       background: #1a1a1a;
     }
