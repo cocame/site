@@ -1492,13 +1492,72 @@
           </div>
         </a>
 
+        <a href="#" class="carousel__card">
+          <img src="images/bana.jpg" alt="Ба На Хиллс — Золотой мост" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Вечерний Ba Na Hills<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Магия Маленькой Европы · Золотой мост</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/danang-mockup.png" alt="Дананг за один день" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Дананг за один день<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Шоу Дракона · Мраморные горы · 64$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/hue.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Императорский Хюэ<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Запретный город · Величие династий · 85$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/hoian-new.jpg" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Древний Хойан<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Наследие ЮНЕСКО · Фонарики на реке · 65$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/dong-giang.webp" alt="Небесные врата Донг Зянг" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Небесные врата Донг Зянг<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Пещеры · Водопады · 70$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/fishing-mockup-transparent.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Рыбалка во Вьетнаме<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Ночной тур · Эксклюзив · 75$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Острова Чам<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Снорклинг · Обед включён · 70$</span></p>
+          </div>
+        </a>
+
       </div>
     </div>
-    <div class="carousel-dots" id="carouselDots">
-      <div class="carousel-dots__dot is-active"></div>
-      <div class="carousel-dots__dot"></div>
-      <div class="carousel-dots__dot"></div>
-    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
 
@@ -1528,9 +1587,17 @@
       if (!track) return;
       const prevBtn = document.getElementById('carouselPrev');
       const nextBtn = document.getElementById('carouselNext');
-      const dots = document.querySelectorAll('#carouselDots .carousel-dots__dot');
+      const dotsContainer = document.getElementById('carouselDots');
       const cards = track.querySelectorAll('.carousel__card');
       if (!cards.length) return;
+
+      // строим точки по фактическому числу карточек, а не вручную
+      cards.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dots__dot' + (i === 0 ? ' is-active' : '');
+        dotsContainer.appendChild(dot);
+      });
+      const dots = document.querySelectorAll('#carouselDots .carousel-dots__dot');
 
       function scrollByCard(dir) {
         const card = cards[0];
