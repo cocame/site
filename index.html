@@ -1269,8 +1269,16 @@
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
       .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
-      /* Рыбалка на мобильном тоже 80svh */
+      /* Рыбалка на мобильном тоже 80svh, картинка в нижних 46% карточки */
       .water-card--promo-light { height: 80vh; height: 80svh; aspect-ratio: unset; }
+      .water-card--promo-light img {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        width: 100%;
+        height: 46%;
+        object-fit: contain;
+        object-position: center bottom;
+      }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
