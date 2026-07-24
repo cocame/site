@@ -952,13 +952,7 @@
       .water-card--device { aspect-ratio: unset; height: 80svh; }
     }
 
-    @media (max-width: 600px) {
-      .water-grid { padding: 0; }
-      .water-grid__grid { grid-template-columns: 1fr; }
-      .water-card { aspect-ratio: 4/3; }
-      .water-card--device { aspect-ratio: unset; height: 80svh; }
-      .water-card__cta { display: none; }
-    }
+
 
     /* ─── ALL TOURS GRID ───────────────────────────────────────── */
     .tours-grid {
@@ -1273,7 +1267,7 @@
       /* Water cards — single column, каждая = весь экран как tour-section */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { aspect-ratio: unset; height: 80svh; min-height: 300px; max-height: none; }
+      .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
       /* Рыбалка (ландшафтный PNG) — оставить 4:3 чтобы фото не поплыло */
       .water-card--promo-light { height: auto; aspect-ratio: 4/3; }
       .water-card__cta { display: none; }
@@ -1389,6 +1383,24 @@
   </div>
 
 
+  <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
+  <section class="tour-section tour-section--light" id="bana-old">
+    <div class="tour-section__content">
+      <h2 class="tour-section__title">
+        Дананг<br />за один день
+      </h2>
+      <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
+      <div class="tour-section__btns">
+        <a href="#" class="btn-tour">Узнать больше</a>
+      </div>
+    </div>
+    <div class="tour-section__photo" id="danangPhoto">
+      <img src="images/danang-mockup3.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+    </div>
+    <div class="tour-section__gradient"></div>
+  </section>
+
+
   <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
   <section class="tour-section" id="tours">
     <div class="tour-section__photo" id="banaPhoto">
@@ -1408,24 +1420,6 @@
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
-  </section>
-
-
-  <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
-  <section class="tour-section tour-section--light" id="bana-old">
-    <div class="tour-section__content">
-      <h2 class="tour-section__title">
-        Дананг<br />за один день
-      </h2>
-      <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
-      <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
-      </div>
-    </div>
-    <div class="tour-section__photo" id="danangPhoto">
-      <img src="images/danang-mockup3.png" alt="Дананг за один день" decoding="async" loading="lazy" />
-    </div>
-    <div class="tour-section__gradient"></div>
   </section>
 
 
@@ -1476,11 +1470,11 @@
       </div>
 
       <div class="water-card">
-        <img src="images/dong-giang.webp" alt="Небесные врата Донг Зянг" loading="lazy" />
+        <img src="images/bana-evening.jpg" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
-          <p class="water-card__title">Небесные врата Донг Зянг</p>
-          <p class="water-card__sub">Пещеры · Водопады · 70$</p>
+          <p class="water-card__title">Вечерний Ba Na Hills</p>
+          <p class="water-card__sub">Огни Маленькой Европы · Золотой мост · 75$</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
