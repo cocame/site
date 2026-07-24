@@ -924,6 +924,9 @@
       object-fit: contain;
       object-position: center bottom;
     }
+    @media (max-width: 600px) {
+      .water-card--promo-light img { object-fit: cover; object-position: center center; }
+    }
     .water-card--promo-light .water-card__body .water-card__title,
     .water-card--promo-light .water-card__body .water-card__sub { color: #1d1d1f; text-shadow: none; }
     .water-card--promo-light .water-card__body .water-card__btn {
@@ -1268,8 +1271,8 @@
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
       .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
-      /* Рыбалка (ландшафтный PNG) — оставить 4:3 чтобы фото не поплыло */
-      .water-card--promo-light { height: auto; aspect-ratio: 4/3; }
+      /* Рыбалка на мобильном тоже 80svh */
+      .water-card--promo-light { height: 80vh; height: 80svh; aspect-ratio: unset; }
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
