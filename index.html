@@ -690,8 +690,12 @@
       position: absolute;
       left: 0; right: 0; bottom: 0;
       padding: clamp(16px, 3vw, 32px);
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
     .carousel__card-title {
+      min-width: 0;
       font-size: clamp(15px, 1.6vw, 19px);
       font-weight: 700;
       color: #fff;
@@ -708,7 +712,7 @@
     }
     .carousel__card-cta {
       display: inline-block;
-      margin-top: 12px;
+      flex: 0 0 auto;
       padding: 9px 20px;
       border-radius: 980px;
       background: #fff;
@@ -1458,8 +1462,8 @@
           <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
-            <p class="carousel__card-title">Морская прогулка <span class="carousel__card-sub-inline">· Закат на воде · Ужин на борту</span></p>
             <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Морская прогулка <span class="carousel__card-sub-inline">· Закат на воде · Ужин на борту</span></p>
           </div>
         </a>
 
@@ -1467,8 +1471,8 @@
           <img src="images/springs.jpg" alt="Горячие источники" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
-            <p class="carousel__card-title">Горячие источники — гора удачи <span class="carousel__card-sub-inline">· Онсэн · Аквапарк · 72$</span></p>
             <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Горячие источники — гора удачи <span class="carousel__card-sub-inline">· Онсэн · Аквапарк · 72$</span></p>
           </div>
         </a>
 
@@ -1476,8 +1480,8 @@
           <img src="images/vinwonders.jpg" alt="VinWonders Хойан" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
-            <p class="carousel__card-title">VinWonders Хойан <span class="carousel__card-sub-inline">· Сафари · Парк аттракционов · 60$</span></p>
             <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">VinWonders Хойан <span class="carousel__card-sub-inline">· Сафари · Парк аттракционов · 60$</span></p>
           </div>
         </a>
 
