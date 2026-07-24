@@ -728,6 +728,31 @@
       white-space: nowrap;
     }
     .carousel__card-cta:hover { background: #f0f0f0; }
+
+    /* ─── Карточки-мокапы с прозрачным фоном (Дананг, Рыбалка) — нужен светлый фон ── */
+    .carousel__card--light {
+      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+    }
+    .carousel__card--light img { object-fit: contain; }
+    .carousel__card--light .carousel__card-gradient {
+      background: linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%);
+    }
+    .carousel__card--light .carousel__card-title,
+    .carousel__card--light .carousel__card-sub-inline,
+    .carousel__card--light .carousel__card-dot {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+
+    .carousel__card--light .carousel__card-cta {
+      background: rgba(0,0,0,0.06);
+      color: #1d1d1f;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .carousel__card--light .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
+
+    /* ─── Фото, которые нельзя обрезать (например, руки/тело выходят за кадр) ── */
+    .carousel__card--contain img { object-fit: contain; }
     .carousel-dots {
       display: flex;
       justify-content: center;
@@ -1501,7 +1526,7 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
+        <a href="#" class="carousel__card carousel__card--light">
           <img src="images/danang-mockup2.png" alt="Дананг за один день" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
@@ -1537,7 +1562,7 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
+        <a href="#" class="carousel__card carousel__card--light">
           <img src="images/fishing-mockup-transparent.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
@@ -1546,7 +1571,7 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
+        <a href="#" class="carousel__card carousel__card--contain">
           <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
