@@ -418,9 +418,9 @@
     .tour-section {
       position: relative;
       width: 100%;
-      height: calc(100svh - var(--peek));
+      height: 80svh;
       min-height: 500px;
-      max-height: 1080px;
+      max-height: 900px;
       overflow: hidden;
       margin-bottom: var(--sep);
       background: #111;
@@ -497,10 +497,10 @@
 
     /* ─── Светлый вариант tour-section (Дананг за один день) ── */
     .tour-section--light {
-      height: calc(100svh - var(--peek));
+      height: 80svh;
       min-height: 500px;
-      max-height: 1080px;
-      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+      max-height: 900px;
+      background: #f5f5f7;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -678,7 +678,7 @@
       aspect-ratio: 16/9;
       scroll-snap-align: center;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 0;
       overflow: hidden;
       background: #1a1a1a;
       transition: transform 0.3s ease;
@@ -741,7 +741,7 @@
 
     /* ─── Карточки-мокапы с прозрачным фоном (Дананг, Рыбалка) — нужен светлый фон ── */
     .carousel__card--light {
-      background: linear-gradient(180deg, #eef3f8 0%, #dbe6f0 100%);
+      background: #f5f5f7;
     }
     .carousel__card--light img { object-fit: contain; }
     /* убираем полосы по бокам/сверху-снизу — точная пропорция под каждую картинку */
@@ -764,6 +764,8 @@
 
     /* ─── Фото, которые нельзя обрезать (например, руки/тело выходят за кадр) ── */
     .carousel__card--contain img { object-fit: contain; }
+    /* Острова Чам — восстановить ratio чтобы убрать чёрные полосы */
+    .carousel__card:has(img[src*="cham.jpg"]) { aspect-ratio: 4/3; }
     .carousel-dots {
       display: flex;
       justify-content: center;
@@ -845,15 +847,15 @@
     }
 
     .water-card__title {
-      font-size: clamp(28px, 3.5vw, 52px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      font-size: clamp(19px, 1.6vw, 24px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
       color: #fff;
       line-height: 1.15;
     }
 
     .water-card__sub {
-      font-size: clamp(14px, 1.6vw, 20px);
+      font-size: clamp(13px, 1vw, 15px);
       font-weight: 400;
       color: rgba(255,255,255,1);
     }
@@ -914,30 +916,18 @@
     .water-card--device {
       background: linear-gradient(180deg, rgb(176,218,237) 0%, rgb(237,240,241) 100%);
     }
-    .water-card--device-fishing {
-      background: rgb(240,240,242);
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      padding: clamp(16px, 4%, 32px) 24px 0;
-    }
-    .water-card--device-fishing .water-card__body {
-      position: static;
-      flex: 0 0 auto;
-      padding: 0 0 clamp(12px, 2%, 20px);
-      text-align: center;
-    }
-    .water-card--device-fishing .water-card__media {
-      position: relative;
-      flex: 1 1 auto;
-      min-height: 0;
-    }
-    .water-card--device-fishing .water-card__media img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+    /* Рыбалка — прозрачный PNG телефонов на светлом фоне */
+    .water-card--promo-light { background: #f5f5f7; }
+    .water-card--promo-light img {
       object-fit: contain;
+      object-position: center bottom;
+    }
+    .water-card--promo-light .water-card__body .water-card__title,
+    .water-card--promo-light .water-card__body .water-card__sub { color: #1d1d1f; text-shadow: none; }
+    .water-card--promo-light .water-card__body .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.7);
     }
     .water-card__overlay--top {
       background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 30%);
@@ -1287,7 +1277,7 @@
       /* Типографика блоков */
       .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); line-height: 1.05; }
       .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
-      .water-card__title { font-size: clamp(22px, 7vw, 36px); }
+      .water-card__title { font-size: clamp(17px, 5vw, 22px); }
       .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
     }
   </style>
@@ -1398,11 +1388,7 @@
 
 
   <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
-  <section class="tour-section" id="bana-old">
-    <div class="tour-section__photo" id="danangPhoto">
-      <img src="images/danang-hero.jpg" alt="Дананг за один день" decoding="async" loading="lazy" style="object-position: center 60%;" />
-    </div>
-    <div class="tour-section__gradient"></div>
+  <section class="tour-section tour-section--light" id="bana-old">
     <div class="tour-section__content">
       <h2 class="tour-section__title">
         Дананг<br />за один день
@@ -1412,6 +1398,10 @@
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
+    <div class="tour-section__photo" id="danangPhoto">
+      <img src="images/danang-mockup3.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+    </div>
+    <div class="tour-section__gradient"></div>
   </section>
 
 
@@ -1438,25 +1428,23 @@
     <div class="water-grid__inner">
     <div class="water-grid__grid">
 
-      <div class="water-card water-card--device water-card--device-fishing">
-        <div class="water-card__body water-card__body--device">
+      <div class="water-card water-card--promo-light">
+        <img src="images/fishing-mockup-transparent-cropped.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
+        <div class="water-card__body">
           <p class="water-card__title">Рыбалка во Вьетнаме</p>
           <p class="water-card__sub">Ночной тур · Эксклюзив · 75$</p>
           <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="#" class="water-card__btn water-card__btn--dark">Узнать больше</a>
           </div>
-        </div>
-        <div class="water-card__media">
-          <img src="images/fishing-mockup-transparent-cropped.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
         </div>
       </div>
 
       <div class="water-card">
-        <img src="images/hoian-new.jpg" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
+        <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Древний Хойан</p>
-          <p class="water-card__sub">Наследие ЮНЕСКО · Фонарики на реке · 65$</p>
+          <p class="water-card__sub">Наследие ЮНЕСКО · Город тысяч фонариков · 65$</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
@@ -1537,7 +1525,7 @@
         </a>
 
         <a href="#" class="carousel__card carousel__card--light">
-          <img src="images/danang-mockup2.png" alt="Дананг за один день" loading="lazy" />
+          <img src="images/danang-mockup3.png" alt="Дананг за один день" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
@@ -1555,11 +1543,11 @@
         </a>
 
         <a href="#" class="carousel__card">
-          <img src="images/hoian-new.jpg" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
+          <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Древний Хойан<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Наследие ЮНЕСКО · Фонарики на реке · 65$</span></p>
+            <p class="carousel__card-title">Древний Хойан<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Наследие ЮНЕСКО · Город тысяч фонариков · 65$</span></p>
           </div>
         </a>
 
@@ -1572,23 +1560,7 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--light">
-          <img src="images/fishing-mockup-transparent-cropped.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
-          <div class="carousel__card-gradient"></div>
-          <div class="carousel__card-body">
-            <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Рыбалка во Вьетнаме<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Ночной тур · Эксклюзив · 75$</span></p>
-          </div>
-        </a>
 
-        <a href="#" class="carousel__card carousel__card--contain">
-          <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
-          <div class="carousel__card-gradient"></div>
-          <div class="carousel__card-body">
-            <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Острова Чам<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Снорклинг · Обед включён · 70$</span></p>
-          </div>
-        </a>
 
       </div>
     </div>
