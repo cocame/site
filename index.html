@@ -268,7 +268,7 @@
       color: rgba(255,255,255,1);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-top: clamp(8px, 1vw, 14px);
+      margin-top: clamp(24px, 3vw, 40px);
       white-space: normal;
       text-align: center;
     }
@@ -608,7 +608,7 @@
     /* ─── WATER EXCURSIONS GRID ─────────────────────────────────── */
     .water-grid {
       background: #fff;
-      padding: 0 var(--sep);
+      padding: 0;
       margin-bottom: var(--sep);
     }
 
@@ -667,18 +667,18 @@
       display: flex;
       align-items: flex-start;
       gap: 16px;
-      padding: 0 clamp(20px, 4vw, 48px);
+      padding: 0 clamp(16px, 2vw, 24px);
       width: max-content;
     }
     .carousel__card {
       position: relative;
       display: block;
       flex: 0 0 auto;
-      width: min(72vw, 900px);
+      width: min(86vw, 1080px);
       aspect-ratio: 16/9;
       scroll-snap-align: center;
       text-decoration: none;
-      border-radius: 0;
+      border-radius: 12px;
       overflow: hidden;
       background: #1a1a1a;
       transition: transform 0.3s ease;
@@ -745,9 +745,6 @@
     }
     .carousel__card--light img { object-fit: contain; }
     /* убираем полосы по бокам/сверху-снизу — точная пропорция под каждую картинку */
-    .carousel__card:has(img[src*="danang-mockup2"]) { aspect-ratio: 3/2; }
-    .carousel__card:has(img[src*="fishing-mockup-transparent"]) { aspect-ratio: 7/3; }
-    .carousel__card:has(img[src*="cham.jpg"]) { aspect-ratio: 4/3; }
     .carousel__card--light .carousel__card-gradient {
       background: linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%);
     }
@@ -1401,7 +1398,11 @@
 
 
   <!-- ═══════════════════ ДАНАНГ ЗА ОДИН ДЕНЬ ═══════════════════ -->
-  <section class="tour-section tour-section--light" id="bana-old">
+  <section class="tour-section" id="bana-old">
+    <div class="tour-section__photo" id="danangPhoto">
+      <img src="images/danang-hero.jpg" alt="Дананг за один день" decoding="async" loading="lazy" style="object-position: center 60%;" />
+    </div>
+    <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
         Дананг<br />за один день
@@ -1411,10 +1412,6 @@
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
-    <div class="tour-section__photo" id="danangPhoto">
-      <img src="images/danang-mockup2.png" alt="Дананг за один день" decoding="async" loading="lazy" />
-    </div>
-    <div class="tour-section__gradient"></div>
   </section>
 
 
