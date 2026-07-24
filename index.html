@@ -783,15 +783,15 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--sep);
+      max-width: 1900px;
+      margin: 0 auto;
     }
 
     .water-card {
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      height: calc(100svh - var(--sep) - 90px);
-      min-height: 420px;
-      max-height: 900px;
+      aspect-ratio: 11/5;
       cursor: pointer;
       background: #1a1a1a;
     }
