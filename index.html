@@ -620,16 +620,23 @@
     }
     .carousel-section__head {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       padding: 0 clamp(20px, 4vw, 48px);
-      margin-bottom: clamp(16px, 2.5vw, 24px);
+      margin-bottom: clamp(24px, 4vw, 40px);
     }
     .carousel-section__title {
-      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-size: clamp(1.8rem, 3.4vw, 2.8rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: #1d1d1f;
+      text-align: center;
+    }
+    .carousel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
     }
     .carousel-nav {
       display: flex;
@@ -758,7 +765,6 @@
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-top: 20px;
     }
     .carousel-dots__dot {
       width: 8px; height: 8px;
@@ -1388,57 +1394,17 @@
   </section>
 
 
-  <!-- ═══════════════════ ХЮЭ ═══════════════════ -->
-  <section class="tour-section" id="hue">
-    <div class="tour-section__photo" id="huePhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/hue-mobile.jpg">
-        <img src="images/hue.jpg" alt="Хюэ — Императорская цитадель" decoding="async" loading="lazy" />
-      </picture>
+  <!-- ═══════════════════ ОСТРОВА ЧАМ (полноширинный блок) ═══════════════════ -->
+  <section class="tour-section" id="cham-hero">
+    <div class="tour-section__photo" id="chamPhoto">
+      <img src="images/cham.jpg" alt="Острова Чам" decoding="async" loading="lazy" />
     </div>
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
-        Императорский Хюэ
+        Острова Чам
       </h2>
-      <p class="tour-section__subtitle">Здесь драконы шепчут легенды: запретный город, дух старого Востока и величие династий · 85$</p>
-      <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════ ХОЙАН ═══════════════════ -->
-  <section class="tour-section" id="hoian">
-    <div class="tour-section__photo" id="hoianPhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/hoian-new.jpg">
-        <img src="images/hoian-new.jpg" alt="Хойан — древний город ЮНЕСКО" decoding="async" loading="lazy" />
-      </picture>
-    </div>
-    <div class="tour-section__gradient"></div>
-    <div class="tour-section__content">
-      <h2 class="tour-section__title">
-        Древний Хойан —<br />наследие ЮНЕСКО
-      </h2>
-      <p class="tour-section__subtitle">Старый город, кокосовые джунгли, рисовые поля, фонарики на ночной реке · 65$</p>
-      <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════ ДОНГ ЗЯНГ — НЕБЕСНЫЕ ВРАТА ═══════════════════ -->
-  <section class="tour-section" id="dong-giang">
-    <div class="tour-section__photo" id="dongGiangPhoto"></div>
-    <div class="tour-section__gradient"></div>
-    <div class="tour-section__content">
-      <h2 class="tour-section__title">
-        Небесные врата<br />Донг Зянг
-      </h2>
-      <p class="tour-section__subtitle">Здесь стираются границы между мирами.<br>Пещеры · Водопады · Стеклянный мост · Деревня Ко Ту · 70$</p>
+      <p class="tour-section__subtitle">Снорклинг · Обед включён · 70$</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
@@ -1464,11 +1430,35 @@
       </div>
 
       <div class="water-card">
-        <img src="images/cham.jpg" alt="Острова Чам" loading="lazy" />
+        <img src="images/hoian-new.jpg" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
-          <p class="water-card__title">Острова Чам</p>
-          <p class="water-card__sub">Снорклинг · Обед включён · 70$</p>
+          <p class="water-card__title">Древний Хойан</p>
+          <p class="water-card__sub">Наследие ЮНЕСКО · Фонарики на реке · 65$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="water-card">
+        <img src="images/dong-giang.webp" alt="Небесные врата Донг Зянг" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <div class="water-card__body">
+          <p class="water-card__title">Небесные врата Донг Зянг</p>
+          <p class="water-card__sub">Пещеры · Водопады · 70$</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="water-card">
+        <img src="images/hue.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <div class="water-card__overlay"></div>
+        <div class="water-card__body">
+          <p class="water-card__title">Императорский Хюэ</p>
+          <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
           <div class="water-card__btns">
             <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
@@ -1484,10 +1474,6 @@
   <section class="carousel-section">
     <div class="carousel-section__head">
       <h3 class="carousel-section__title">Ещё больше впечатлений</h3>
-      <div class="carousel-nav">
-        <button type="button" class="carousel-nav__btn" id="carouselPrev" aria-label="Назад">‹</button>
-        <button type="button" class="carousel-nav__btn" id="carouselNext" aria-label="Вперёд">›</button>
-      </div>
     </div>
     <div class="carousel" id="carouselTrack">
       <div class="carousel__track">
@@ -1584,7 +1570,11 @@
 
       </div>
     </div>
-    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="carousel-footer">
+      <button type="button" class="carousel-nav__btn" id="carouselPrev" aria-label="Назад">‹</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button type="button" class="carousel-nav__btn" id="carouselNext" aria-label="Вперёд">›</button>
+    </div>
   </section>
 
 
@@ -1704,24 +1694,9 @@
         scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
 
-      gsap.to('#huePhoto', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#hue', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
-      });
-
       gsap.to('#chamPhoto', {
         yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#cham', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
-      });
-
-      gsap.to('#hoianPhoto', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#hoian', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
-      });
-
-      gsap.to('#dongGiangPhoto', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#dong-giang', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+        scrollTrigger: { trigger: '#cham-hero', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
       } // end mobile parallax check
     }
