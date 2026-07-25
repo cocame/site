@@ -776,7 +776,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 65%;
     }
     .carousel__card--sea-promo .carousel__card-title,
     .carousel__card--sea-promo .carousel__card-sub-inline,
@@ -790,9 +790,24 @@
       border: 1px solid rgba(0,0,0,0.15);
     }
     .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
+    .carousel__card--sea-promo .carousel__card-gradient { display: none; }
     @media (max-width: 768px) {
       .carousel__card--sea-promo img {
         height: 100%;
+      }
+    }
+
+    /* ─── Квадратные фото в портретных карточках (3:4 мобильный) ─────────────── */
+    /* Субъект в нижней половине фото: добавь класс sq-low */
+    /* Субъект в нижней трети фото:    добавь класс sq-bottom */
+    @media (max-width: 768px) {
+      .carousel__card--sq-low img {
+        transform: scale(1.5);
+        transform-origin: center 80%;
+      }
+      .carousel__card--sq-bottom img {
+        transform: scale(1.8);
+        transform-origin: center 85%;
       }
     }
 
@@ -1555,8 +1570,9 @@
     <div class="carousel" id="carouselTrack">
       <div class="carousel__track">
 
-        <a href="#" class="carousel__card carousel__card--sea-promo">
+        <a href="#" class="carousel__card carousel__card--sea-promo carousel__card--sq-bottom">
           <img src="images/sea-promo.png" alt="Морская прогулка" loading="lazy" />
+          <div class="carousel__card-gradient carousel__card-gradient--light"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Смотрите прямо сейчас</span>
             <p class="carousel__card-title">Морская прогулка<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Закат на воде · Ужин на борту</span></p>
