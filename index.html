@@ -534,18 +534,17 @@
        Было: object-fit contain в контейнере max-width 980px — масштаб упирался
        в высоту остатка флекс-колонки, фигуры выходили ~31% ширины экрана
        вместо 74% как на apple.com.
-       В danang-mockup3.png прозрачные поля: сверху 12.9%, снизу 10.5% от высоты
-       (файл 1536x1024, ratio 1.5) — убираем их отрицательными margin, иначе
-       фигуры висят в воздухе. При замене картинки поля перемерить. */
+       danang-mockup4.png уже обрезан по фигурам (1430x679, ratio 2.106, альфа
+       плавная), поэтому отрицательные margin не нужны — фигуры сами упираются
+       в края блока. Если вернуть danang-mockup3.png, у него прозрачные поля
+       сверху 12.9% / снизу 10.5% и их надо снова съедать margin. */
     .tour-section--light .tour-section__photo {
       position: static;
       inset: auto;
-      width: min(1240px, 76vw);
+      width: min(1240px, 74vw);
       max-width: none;
       flex: 0 0 auto;
       display: block;
-      margin-top: calc(min(1240px, 76vw) / 1.5 * -0.129);
-      margin-bottom: calc(min(1240px, 76vw) / 1.5 * -0.105);
     }
     .tour-section--light .tour-section__photo img {
       width: 100%;
@@ -1353,11 +1352,7 @@
       /* «Дананг за один день»: высота по контенту (иначе под фигурами пустота
          от height: calc(100svh…) выше), фигуры почти во всю ширину экрана. */
       .tour-section--light { height: auto; min-height: 0; max-height: none; }
-      .tour-section--light .tour-section__photo {
-        width: 92vw;
-        margin-top: calc(92vw / 1.5 * -0.129);
-        margin-bottom: calc(92vw / 1.5 * -0.105);
-      }
+      .tour-section--light .tour-section__photo { width: 92vw; }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
@@ -1544,7 +1539,7 @@
       </div>
     </div>
     <div class="tour-section__photo" id="danangPhoto">
-      <img src="images/danang-mockup3.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+      <img src="images/danang-mockup4.png" alt="Дананг за один день" decoding="async" loading="lazy" />
     </div>
     <div class="tour-section__gradient"></div>
   </section>
