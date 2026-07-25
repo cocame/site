@@ -1352,7 +1352,15 @@
 
       /* Карусель на мобильном — портретные карточки как у Apple */
       .carousel-section { padding: clamp(24px, 6vw, 40px) 0 clamp(28px, 6vw, 44px); }
-      .carousel-section__title { font-size: clamp(26px, 8vw, 38px); text-align: center; }
+      /* Заголовок одной строкой, как на apple.com. Ширина текста = 12.42 × font-size
+         (замерено для «Бесконечные путешествия», SF Pro 700, letter-spacing -0.02em).
+         6.9vw влезает в доступные 100vw-40px на всех ширинах от 320px.
+         Если менять текст заголовка — перемерить коэффициент. */
+      .carousel-section__title {
+        font-size: min(38px, 6.9vw);
+        text-align: center;
+        white-space: nowrap;
+      }
       .carousel__track { padding: 0 20px; gap: 12px; }
       .carousel__card {
         width: 85vw;
