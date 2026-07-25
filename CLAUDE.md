@@ -36,6 +36,11 @@
 |---|---|---|
 | Нижняя половина фото | `carousel__card--sq-low` | 1.5 / center 80% |
 | Нижняя треть фото | `carousel__card--sq-bottom` | 1.8 / center 85% |
+| Центр фото, обрезать нельзя | `carousel__card--sq-fit` | 1.25 / center 96% |
+
+**Важно про sq-fit:** для фото с субъектом в центре (например `sea-promo.png` — планшеты)
+классы sq-low/sq-bottom НЕ подходят: они рассчитаны на низкий субъект и при таком зуме
+режут края. Предел без обрезки для центрального субъекта — `scale 1.498`.
 
 ```html
 <a href="#" class="carousel__card carousel__card--sq-bottom">

@@ -800,14 +800,20 @@
     /* ─── Квадратные фото в портретных карточках (3:4 мобильный) ─────────────── */
     /* Субъект в нижней половине фото: добавь класс sq-low */
     /* Субъект в нижней трети фото:    добавь класс sq-bottom */
+    /* Субъект в центре, обрезать нельзя: добавь класс sq-fit */
     @media (max-width: 768px) {
       .carousel__card--sq-low img {
         transform: scale(1.5);
         transform-origin: center 80%;
       }
       .carousel__card--sq-bottom img {
-        transform: scale(2.2);
-        transform-origin: center 93%;
+        transform: scale(1.8);
+        transform-origin: center 85%;
+      }
+      /* Предел для центрального субъекта — scale 1.498, дальше режутся края */
+      .carousel__card--sq-fit img {
+        transform: scale(1.25);
+        transform-origin: center 96%;
       }
     }
 
@@ -1570,7 +1576,7 @@
     <div class="carousel" id="carouselTrack">
       <div class="carousel__track">
 
-        <a href="#" class="carousel__card carousel__card--sea-promo carousel__card--sq-bottom">
+        <a href="#" class="carousel__card carousel__card--sea-promo carousel__card--sq-fit">
           <img src="images/sea-promo.png" alt="Морская прогулка" loading="lazy" />
           <div class="carousel__card-gradient carousel__card-gradient--light"></div>
           <div class="carousel__card-body">
