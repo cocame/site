@@ -766,6 +766,36 @@
     }
     .carousel__card--light .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
 
+    /* ─── Морская прогулка — планшеты на белом фоне ── */
+    .carousel__card--sea-promo {
+      background: #f5f5f7;
+    }
+    .carousel__card--sea-promo img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+    .carousel__card--sea-promo .carousel__card-title,
+    .carousel__card--sea-promo .carousel__card-sub-inline,
+    .carousel__card--sea-promo .carousel__card-dot {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .carousel__card--sea-promo .carousel__card-cta {
+      background: rgba(0,0,0,0.06);
+      color: #1d1d1f;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
+    @media (max-width: 768px) {
+      .carousel__card--sea-promo img {
+        height: 100%;
+      }
+    }
+
     /* ─── Фото, которые нельзя обрезать (например, руки/тело выходят за кадр) ── */
     .carousel__card--contain img { object-fit: contain; }
     .carousel-dots {
@@ -934,6 +964,16 @@
     }
     .water-card__overlay--top {
       background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 30%);
+    }
+    .water-card--hue img {
+      filter: brightness(1.45) saturate(0.75);
+    }
+    .water-card--hue .water-card__title,
+    .water-card--hue .water-card__sub { color: #1d1d1f; text-shadow: none; }
+    .water-card--hue .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.75);
     }
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
@@ -1505,7 +1545,6 @@
       </div>
 
     </div>
-    </div>
   </section>
 
   <!-- ═══════════════════ КАРУСЕЛЬ — БЕСКОНЕЧНЫЕ РАЗВЛЕЧЕНИЯ ═══════════════════ -->
@@ -1516,9 +1555,8 @@
     <div class="carousel" id="carouselTrack">
       <div class="carousel__track">
 
-        <a href="#" class="carousel__card">
-          <img src="images/sea-mockup2.png" alt="Морская прогулка" loading="lazy" />
-          <div class="carousel__card-gradient"></div>
+        <a href="#" class="carousel__card carousel__card--sea-promo">
+          <img src="images/sea-promo.png" alt="Морская прогулка" loading="lazy" />
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Смотрите прямо сейчас</span>
             <p class="carousel__card-title">Морская прогулка<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Закат на воде · Ужин на борту</span></p>
@@ -1585,6 +1623,15 @@
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
             <p class="carousel__card-title">Небесные врата Донг Зянг<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Пещеры · Водопады · 70$</span></p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card">
+          <img src="images/fishing-boat.jpg" alt="Морская рыбалка" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
+          <div class="carousel__card-body">
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Рыбалка в открытом море<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Тралловый бот · Удочки · Свежий улов</span></p>
           </div>
         </a>
 
