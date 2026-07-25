@@ -1794,43 +1794,109 @@
     });
   </script>
 
-  <!-- ═══════════════════ КАРУСЕЛЬ: автопрокрутка Apple-стиль ═══════════════════ -->
+  <!-- ═══════════════════ КАРУСЕЛЬ: бесконечное кольцо, Apple-стиль ═══════════════════ -->
   <script>
     (function() {
-      var track = document.getElementById('carouselTrack');
+      var viewport = document.getElementById('carouselTrack');   // .carousel — скроллер
+      if (!viewport) return;
+      var track = viewport.querySelector('.carousel__track');
       if (!track) return;
-      var cards = track.querySelectorAll('.carousel__card');
-      if (!cards.length) return;
 
-      var timer = null;
-      var INTERVAL = 4500;
+      var originals = Array.prototype.slice.call(track.children);
+      var N = originals.length;
+      if (N < 2) return;
 
-      function getStep() {
-        var card = cards[0];
-        return card.offsetWidth + 16;
+      /* Кольцо: [копия набора][оригиналы][копия набора].
+         Держим позицию всегда в среднем наборе, а на его границах мгновенно
+         переносим на эквивалентную карточку соседнего набора. Содержимое
+         одинаковое, поэтому перенос не виден — лента идёт по кругу без отката.
+         Прошлая версия делала scrollTo({left:0}), то есть откручивала ленту
+         назад, причём left:0 не совпадает с центром первой карточки, и
+         scroll-snap тянул её к снап-точке — отсюда остановка на полкарточки. */
+      var head = document.createDocumentFragment();
+      var tail = document.createDocumentFragment();
+      originals.forEach(function(el) {
+        [head, tail].forEach(function(frag) {
+          var c = el.cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          c.setAttribute('tabindex', '-1');
+          frag.appendChild(c);
+        });
+      });
+      track.insertBefore(head, track.firstChild);
+      track.appendChild(tail);
+
+      var all = Array.prototype.slice.call(track.children);
+      var index = N;                                  // первая карточка среднего набора
+
+      function centerOf(el) {
+        return el.offsetLeft - (viewport.clientWidth - el.offsetWidth) / 2;
+      }
+
+      /* Мгновенный перенос: snap отключаем на кадр, иначе браузер попытается
+         доехать до снап-точки сам и перенос станет заметным. */
+      function jumpTo(i) {
+        index = i;
+        var prev = viewport.style.scrollSnapType;
+        viewport.style.scrollSnapType = 'none';
+        viewport.scrollLeft = centerOf(all[i]);
+        requestAnimationFrame(function() { viewport.style.scrollSnapType = prev; });
+      }
+
+      function glideTo(i) {
+        index = i;
+        viewport.scrollTo({ left: centerOf(all[i]), behavior: 'smooth' });
       }
 
       function advance() {
-        var maxScroll = track.scrollWidth - track.clientWidth;
-        if (track.scrollLeft >= maxScroll - 8) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          track.scrollBy({ left: getStep(), behavior: 'smooth' });
-        }
+        // нормализуем ДО анимации, чтобы вперёд всегда был запас в один набор
+        if (index + 1 >= 2 * N) jumpTo(index - N);
+        glideTo(index + 1);
       }
 
-      function start() { timer = setInterval(advance, INTERVAL); }
+      function nearest() {
+        var pos = viewport.scrollLeft, best = index, bestD = Infinity;
+        for (var i = 0; i < all.length; i++) {
+          var d = Math.abs(centerOf(all[i]) - pos);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+        return best;
+      }
+
+      /* После свайпа пальцем позиция может уйти в крайний набор — возвращаем
+         в средний, чтобы запас оставался в обе стороны. */
+      var settle = null;
+      viewport.addEventListener('scroll', function() {
+        clearTimeout(settle);
+        settle = setTimeout(function() {
+          var i = nearest();
+          if (i >= 2 * N) jumpTo(i - N);
+          else if (i < N) jumpTo(i + N);
+          else index = i;
+        }, 140);
+      }, { passive: true });
+
+      var timer = null;
+      var INTERVAL = 4500;
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function start() { if (!timer && !reduced) timer = setInterval(advance, INTERVAL); }
       function stop()  { clearInterval(timer); timer = null; }
 
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('touchstart', stop, { passive: true });
-      track.addEventListener('touchend', function() { setTimeout(start, 2000); }, { passive: true });
+      viewport.addEventListener('mouseenter', stop);
+      viewport.addEventListener('mouseleave', start);
+      viewport.addEventListener('touchstart', stop, { passive: true });
+      viewport.addEventListener('touchend', function() { setTimeout(start, 2000); }, { passive: true });
 
-      // Пауза когда вкладка неактивна
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) stop(); else start();
       });
+
+      // стартовая позиция — первая карточка среднего набора, по центру
+      function home() { jumpTo(N); }
+      home();
+      window.addEventListener('resize', home);
+      window.addEventListener('load', home);
 
       start();
     })();
