@@ -822,6 +822,17 @@
       }
     }
 
+    /* ─── Квадратное фото, субъект справа-внизу (Донг Зянг) ────────────────────
+       Здесь transform НЕ нужен — работает object-position, но по разным осям:
+       десктоп 16/9 + квадрат -> overflow по вертикали -> действует Y;
+       мобильный 9/16 + квадрат -> overflow по горизонтали -> действует X.
+       Замер по 14.png: субъект x 0.649..0.834, y 0.619..0.893; видно 56.2% кадра.
+       68% по X — минимум, при котором фигура влезает целиком. */
+    .carousel__card--sq-right img { object-position: center 70%; }
+    @media (max-width: 600px) {
+      .carousel__card--sq-right img { object-position: 68% center; }
+    }
+
     /* ─── Квадратные фото в портретных карточках (9/16 мобильный) ────────────── */
     /* Субъект в нижней половине фото: добавь класс sq-low */
     /* Субъект в нижней трети фото:    добавь класс sq-bottom */
@@ -1711,8 +1722,8 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
-          <img src="images/dong-giang.webp" alt="Небесные врата Донг Зянг" loading="lazy" />
+        <a href="#" class="carousel__card carousel__card--sq-right">
+          <img src="images/dong-giang-new.webp" alt="Небесные врата Донг Зянг" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
