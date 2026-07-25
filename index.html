@@ -833,6 +833,12 @@
       .carousel__card--sq-right img { object-position: 68% center; }
     }
 
+    /* Квадратное фото, субъект в центре (Хюэ). Базовое center top показало бы
+       верхние 56% — то есть потолок галереи; центр нужен на обеих раскладках,
+       медиазапрос не требуется: на мобильном 9/16 вертикальный overflow
+       отсутствует и Y всё равно не действует. */
+    .carousel__card--sq-center img { object-position: center center; }
+
     /* ─── Квадратные фото в портретных карточках (9/16 мобильный) ────────────── */
     /* Субъект в нижней половине фото: добавь класс sq-low */
     /* Субъект в нижней трети фото:    добавь класс sq-bottom */
@@ -1704,8 +1710,8 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
-          <img src="images/hue.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <a href="#" class="carousel__card carousel__card--sq-center">
+          <img src="images/hue-new.webp" alt="Хюэ — Императорская цитадель" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
