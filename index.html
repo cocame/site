@@ -797,11 +797,13 @@
       }
     }
 
-    /* ─── Квадратные фото в портретных карточках (3:4 мобильный) ─────────────── */
+    /* ─── Квадратные фото в портретных карточках (9/16 мобильный) ────────────── */
     /* Субъект в нижней половине фото: добавь класс sq-low */
     /* Субъект в нижней трети фото:    добавь класс sq-bottom */
     /* Субъект в центре, обрезать нельзя: добавь класс sq-fit */
-    @media (max-width: 768px) {
+    /* Breakpoint 600px — ровно там, где карточка становится портретной.
+       Раньше блок стоял на 768px и зумил ландшафтную карточку на 601–768px. */
+    @media (max-width: 600px) {
       .carousel__card--sq-low img {
         transform: scale(1.5);
         transform-origin: center 80%;
@@ -810,9 +812,10 @@
         transform: scale(1.8);
         transform-origin: center 85%;
       }
-      /* Предел для центрального субъекта — scale 1.498, дальше режутся края */
+      /* На карточке 9/16 квадратное фото и так занимает почти всю ширину:
+         субъект sea-promo x 0.055..0.901, предел без обрезки — scale 1.123 */
       .carousel__card--sq-fit img {
-        transform: scale(1.25);
+        transform: scale(1.06);
         transform-origin: center 96%;
       }
     }
@@ -1361,22 +1364,53 @@
         text-align: center;
         white-space: nowrap;
       }
-      .carousel__track { padding: 0 20px; gap: 12px; }
-      .carousel__card {
-        width: 85vw;
-        aspect-ratio: 3/4;
+      /* Заголовок прижат к карточкам (было clamp(24px,4vw,40px) — отрывался) */
+      .carousel-section__head { margin-bottom: 16px; }
+
+      /* Лента как у Apple: активная карточка строго по центру, соседние
+         выглядывают на ~10% своей ширины. Padding 12vw = выступ + gap,
+         поэтому центрируется и первая, и последняя карточка. */
+      .carousel__track {
+        gap: 16px;
+        padding: 0 12vw;
       }
+      .carousel__card {
+        width: 76vw;
+        aspect-ratio: 9/16;
+      }
+
+      /* Контент внутри картинки, у нижнего края, по центру.
+         Порядок сверху вниз: заголовок → описание → кнопка. */
       .carousel__card-body {
+        bottom: 24px;
+        padding: 0 20px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 20px;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
       }
       .carousel__card-title {
+        order: 1;
+        display: block;            /* снимаем -webkit-box, чтобы описание встало своей строкой */
+        -webkit-line-clamp: unset;
+        overflow: visible;
         font-size: clamp(17px, 5vw, 22px);
-        -webkit-line-clamp: 3;
       }
-      .carousel__card-cta { font-size: 14px; padding: 9px 18px; }
+      .carousel__card-dot { display: none; }
+      .carousel__card-title .carousel__card-sub-inline {
+        display: block;
+        margin-top: 6px;
+        font-size: clamp(13px, 3.6vw, 16px);
+        line-height: 1.35;
+      }
+      .carousel__card-cta { order: 2; font-size: 14px; padding: 9px 18px; }
+
+      /* Тёмный градиент под белый текст — только на фото-карточках.
+         Светлые карточки (--light, --sea-promo) сохраняют свой тёмный текст. */
+      .carousel__card:not(.carousel__card--light):not(.carousel__card--sea-promo)
+        .carousel__card-gradient {
+        background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 55%);
+      }
     }
   </style>
 </head>
