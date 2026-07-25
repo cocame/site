@@ -791,6 +791,25 @@
     }
     .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
     .carousel__card--sea-promo .carousel__card-gradient { display: none; }
+
+    /* ─── Заготовки под туры без фото: цветной блок вместо картинки ────────────
+       Двойная специфичность (--placeholder + элемент) намеренно: перебивает
+       мобильные правила .carousel__card-body независимо от порядка в файле. */
+    .carousel__card--placeholder .carousel__card-body {
+      inset: 0;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .carousel__card--placeholder .carousel__card-label {
+      font-size: clamp(15px, 2vw, 19px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: rgba(0, 0, 0, 0.42);
+    }
+    .carousel__card--ph-1 { background: #cdd6e0; }
+    .carousel__card--ph-2 { background: #e3d8cd; }
     @media (max-width: 768px) {
       .carousel__card--sea-promo img {
         height: 100%;
@@ -1705,6 +1724,19 @@
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
             <p class="carousel__card-title">Острова Чам<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Снорклинг · Обед включён · 70$</span></p>
+          </div>
+        </a>
+
+        <!-- Заготовки под 11-й и 12-й туры: фото и текст добавить позже -->
+        <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-1">
+          <div class="carousel__card-body">
+            <span class="carousel__card-label">Тур 11</span>
+          </div>
+        </a>
+
+        <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-2">
+          <div class="carousel__card-body">
+            <span class="carousel__card-label">Тур 12</span>
           </div>
         </a>
 
