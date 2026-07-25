@@ -497,15 +497,17 @@
     }
 
     /* ─── Светлый вариант tour-section (Дананг за один день) ── */
+    /* Высота по контенту: фигуры упираются в нижний край блока, как у Apple.
+       Было 80svh — из-за фикс. высоты картинка ограничивалась остатком места. */
     .tour-section--light {
-      height: 80svh;
-      min-height: 500px;
-      max-height: 900px;
+      height: auto;
+      min-height: 0;
+      max-height: none;
       background: #f5f5f7;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(24px, 4vw, 48px) 24px clamp(16px, 2.5vw, 28px);
+      padding: clamp(24px, 4vw, 48px) 24px 0;
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
@@ -528,22 +530,27 @@
       border-color: rgba(0,0,0,0.15);
     }
     .tour-section--light .btn-tour:hover { background: #fff; }
+    /* Масштаб фигур задаёт ШИРИНА, а не остаток высоты.
+       Было: object-fit contain в контейнере max-width 980px — масштаб упирался
+       в высоту остатка флекс-колонки, фигуры выходили ~31% ширины экрана
+       вместо 74% как на apple.com.
+       В danang-mockup3.png прозрачные поля: сверху 12.9%, снизу 10.5% от высоты
+       (файл 1536x1024, ratio 1.5) — убираем их отрицательными margin, иначе
+       фигуры висят в воздухе. При замене картинки поля перемерить. */
     .tour-section--light .tour-section__photo {
       position: static;
       inset: auto;
-      width: 100%;
-      max-width: 980px;
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: min(1240px, 76vw);
+      max-width: none;
+      flex: 0 0 auto;
+      display: block;
+      margin-top: calc(min(1240px, 76vw) / 1.5 * -0.129);
+      margin-bottom: calc(min(1240px, 76vw) / 1.5 * -0.105);
     }
     .tour-section--light .tour-section__photo img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
+      height: auto;
+      display: block;
     }
 
     .btn-tour {
@@ -1342,6 +1349,15 @@
       }
       .tour-section__photo { inset: 0; }
       .tour-section__photo img { object-position: center center; }
+
+      /* «Дананг за один день»: высота по контенту (иначе под фигурами пустота
+         от height: calc(100svh…) выше), фигуры почти во всю ширину экрана. */
+      .tour-section--light { height: auto; min-height: 0; max-height: none; }
+      .tour-section--light .tour-section__photo {
+        width: 92vw;
+        margin-top: calc(92vw / 1.5 * -0.129);
+        margin-bottom: calc(92vw / 1.5 * -0.105);
+      }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
