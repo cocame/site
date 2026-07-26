@@ -1343,8 +1343,15 @@
 
       /* «Дананг за один день»: высота по контенту (иначе под фигурами пустота
          от height: calc(100svh…) выше), фигуры почти во всю ширину экрана. */
-      .tour-section--light { height: auto; min-height: 0; max-height: none; }
-      .tour-section--light .tour-section__photo { width: 92vw; }
+      /* Боковой padding секции снимаем: он оставлял по 16px полей, из-за чего
+         фигуры шли 359px из 390 — блок читался узким рядом с соседними
+         секциями, где фото во всю ширину экрана. Текст своей ширины не теряет,
+         у .tour-section__content ниже задано width: 92vw. */
+      .tour-section--light {
+        height: auto; min-height: 0; max-height: none;
+        padding-left: 0; padding-right: 0;
+      }
+      .tour-section--light .tour-section__photo { width: 100vw; }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
