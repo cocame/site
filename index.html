@@ -1552,9 +1552,12 @@
     <div class="tour-section__photo" id="danangPhoto">
       <!-- Мобильный вариант — те же три фигуры, пересобранные в вертикаль
            (парень сверху, девушки снизу). Исходник 2.106:1 в высокой секции
-           занимал бы только 185px из ~560, остальное — пустой фон. -->
+           занимал бы только 185px из ~560, остальное — пустой фон.
+           Граница 600px, а не 768: на 601–768 бокс картинки уже широкий, и
+           вертикальный вариант вписывался бы по высоте, оставляя серые поля
+           по 157px с боков — там горизонтальный исходник идёт в край. -->
       <picture>
-        <source media="(max-width: 768px)" srcset="images/danang-mockup-mobile.webp" type="image/webp">
+        <source media="(max-width: 600px)" srcset="images/danang-mockup-mobile.webp" type="image/webp">
         <img src="images/danang-mockup4.png" alt="Дананг за один день" decoding="async" loading="lazy" />
       </picture>
     </div>
