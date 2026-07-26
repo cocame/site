@@ -1880,13 +1880,33 @@
       var INTERVAL = 4500;
       var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      var resume = null;
       function start() { if (!timer && !reduced) timer = setInterval(advance, INTERVAL); }
-      function stop()  { clearInterval(timer); timer = null; }
+      // resume гасим здесь же, иначе отложенный старт оживит таймер в фоне
+      function stop()  { clearTimeout(resume); clearInterval(timer); timer = null; }
 
-      viewport.addEventListener('mouseenter', stop);
-      viewport.addEventListener('mouseleave', start);
+      /* Пауза по наведению — только там, где курсор реально есть.
+         На мобильном после тапа браузер досылает совместимостные события мыши
+         (mouseover/mouseenter/...), и mouseenter гасил автоскролл, а парного
+         mouseleave не приходило никогда — палец «остаётся» над каруселью. */
+      if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+        viewport.addEventListener('mouseenter', stop);
+        viewport.addEventListener('mouseleave', start);
+      }
+
+      /* Палец: пауза на время касания, возврат через 2 с.
+         touchcancel обязателен наравне с touchend — на мобильном браузер
+         забирает жест себе, как только тач превращается в вертикальный скролл
+         страницы, и тогда шлёт touchcancel ВМЕСТО touchend. Раньше слушали
+         только touchend, поэтому первое же касание карусели при обычной
+         прокрутке страницы гасило таймер навсегда. */
       viewport.addEventListener('touchstart', stop, { passive: true });
-      viewport.addEventListener('touchend', function() { setTimeout(start, 2000); }, { passive: true });
+      ['touchend', 'touchcancel', 'pointercancel'].forEach(function(ev) {
+        viewport.addEventListener(ev, function() {
+          clearTimeout(resume);
+          resume = setTimeout(start, 2000);
+        }, { passive: true });
+      });
 
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) stop(); else start();
@@ -1895,8 +1915,27 @@
       // стартовая позиция — первая карточка среднего набора, по центру
       function home() { jumpTo(N); }
       home();
-      window.addEventListener('resize', home);
-      window.addEventListener('load', home);
+
+      /* Пересчёт после смены ширины. Только по ширине: на мобильном
+         сворачивание адресной строки при прокрутке страницы шлёт resize
+         с той же шириной, а home() отматывал ленту к первой карточке и
+         обрывал текущую анимацию. */
+      var lastW = window.innerWidth;
+      function recenter() {
+        // rAF: iOS шлёт resize до применения нового layout, и centerOf()
+        // прочитал бы старые offsetLeft/offsetWidth — особенно на переходе
+        // через breakpoint 600px, где меняются и width, и aspect-ratio.
+        requestAnimationFrame(function() { jumpTo(index); });
+      }
+      window.addEventListener('resize', function() {
+        if (window.innerWidth === lastW) return;
+        lastW = window.innerWidth;
+        recenter();             // держим текущую карточку, просто перецентрируем
+      });
+      // после догрузки картинок ширины уточняются — тоже перецентровка,
+      // а не home(): на медленной сети load приходит уже после первых шагов
+      // автоскролла, и откат к первой карточке рвал бы анимацию.
+      window.addEventListener('load', recenter);
 
       start();
     })();
@@ -2008,7 +2047,12 @@
     /* Smooth scroll */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
-        const target = document.querySelector(anchor.getAttribute('href'));
+        const href = anchor.getAttribute('href');
+        /* Карточки карусели висят на href="#": querySelector('#') кидает
+           SyntaxError, а браузер по умолчанию прыгает к началу документа —
+           на мобильном тап по карточке уносил страницу к hero. Гасим оба. */
+        if (!href || href === '#') { e.preventDefault(); return; }
+        const target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth' });
