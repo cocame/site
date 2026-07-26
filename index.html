@@ -526,30 +526,29 @@
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
-    /* ─── Ba Na Hills: светлая иллюстрация (≥769px) ────────────────
-       Никаких полупрозрачных шторок поверх картинки. Секция устроена как
-       блок «Дананг за один день» выше: светлый фон #f5f5f7, тёмный текст на
-       нём, а иллюстрация занимает низ во всю ширину. Переход от белого блока
-       получается сам собой — тот же цвет фона.
-       Параллакс отключён и кадр привязан к нижней кромке: срезается только
-       небо сверху, фигуры и цветы внизу целы. */
+    /* ─── Ба На Хиллс: иллюстрация (≥769px) ────────────────────────
+       Кадр во всю секцию: параллакс отключён, привязка к нижней кромке —
+       срезается только небо сверху, фигуры и цветы внизу целы.
+       Текст на стеклянной подложке: у иллюстрации нет спокойной зоны, замер
+       по всей площади дал максимум 2.2–3.6 при норме 4.5. Панель по размеру
+       текста, с размытием — картинка под ней просвечивает, шторки во всю
+       ширину нет. */
     @media (min-width: 769px) {
-      #tours { background: #f5f5f7; }
-      #tours .tour-section__gradient { display: none; }
-      /* Картинка занимает низ секции, текст остаётся на светлом фоне выше.
-         contain, а не cover: иллюстрация показывается целиком — при обрезке
-         в полную ширину пришлось бы срезать половину кадра. */
-      #tours .tour-section__photo {
-        inset: auto 0 0 0;
-        /* Верхняя кромка картинки всегда ниже кнопки: та кончается на
-           256–318px от верха секции в зависимости от ширины, поэтому
-           отступаем 340px, но не больше 58% высоты — иначе на высоких
-           экранах картинка съезжала бы вниз. */
-        height: min(58%, calc(100% - 340px));
-      }
+      #tours .tour-section__photo { inset: 0; height: auto; }
       #tours .tour-section__photo img {
-        object-fit: contain;
+        object-fit: cover;
         object-position: center bottom;
+      }
+      #tours .tour-section__gradient { display: none; }
+      #tours .tour-section__content {
+        width: fit-content;
+        max-width: min(760px, 88vw);
+        padding: 26px clamp(28px, 3vw, 44px) 30px;
+        border-radius: 28px;
+        background: rgba(255,255,255,0.62);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255,255,255,0.5);
       }
       #tours .tour-section__title,
       #tours .tour-section__subtitle {
@@ -558,7 +557,7 @@
       }
       #tours .btn-tour {
         color: #1d1d1f;
-        background: rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.75);
         border-color: rgba(0,0,0,0.15);
       }
       #tours .btn-tour:hover { background: #fff; }
@@ -1650,7 +1649,7 @@
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
-        Ba Na Hills
+        Ба На Хиллс
       </h2>
       <p class="tour-section__subtitle">Сказка в облаках · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
       <div class="tour-section__btns">
