@@ -926,30 +926,15 @@
     }
     /* Новое фото Ba Na: субъект в нижней половине квадрата (Y 43–100%),
        поэтому общий object-position: center top срезал бы ноутбук с рукой. */
-    /* Фото ноутбука: субъект занимает Y 18–100% холста, поэтому заполнение
-       (cover) на десктопной карточке 4:3 срезало бы верх крышки — оно
-       показывает лишь нижние 75% кадра. Вписываем целиком на всех размерах;
-       фон холста и карточки — чистый чёрный, поля от contain не видны.
-       Привязка к нижней кромке обязательна: по центру низ кадра обрывался
-       посреди карточки и рука выглядела висящей в воздухе. */
-    .water-card--bana-laptop { background: #000; }
-    .water-card--bana-laptop img {
-      object-fit: contain;
-      object-position: center bottom;
-      /* Композиция (ноутбук + рука) занимает нижние ~2/3 высоты карточки.
-         В холсте содержимое идёт с Y 18% до низа, то есть 82% его высоты;
-         чтобы на экране оно дало 2/3 карточки, бокс картинки = 0.82⁻¹ × 2/3 ≈
-         81% высоты. Привязка к нижней кромке — рука по-прежнему стоит на краю.
-         На мобильном правило ничего не меняет: там картинку ограничивает
-         ширина, а не высота. */
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 81%;
-    }
     /* На мобильном карточка портретная, а фото квадратное: cover срезал
        ноутбуку края — читалось как ошибка, а не как кадрирование. Вписываем
        целиком; фон карточки чёрный, поэтому поля от contain незаметны. */
+    /* Вечерний мост: кадр горизонтальный (1.54), карточка на мобильном
+       портретная — по умолчанию в неё попадала только середина. Смещаем
+       фокус влево, на подсвеченные пальцы и изгиб моста. */
+    @media (max-width: 600px) {
+      .water-card--bana-night img { object-position: 38% 45%; }
+    }
     .water-card--device img {
       object-fit: contain;
       object-position: center center;
@@ -1706,8 +1691,8 @@
         </div>
       </div>
 
-      <div class="water-card water-card--bana-laptop">
-        <img src="images/bana-evening-laptop-2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
+      <div class="water-card water-card--bana-night">
+        <img src="images/bana-evening-night.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
