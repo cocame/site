@@ -563,6 +563,17 @@
       height: auto;
       display: block;
     }
+    /* На мобильном и планшете — фигуры в край экрана, как во всех соседних
+       секциях (у них фото через inset: 0). Боковой padding секции оставлял по
+       16px полей, а 74vw давало 518px из 700 — блок читался узким. Диапазон
+       именно до 768px: выше начинается десктопная пропорция 74vw с apple.com.
+       width: 100%, а не 100vw — 100vw не учитывает классический скроллбар.
+       Текст ширины не теряет: у .tour-section--light .tour-section__content
+       своя width: min(680px, 88vw), она специфичнее правил медиазапросов. */
+    @media (max-width: 768px) {
+      .tour-section--light { padding-left: 0; padding-right: 0; }
+      .tour-section--light .tour-section__photo { width: 100%; }
+    }
 
     .btn-tour {
       display: inline-flex;
@@ -1343,15 +1354,7 @@
 
       /* «Дананг за один день»: высота по контенту (иначе под фигурами пустота
          от height: calc(100svh…) выше), фигуры почти во всю ширину экрана. */
-      /* Боковой padding секции снимаем: он оставлял по 16px полей, из-за чего
-         фигуры шли 359px из 390 — блок читался узким рядом с соседними
-         секциями, где фото во всю ширину экрана. Текст своей ширины не теряет,
-         у .tour-section__content ниже задано width: 92vw. */
-      .tour-section--light {
-        height: auto; min-height: 0; max-height: none;
-        padding-left: 0; padding-right: 0;
-      }
-      .tour-section--light .tour-section__photo { width: 100vw; }
+      .tour-section--light { height: auto; min-height: 0; max-height: none; }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
