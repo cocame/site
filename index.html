@@ -1237,7 +1237,6 @@
       background: rgba(255,255,255,0.12);
       border-color: rgba(255,255,255,0.7);
     }
-    }
 
     /* ─── ПЛАНШЕТ: 601–1024px — раньше этого диапазона не было вообще ── */
     @media (min-width: 601px) and (max-width: 1024px) {
@@ -1267,6 +1266,11 @@
       }
 
       .tour-section { height: auto; min-height: 640px; max-height: 900px; }
+      /* height: auto выше работает только для тёмных секций: у них фото
+         абсолютное, контента в потоке нет, и все они выходят ровно min-height.
+         У светлой секции контент в потоке, поэтому auto растил её до 711–753 —
+         блок снова оказывался выше соседей. Фиксируем ту же высоту. */
+      .tour-section--light { height: 640px; }
       .tour-section__content { padding: 0 48px 64px; }
 
       .hero__content { width: 90%; }
