@@ -1369,7 +1369,10 @@
       /* Мобильная навигация ниже десктопной (56px) */
       .tour-section--light { padding-top: calc(56px + 16px); padding-bottom: 0; }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
-      .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
+      /* 28px уводило заголовок под фиксированную панель (56px). Пока заголовки
+         были двухстрочными, пряталась только верхняя строка и это не бросалось
+         в глаза; у «Ba Na Hills» строка одна — пряталась целиком. */
+      .tour-section__content { top: calc(56px + 12px); gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
@@ -1580,10 +1583,9 @@
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
       <h2 class="tour-section__title">
-        Вечерний
-        <br>Ba Na Hills
+        Ba Na Hills
       </h2>
-      <p class="tour-section__subtitle">Магия Маленькой Европы · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
+      <p class="tour-section__subtitle">Сказка в облаках · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
