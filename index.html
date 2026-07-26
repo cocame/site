@@ -64,6 +64,20 @@
          при окне 2880). При 1680 на широких экранах и при зуме 50% по бокам
          оставались пустые поля, блоки казались узкими и высокими. */
       --site-width: 2560px;
+      /* ─── Числа сняты с apple.com (WebKit, 1440x900 и 2880x1700).
+         Все блоки строятся ОТ НИХ, а не от высоты окна — у Apple плитки
+         фиксированные и не «дышат» при зуме. Проверка: python3 tools/check.py */
+      --tile-h: 692px;          /* высота крупной плитки */
+      --h2: 56px;               /* заголовок секции */
+      --h2-lh: 60px;
+      /* 56px у Apple, но не меньше высоты нашей панели плюс воздух —
+         иначе на планшете заголовок уходил под неё. */
+      --h2-top: max(56px, calc(var(--nav-h) + 12px));
+      --sub: 28px;              /* подзаголовок секции */
+      --card-ratio: 2.18;       /* пропорция плитки сетки (ш/в) */
+      --card-h2: 40px;          /* заголовок карточки сетки */
+      --card-sub: 21px;
+      --nav-h: 48px;            /* у Apple панель 44px, у нас логотип крупнее */
       /* Единая кривая Apple для всех переходов (CLAUDE.md) */
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
@@ -107,7 +121,7 @@
       transform: translateX(-50%);
       width: 100%;
       z-index: 100;
-      height: 64px;
+      height: var(--nav-h);
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -438,9 +452,10 @@
     .tour-section {
       position: relative;
       width: 100%;
-      height: 80svh;
-      min-height: 500px;
-      max-height: 720px;   /* apple.com: плитки 692px */
+      /* Фиксированная высота, как у Apple: плитка не зависит от высоты окна.
+         min() — чтобы на низких окнах блок не вылезал за экран. */
+      height: min(var(--tile-h), calc(100svh - var(--sep) - 70px));
+      min-height: 420px;
       overflow: hidden;
       margin-bottom: var(--sep);
       background: #111;
@@ -477,10 +492,9 @@
 
     .tour-section__content {
       position: absolute;
-      /* Заголовок сидит высоко, сразу под навигацией (её высота 64px):
-         визуально так собраннее. Пробовали посадку apple.com (15vh ≈ 19%
-         высоты блока) — на наших пропорциях выглядит провалом. */
-      top: clamp(76px, 9vh, 120px);
+      /* Ровно как у Apple: 56px от верха плитки, не в vh — иначе на высоком
+         окне заголовок уезжает к середине. */
+      top: var(--h2-top);
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
@@ -511,7 +525,7 @@
 
     .tour-section__subtitle {
       font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      font-size: clamp(15px, 2vw, 20px);
+      font-size: clamp(17px, 2vw, var(--sub));    /* apple.com: 28px */
       font-weight: 400;
       letter-spacing: -0.01em;
       color: #fff;
@@ -533,7 +547,7 @@
          теперь во весь экран и текст начинается у верхней кромки, без
          этого заголовок уезжал под панель. */
       /* та же посадка заголовка, что у тёмных секций */
-      padding: clamp(76px, 9vh, 120px) 24px 0;
+      padding: var(--h2-top) 24px 0;
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
@@ -922,7 +936,7 @@
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      aspect-ratio: var(--card-ratio);   /* apple.com: 2.18 */
       min-height: 300px;
       cursor: pointer;
       background: #1a1a1a;
@@ -989,7 +1003,7 @@
     }
 
     .water-card__title {
-      font-size: clamp(19px, 1.6vw, 24px);
+      font-size: clamp(22px, 2.4vw, var(--card-h2));   /* apple.com: 40px */
       font-weight: 600;
       letter-spacing: -0.02em;
       color: #fff;
@@ -997,7 +1011,7 @@
     }
 
     .water-card__sub {
-      font-size: clamp(13px, 1vw, 15px);
+      font-size: clamp(14px, 1.3vw, var(--card-sub));  /* apple.com: 21px */
       font-weight: 400;
       color: rgba(255,255,255,1);
     }
@@ -1290,13 +1304,14 @@
 
     /* ─── ПЛАНШЕТ: 601–1024px — раньше этого диапазона не было вообще ── */
     @media (min-width: 601px) and (max-width: 1024px) {
+      :root { --nav-h: 60px; }
       .nav-left { display: none; }
       .nav-logo { position: static; transform: none; flex-shrink: 0; }
       .nav-right { display: flex; align-items: center; margin-left: auto; }
       .nav-burger { display: flex !important; }
       .nav {
         display: flex; align-items: center; gap: 10px;
-        height: 60px; padding: 0 24px;
+        height: var(--nav-h); padding: 0 24px;
         background: rgba(22, 22, 23, 0.8);   /* та же альфа, что у десктопной панели */
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -1347,10 +1362,11 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
+      :root { --nav-h: 56px; }
       /* Nav: logo left — button + burger right */
       .nav {
         display: flex; align-items: center; gap: 10px;
-        height: 56px; padding: 0 16px;
+        height: var(--nav-h); padding: 0 16px;
         background: rgba(22, 22, 23, 0.8);   /* та же альфа, что у десктопной панели */
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
