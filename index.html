@@ -527,12 +527,12 @@
     }
     .tour-section--light .tour-section__gradient { display: none; }
     /* ─── Ба На Хиллс: иллюстрация (≥769px) ────────────────────────
-       Кадр во всю секцию: параллакс отключён, привязка к нижней кромке —
-       срезается только небо сверху, фигуры и цветы внизу целы.
-       Текст на стеклянной подложке: у иллюстрации нет спокойной зоны, замер
-       по всей площади дал максимум 2.2–3.6 при норме 4.5. Панель по размеру
-       текста, с размытием — картинка под ней просвечивает, шторки во всю
-       ширину нет. */
+       Кадр во всю секцию. Параллакс отключён и привязка к нижней кромке:
+       у остальных секций фото на 20% выше секции и ездит при прокрутке — тут
+       это срезало 14% снизу, ровно фигуры и цветы. Теперь снизу не режется
+       ничего, уходит только небо сверху.
+       Текст чёрный, затемнения нет — верх остаётся светлым и продолжает
+       белый блок «Дананг за один день» выше. */
     @media (min-width: 769px) {
       #tours .tour-section__photo { inset: 0; height: auto; }
       #tours .tour-section__photo img {
@@ -540,16 +540,6 @@
         object-position: center bottom;
       }
       #tours .tour-section__gradient { display: none; }
-      #tours .tour-section__content {
-        width: fit-content;
-        max-width: min(760px, 88vw);
-        padding: 26px clamp(28px, 3vw, 44px) 30px;
-        border-radius: 28px;
-        background: rgba(255,255,255,0.62);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid rgba(255,255,255,0.5);
-      }
       #tours .tour-section__title,
       #tours .tour-section__subtitle {
         color: #1d1d1f;
@@ -557,7 +547,7 @@
       }
       #tours .btn-tour {
         color: #1d1d1f;
-        background: rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.72);
         border-color: rgba(0,0,0,0.15);
       }
       #tours .btn-tour:hover { background: #fff; }
