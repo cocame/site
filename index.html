@@ -526,18 +526,43 @@
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
-    /* Ba Na Hills: у иллюстрации светлое небо с белыми облаками, и общий
-       градиент секций давал белому подзаголовку контраст 2.8:1 при норме 4.5
-       (заголовок 3.95 — он крупный, ему хватает 3.0). Затемняем верх сильнее
-       только здесь, остальные секции с тёмными фото не трогаем. */
-    #tours .tour-section__gradient {
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.80)  0%,
-        rgba(0,0,0,0.52) 35%,
-        rgba(0,0,0,0.10) 65%,
-        rgba(0,0,0,0.10) 100%
-      );
+    /* Светлая подача — только там, где стоит иллюстрация (≥769px).
+       На мобильном у секции своё тёмное фото bana-mobile.jpg: там
+       остаётся белый текст и обычный тёмный градиент. */
+    @media (min-width: 769px) {
+      /* ─── Ba Na Hills: светлая иллюстрация ──────────────────────────
+         Верх мягко перетекает из белого блока «Дананг за один день» выше:
+         вместо тёмной шторки — заливка его же цветом (#f5f5f7), тающая вниз.
+         Тёмный градиент секций тут давал резкую границу белое/чёрное.
+         Кадр не режем: у остальных секций фото на 20% выше секции (inset: -10%)
+         и ездит от прокрутки — здесь это съедало 14% снизу, ровно ноги фигур и
+         цветы. inset: 0 + привязка к нижней кромке: если кадр всё же не влезает,
+         обрезается только небо сверху. */
+      #tours .tour-section__gradient {
+        background: linear-gradient(
+          to bottom,
+          #f5f5f7                 0%,
+          rgba(245,245,247,0.97)  7%,
+          rgba(245,245,247,0.85) 18%,
+          rgba(245,245,247,0.60) 27%,
+          rgba(245,245,247,0)    42%,
+          rgba(0,0,0,0)         100%
+        );
+      }
+      #tours .tour-section__photo { inset: 0; }
+      #tours .tour-section__photo img { object-position: center bottom; }
+      /* Текст тёмный: он лежит на светлой заливке и светлом небе */
+      #tours .tour-section__title,
+      #tours .tour-section__subtitle {
+        color: #1d1d1f;
+        text-shadow: none;
+      }
+      #tours .btn-tour {
+        color: #1d1d1f;
+        background: rgba(255,255,255,0.7);
+        border-color: rgba(0,0,0,0.15);
+      }
+      #tours .btn-tour:hover { background: #fff; }
     }
     .tour-section--light .tour-section__content {
       position: static;
@@ -2104,10 +2129,8 @@
         scrollTrigger: { trigger: '#bana-old', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
       });
       }
-      gsap.to('#banaPhoto', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '#tours', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
-      });
+      /* Параллакс #banaPhoto отключён: он двигает фото внутри бокса и срезал
+         нижний край иллюстрации — там фигуры и цветы. */
 
       gsap.to('#chamPhoto', {
         yPercent: 12, ease: 'none',
