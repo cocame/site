@@ -894,6 +894,16 @@
       display: block;
       transition: transform 0.55s var(--ease);
     }
+    /* Новое фото Ba Na: субъект в нижней половине квадрата (Y 43–100%),
+       поэтому общий object-position: center top срезал бы ноутбук с рукой. */
+    .water-card--bana-laptop { background: #000; }
+    .water-card--bana-laptop img { object-position: center bottom; }
+    /* На мобильном карточка портретная, а фото квадратное: cover срезал
+       ноутбуку края — читалось как ошибка, а не как кадрирование. Вписываем
+       целиком; фон карточки чёрный, поэтому поля от contain незаметны. */
+    @media (max-width: 600px) {
+      .water-card--bana-laptop img { object-fit: contain; object-position: center center; }
+    }
     .water-card--device img {
       object-fit: contain;
       object-position: center center;
@@ -1650,8 +1660,8 @@
         </div>
       </div>
 
-      <div class="water-card">
-        <img src="images/bana-evening.jpg" alt="Вечерний Ba Na Hills" loading="lazy" />
+      <div class="water-card water-card--bana-laptop">
+        <img src="images/bana-evening-laptop.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
