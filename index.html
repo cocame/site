@@ -526,6 +526,19 @@
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
+    /* Ba Na Hills: у иллюстрации светлое небо с белыми облаками, и общий
+       градиент секций давал белому подзаголовку контраст 2.8:1 при норме 4.5
+       (заголовок 3.95 — он крупный, ему хватает 3.0). Затемняем верх сильнее
+       только здесь, остальные секции с тёмными фото не трогаем. */
+    #tours .tour-section__gradient {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.80)  0%,
+        rgba(0,0,0,0.52) 35%,
+        rgba(0,0,0,0.10) 65%,
+        rgba(0,0,0,0.10) 100%
+      );
+    }
     .tour-section--light .tour-section__content {
       position: static;
       transform: none;
@@ -1607,7 +1620,7 @@
     <div class="tour-section__photo" id="banaPhoto">
       <picture>
         <source media="(max-width: 768px)" srcset="images/bana-mobile.jpg?v=3">
-        <img src="images/bana.jpg" alt="Ба На Хиллс — Золотой мост" decoding="async" loading="lazy" />
+        <img src="images/bana-illustration.webp" alt="Ба На Хиллс — Золотой мост" decoding="async" loading="lazy" />
       </picture>
     </div>
     <div class="tour-section__gradient"></div>
