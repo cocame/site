@@ -553,8 +553,12 @@
        Ширину не задаём числом (было 74vw): при фиксированной ширине картинка
        не умела ужиматься, секция вырастала под неё и на десктопе вылезала за
        экран — приходилось скроллить.
-       danang-mockup4.png обрезан по фигурам (1430x679, ratio 2.106), лишних
-       прозрачных полей нет, поэтому contain не даёт паразитных отступов. */
+       Десктопный вариант danang-mockup-desktop.webp — это danang-mockup4.png,
+       обрезанный снизу до 80% (1430x543, ratio 2.63 вместо 2.106). Картинку
+       здесь ограничивает высота, а не ширина, поэтому чем она «панорамнее»,
+       тем крупнее фигуры при том же остатке места: на 1440x900 было 718px
+       ширины, стало ~900. Ниже 80% срезаются подставки ноутбуков и руки.
+       Исходники danang-mockup4.png (полный) лежат рядом — откат одной строкой. */
     .tour-section--light .tour-section__photo {
       position: static;
       inset: auto;
@@ -1575,7 +1579,7 @@
            по 157px с боков — там горизонтальный исходник идёт в край. -->
       <picture>
         <source media="(max-width: 600px)" srcset="images/danang-mockup-mobile.webp" type="image/webp">
-        <img src="images/danang-mockup4.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+        <img src="images/danang-mockup-desktop.webp" alt="Дананг за один день" decoding="async" loading="lazy" />
       </picture>
     </div>
     <div class="tour-section__gradient"></div>
