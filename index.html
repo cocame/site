@@ -60,7 +60,10 @@
     :root {
       --peek: 80px;
       --sep:  12px;
-      --site-width: 1680px;
+      /* 2560px — как у apple.com (замер: их секции упираются ровно в 2560
+         при окне 2880). При 1680 на широких экранах и при зуме 50% по бокам
+         оставались пустые поля, блоки казались узкими и высокими. */
+      --site-width: 2560px;
       /* Единая кривая Apple для всех переходов (CLAUDE.md) */
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
@@ -86,7 +89,7 @@
     /* ─── CENTRAL CONTAINER ─────────────────────────────────────── */
     .page-wrap {
       width: 100%;
-      max-width: 1680px;
+      max-width: var(--site-width);
       margin: 0 auto;
     }
 
@@ -188,7 +191,11 @@
       width: 100%;
       height: calc(100svh - 88px - var(--peek));
       min-height: 400px;
-      max-height: 1080px;
+      /* 820px — потолок высоты. У apple.com плитки фиксированные 692px, и при
+         зуме 50% или на большом мониторе видно сразу несколько блоков. У нас
+         высота считалась от экрана и упиралась в 1080: один блок занимал всё
+         окно на любом масштабе, пропорции ломались. */
+      max-height: 820px;
       background: #000;
       overflow: hidden;
     }
@@ -433,7 +440,7 @@
       width: 100%;
       height: 80svh;
       min-height: 500px;
-      max-height: 900px;
+      max-height: 720px;   /* apple.com: плитки 692px */
       overflow: hidden;
       margin-bottom: var(--sep);
       background: #111;
