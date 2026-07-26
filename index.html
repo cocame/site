@@ -509,17 +509,20 @@
     }
 
     /* ─── Светлый вариант tour-section (Дананг за один день) ── */
-    /* Высота по контенту: фигуры упираются в нижний край блока, как у Apple.
-       Было 80svh — из-за фикс. высоты картинка ограничивалась остатком места. */
+    /* Высоту НЕ переопределяем: секция обязана быть ростом с остальные
+       (80svh / 500 / 900 и мобильные значения ниже), иначе на десктопе блок
+       вылезал за экран и его приходилось скроллить, а на телефоне выходил
+       вполовину. Под доступное место подстраивается картинка — см. ниже
+       flex + object-fit: contain у .tour-section__photo. */
     .tour-section--light {
-      height: auto;
-      min-height: 0;
-      max-height: none;
       background: #f5f5f7;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(24px, 4vw, 48px) 24px 0;
+      /* Сверху — высота фиксированной навигации (64px) плюс воздух: секция
+         теперь во весь экран и текст начинается у верхней кромки, без
+         этого заголовок уезжал под панель. */
+      padding: calc(64px + clamp(12px, 2vw, 28px)) 24px 0;
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
@@ -542,25 +545,30 @@
       border-color: rgba(0,0,0,0.15);
     }
     .tour-section--light .btn-tour:hover { background: #fff; }
-    /* Масштаб фигур задаёт ШИРИНА, а не остаток высоты.
-       Было: object-fit contain в контейнере max-width 980px — масштаб упирался
-       в высоту остатка флекс-колонки, фигуры выходили ~31% ширины экрана
-       вместо 74% как на apple.com.
-       danang-mockup4.png уже обрезан по фигурам (1430x679, ratio 2.106, альфа
-       плавная), поэтому отрицательные margin не нужны — фигуры сами упираются
-       в края блока. Если вернуть danang-mockup3.png, у него прозрачные поля
-       сверху 12.9% / снизу 10.5% и их надо снова съедать margin. */
+    /* Фигуры занимают ВЕСЬ остаток высоты секции и упираются в нижний край.
+       flex: 1 1 auto + min-height: 0 отдают картинке всё, что осталось от
+       текста, а object-fit: contain вписывает её в этот остаток без обрезки:
+       широкий экран — упирается в высоту, узкий — в ширину. Из-за этого блок
+       физически не может стать выше экрана.
+       Ширину не задаём числом (было 74vw): при фиксированной ширине картинка
+       не умела ужиматься, секция вырастала под неё и на десктопе вылезала за
+       экран — приходилось скроллить.
+       danang-mockup4.png обрезан по фигурам (1430x679, ratio 2.106), лишних
+       прозрачных полей нет, поэтому contain не даёт паразитных отступов. */
     .tour-section--light .tour-section__photo {
       position: static;
       inset: auto;
       width: min(1240px, 74vw);
-      max-width: none;
-      flex: 0 0 auto;
+      max-width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
       display: block;
     }
     .tour-section--light .tour-section__photo img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
       display: block;
     }
     /* На мобильном и планшете — фигуры в край экрана, как во всех соседних
@@ -1352,9 +1360,10 @@
       .tour-section__photo { inset: 0; }
       .tour-section__photo img { object-position: center center; }
 
-      /* «Дананг за один день»: высота по контенту (иначе под фигурами пустота
-         от height: calc(100svh…) выше), фигуры почти во всю ширину экрана. */
-      .tour-section--light { height: auto; min-height: 0; max-height: none; }
+      /* Высота «Дананга» = высота соседних секций: правило .tour-section выше
+         действует и на него, отдельных значений тут нет намеренно. */
+      /* Мобильная навигация ниже десктопной (56px) */
+      .tour-section--light { padding-top: calc(56px + 16px); padding-bottom: 0; }
       #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
       .tour-section__content { top: 28px; gap: 8px; width: 92vw; }
       #banaPhoto img { object-position: center 65%; }
@@ -1541,7 +1550,13 @@
       </div>
     </div>
     <div class="tour-section__photo" id="danangPhoto">
-      <img src="images/danang-mockup4.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+      <!-- Мобильный вариант — те же три фигуры, пересобранные в вертикаль
+           (парень сверху, девушки снизу). Исходник 2.106:1 в высокой секции
+           занимал бы только 185px из ~560, остальное — пустой фон. -->
+      <picture>
+        <source media="(max-width: 768px)" srcset="images/danang-mockup-mobile.webp" type="image/webp">
+        <img src="images/danang-mockup4.png" alt="Дананг за один день" decoding="async" loading="lazy" />
+      </picture>
     </div>
     <div class="tour-section__gradient"></div>
   </section>
