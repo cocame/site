@@ -11,7 +11,7 @@
   <meta property="og:url"         content="https://cocame.github.io/site/" />
   <meta property="og:title"       content="Narada Travels — Экскурсии из Дананга" />
   <meta property="og:description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
-  <meta property="og:image"       content="https://cocame.github.io/site/images/danang-hero.jpg" />
+  <meta property="og:image"       content="https://cocame.github.io/site/images/danang-hero-2x.webp" />
   <meta property="og:image:width" content="1920" />
   <meta property="og:image:height" content="921" />
   <meta property="og:locale"      content="ru_RU" />
@@ -21,7 +21,7 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Narada Travels — Экскурсии из Дананга" />
   <meta name="twitter:description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
-  <meta name="twitter:image"       content="https://cocame.github.io/site/images/danang-hero.jpg" />
+  <meta name="twitter:image"       content="https://cocame.github.io/site/images/danang-hero-2x.webp" />
 
   <!-- GSAP + ScrollTrigger — only for photo effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -77,9 +77,6 @@
       --card-ratio: 2.18;       /* пропорция плитки сетки (ш/в) */
       --card-h2: 40px;          /* заголовок карточки сетки */
       --card-sub: 21px;
-      --card-h: 580px;          /* высота плитки сетки — фиксированная, как у Apple */
-      --card-media-top: 208px;  /* граница: выше — текст на фоне плитки, ниже — фото */
-      --grid-gap: 12px;         /* зазор между плитками */
       --nav-h: 48px;            /* у Apple панель 44px, у нас логотип крупнее */
       /* Единая кривая Apple для всех переходов (CLAUDE.md) */
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -647,8 +644,7 @@
       gap: 8px;
       margin-top: 8px;
       padding: 14px 30px;
-      /* 0.28, а не 0.10: при 0.10 контраст падал до 3.7 на тёмных фото
-         (замер tools/audit.py). Так норма 4.5 держится на любом кадре. */
+      /* 0.28 вместо 0.10: замер показывал контраст 3.7 при норме 4.5 */
       background: rgba(0,0,0,0.28);
       color: #fff;
       font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
@@ -856,20 +852,13 @@
       color: #1d1d1f;
       text-shadow: none;
     }
-    /* Фото светлое и пёстрое: тёмный текст давал контраст 2.4 при норме 3.0.
-       Светлая подложка под блоком текста — как у светлых плиток Apple. */
-    .carousel__card--sea-promo .carousel__card-gradient {
-      display: block;
-      background: linear-gradient(to top,
-        rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 38%, rgba(255,255,255,0) 66%);
-    }
     .carousel__card--sea-promo .carousel__card-cta {
       background: rgba(0,0,0,0.06);
       color: #1d1d1f;
       border: 1px solid rgba(0,0,0,0.15);
     }
     .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
-    /* Плашка под текстом нужна — правило с display:none снято, см. выше */
+    .carousel__card--sea-promo .carousel__card-gradient { display: none; }
 
     /* ─── Заготовки под туры без фото: цветной блок вместо картинки ────────────
        Двойная специфичность (--placeholder + элемент) намеренно: перебивает
@@ -944,31 +933,20 @@
       gap: var(--sep);
     }
 
-    /* ─── Плитка сетки: модель apple.com ──────────────────────────────
-       У плитки СВОЙ фон. Текст лежит на нём, фотография — ниже текста, и они
-       не пересекаются. Поэтому читаемость не зависит от того, светлое фото
-       или тёмное: замена картинки ничего не ломает и не требует подбора
-       затемнения. Высота фиксированная (580px), пропорция — следствие ширины
-       колонки, а не правило. */
     .water-card {
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      height: var(--card-h);
+      aspect-ratio: var(--card-ratio);   /* apple.com: 2.18 */
+      min-height: 300px;
       cursor: pointer;
-      background: #f5f5f7;
+      background: #1a1a1a;
     }
-    /* Тёмные плитки в шахматном порядке — ритм как у Apple */
-    .water-card--dark { background: #1d1d1f; }
 
     .water-card img {
-      position: absolute;
-      left: 0;
-      top: var(--card-media-top);
-      width: 100%;
-      height: calc(100% - var(--card-media-top));
+      width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center top;
       display: block;
       transition: transform 0.55s var(--ease);
     }
@@ -1018,10 +996,7 @@
     .water-card:hover img { transform: scale(1.05); }
     .water-card--device:hover img { transform: scale(1.03); }
 
-    /* Шторка не нужна: текст на фоне плитки, а не на фотографии.
-       Оставлена скрытой, чтобы не трогать разметку. */
-    .water-card__overlay { display: none; }
-    .water-card__overlay--unused {
+    .water-card__overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%);
@@ -1047,7 +1022,7 @@
 
     .water-card__body {
       position: absolute;
-      top: var(--h2-top);
+      top: clamp(16px, 8%, 40px);
       left: 0; right: 0;
       display: flex;
       flex-direction: column;
@@ -1062,21 +1037,14 @@
       font-size: clamp(22px, 2.4vw, var(--card-h2));   /* apple.com: 40px */
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: #1d1d1f;
+      color: #fff;
       line-height: 1.15;
-    }
-    .water-card--dark .water-card__title { color: #f5f5f7; }
-    .water-card--dark .water-card__sub   { color: rgba(255,255,255,0.82); }
-    .water-card--dark .water-card__btn {
-      color: #f5f5f7;
-      border-color: rgba(255,255,255,0.4);
-      background: transparent;
     }
 
     .water-card__sub {
       font-size: clamp(14px, 1.3vw, var(--card-sub));  /* apple.com: 21px */
       font-weight: 400;
-      color: #6e6e73;
+      color: rgba(255,255,255,1);
     }
 
     .water-card__btns {
@@ -1086,9 +1054,6 @@
     }
 
     .water-card__btn {
-      color: #1d1d1f;
-      border-color: rgba(0,0,0,0.18);
-      background: rgba(255,255,255,0.75);
       display: inline-flex;
       align-items: center;
       padding: 8px 15px;
@@ -1100,11 +1065,9 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
-      /* Вид кнопки задаёт тип плитки, а не отдельный класс на каждой карточке:
-         светлая плитка — тёмная кнопка (правило выше), тёмная плитка —
-         светлая (правило .water-card--dark ниже). Раньше здесь стоял белый
-         цвет для всех, и на светлой плитке кнопка пропадала. */
-      border: 1px solid rgba(0,0,0,0.18);
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.35);
     }
 
     .water-card__btn--solid {
@@ -1312,6 +1275,7 @@
       position: fixed;
       bottom: 0;
       left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: var(--site-width);
       z-index: 200;
@@ -1510,14 +1474,21 @@
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Водная сетка — одна колонка. Модель та же, что на десктопе:
-         текст на фоне плитки сверху, фотография ниже. Значения меньше,
-         конструкция одна — поэтому замена фото ничего не ломает и здесь. */
+      /* Water cards — single column, каждая = весь экран как tour-section */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card {
-        height: clamp(420px, 62svh, 560px);
-        --card-media-top: 168px;
+      .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
+      /* Рыбалка на мобильном тоже 80svh, картинка в нижних 46% карточки */
+      .water-card--promo-light { height: 80vh; height: 80svh; aspect-ratio: unset; }
+      .water-card--promo-light img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+        transform: scale(1.7);
+        transform-origin: center center;
       }
       .water-card__cta { display: none; }
 
@@ -1579,13 +1550,6 @@
       }
       .carousel__card-cta { order: 2; font-size: 14px; padding: 9px 18px; }
 
-      /* Светлая карточка «Морская прогулка»: на мобильном текст ниже и
-         крупнее, плашка нужна плотнее — замер давал ровно 3.0 при норме 3.0. */
-      .carousel__card--sea-promo .carousel__card-gradient {
-        background: linear-gradient(to top,
-          rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 46%, rgba(255,255,255,0) 72%);
-      }
-
       /* Тёмный градиент под белый текст — только на фото-карточках.
          Светлые карточки (--light, --sea-promo) сохраняют свой тёмный текст. */
       .carousel__card:not(.carousel__card--light):not(.carousel__card--sea-promo)
@@ -1631,7 +1595,7 @@
     <!-- Background — Ken Burns on load, parallax on scroll (GSAP only) -->
     <div class="hero__photo" id="heroPhoto">
       <img
-        src="images/danang-hero.jpg"
+        src="images/danang-hero-2x.webp"
         alt="Панорама Дананга"
         fetchpriority="high"
         decoding="async"
@@ -1760,8 +1724,9 @@
         </div>
       </div>
 
-      <div class="water-card water-card--dark water-card--hoian">
+      <div class="water-card water-card--hoian">
         <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
+        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Древний Хойан</p>
           <p class="water-card__sub">Наследие ЮНЕСКО · Город тысяч фонариков · 65$</p>
@@ -1773,6 +1738,7 @@
 
       <div class="water-card water-card--hue-photo">
         <img src="images/hue-grid.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Императорский Хюэ</p>
           <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
@@ -1782,8 +1748,9 @@
         </div>
       </div>
 
-      <div class="water-card water-card--dark water-card--bana-night">
+      <div class="water-card water-card--bana-night">
         <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
+        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
           <p class="water-card__sub">Огни Маленькой Европы · Золотой мост · 75$</p>
@@ -1897,14 +1864,12 @@
 
         <!-- Заготовки под 11-й и 12-й туры: фото и текст добавить позже -->
         <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-1">
-          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-label">Тур 11</span>
           </div>
         </a>
 
         <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-2">
-          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-label">Тур 12</span>
           </div>
