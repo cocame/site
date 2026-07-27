@@ -23,7 +23,7 @@ APPLE = {
     "h2_size":       (56,  0.20),   # заголовок секции
     "h2_top":        (56,  0.60),   # отступ заголовка от верха плитки
     "sub_size":      (28,  0.25),   # подзаголовок секции
-    "card_ratio":    (2.18, 0.25),  # пропорция плитки сетки (ш/в)
+    "card_h":        (580, 0.10),   # высота плитки сетки — у Apple фиксированная
     "card_h2_size":  (40,  0.25),   # заголовок карточки сетки
     "card_sub_size": (21,  0.30),   # подзаголовок карточки
     "content_w":     (2560, 0.05),  # потолок ширины контента
@@ -81,7 +81,9 @@ MEASURE = """() => {
     const r = c.getBoundingClientRect();
     return {
       name: (c.querySelector('.water-card__title') || {}).textContent?.trim().slice(0, 18) || '—',
-      card_ratio: +(r.width / r.height).toFixed(2),
+      card_h: Math.round(r.height),
+      media_top_pct: (() => { const i = c.querySelector('img');
+        return i ? Math.round((i.getBoundingClientRect().top - r.top) / r.height * 100) : null; })(),
       card_h2_size: fs(c.querySelector('.water-card__title')),
       card_sub_size: fs(c.querySelector('.water-card__sub')),
     };
@@ -146,15 +148,15 @@ async def main():
                       f"{s['sub_size']:>7} {str(s['media_w_pct']):>8}"
                       + ("   МИМО: " + ", ".join(marks) if marks else "   ОК"))
 
-            print(f"\n  {'карточка сетки':<20} {'пропорция':>10} {'h2':>6} {'подзаг':>7}")
+            print(f"\n  {'карточка сетки':<20} {'высота':>10} {'h2':>6} {'подзаг':>7} {'фото с':>8}")
             for c in m["cards"]:
                 marks = []
-                for key in ("card_ratio", "card_h2_size", "card_sub_size"):
+                for key in ("card_h", "card_h2_size", "card_sub_size"):
                     st, dev = verdict(key, c[key])
                     if st == "МИМО":
                         fails += 1
                         marks.append(f"{key} {dev:+.0%}")
-                print(f"  {c['name']:<20} {c['card_ratio']:>10} {c['card_h2_size']:>6} {c['card_sub_size']:>7}"
+                print(f"  {c['name']:<20} {c['card_h']:>10} {c['card_h2_size']:>6} {c['card_sub_size']:>7} {str(c['media_top_pct'])+'%':>8}"
                       + ("   МИМО: " + ", ".join(marks) if marks else "   ОК"))
 
             if m["hscroll"]:

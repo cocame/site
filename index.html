@@ -77,6 +77,9 @@
       --card-ratio: 2.18;       /* пропорция плитки сетки (ш/в) */
       --card-h2: 40px;          /* заголовок карточки сетки */
       --card-sub: 21px;
+      --card-h: 580px;          /* высота плитки сетки — фиксированная, как у Apple */
+      --card-media-top: 208px;  /* граница: выше — текст на фоне плитки, ниже — фото */
+      --grid-gap: 12px;         /* зазор между плитками */
       --nav-h: 48px;            /* у Apple панель 44px, у нас логотип крупнее */
       /* Единая кривая Apple для всех переходов (CLAUDE.md) */
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -932,20 +935,31 @@
       gap: var(--sep);
     }
 
+    /* ─── Плитка сетки: модель apple.com ──────────────────────────────
+       У плитки СВОЙ фон. Текст лежит на нём, фотография — ниже текста, и они
+       не пересекаются. Поэтому читаемость не зависит от того, светлое фото
+       или тёмное: замена картинки ничего не ломает и не требует подбора
+       затемнения. Высота фиксированная (580px), пропорция — следствие ширины
+       колонки, а не правило. */
     .water-card {
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      aspect-ratio: var(--card-ratio);   /* apple.com: 2.18 */
-      min-height: 300px;
+      height: var(--card-h);
       cursor: pointer;
-      background: #1a1a1a;
+      background: #f5f5f7;
     }
+    /* Тёмные плитки в шахматном порядке — ритм как у Apple */
+    .water-card--dark { background: #1d1d1f; }
 
     .water-card img {
-      width: 100%; height: 100%;
+      position: absolute;
+      left: 0;
+      top: var(--card-media-top);
+      width: 100%;
+      height: calc(100% - var(--card-media-top));
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
       display: block;
       transition: transform 0.55s var(--ease);
     }
@@ -995,7 +1009,10 @@
     .water-card:hover img { transform: scale(1.05); }
     .water-card--device:hover img { transform: scale(1.03); }
 
-    .water-card__overlay {
+    /* Шторка не нужна: текст на фоне плитки, а не на фотографии.
+       Оставлена скрытой, чтобы не трогать разметку. */
+    .water-card__overlay { display: none; }
+    .water-card__overlay--unused {
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%);
@@ -1021,7 +1038,7 @@
 
     .water-card__body {
       position: absolute;
-      top: clamp(16px, 8%, 40px);
+      top: var(--h2-top);
       left: 0; right: 0;
       display: flex;
       flex-direction: column;
@@ -1036,14 +1053,21 @@
       font-size: clamp(22px, 2.4vw, var(--card-h2));   /* apple.com: 40px */
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: #fff;
+      color: #1d1d1f;
       line-height: 1.15;
+    }
+    .water-card--dark .water-card__title { color: #f5f5f7; }
+    .water-card--dark .water-card__sub   { color: rgba(255,255,255,0.82); }
+    .water-card--dark .water-card__btn {
+      color: #f5f5f7;
+      border-color: rgba(255,255,255,0.4);
+      background: transparent;
     }
 
     .water-card__sub {
       font-size: clamp(14px, 1.3vw, var(--card-sub));  /* apple.com: 21px */
       font-weight: 400;
-      color: rgba(255,255,255,1);
+      color: #6e6e73;
     }
 
     .water-card__btns {
@@ -1053,6 +1077,9 @@
     }
 
     .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.75);
       display: inline-flex;
       align-items: center;
       padding: 8px 15px;
@@ -1064,9 +1091,11 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
-      color: #fff;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.35);
+      /* Вид кнопки задаёт тип плитки, а не отдельный класс на каждой карточке:
+         светлая плитка — тёмная кнопка (правило выше), тёмная плитка —
+         светлая (правило .water-card--dark ниже). Раньше здесь стоял белый
+         цвет для всех, и на светлой плитке кнопка пропадала. */
+      border: 1px solid rgba(0,0,0,0.18);
     }
 
     .water-card__btn--solid {
@@ -1473,21 +1502,14 @@
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
-      /* Water cards — single column, каждая = весь экран как tour-section */
+      /* Водная сетка — одна колонка. Модель та же, что на десктопе:
+         текст на фоне плитки сверху, фотография ниже. Значения меньше,
+         конструкция одна — поэтому замена фото ничего не ломает и здесь. */
       .water-grid { padding: 0; }
       .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
-      .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
-      /* Рыбалка на мобильном тоже 80svh, картинка в нижних 46% карточки */
-      .water-card--promo-light { height: 80vh; height: 80svh; aspect-ratio: unset; }
-      .water-card--promo-light img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center center;
-        transform: scale(1.7);
-        transform-origin: center center;
+      .water-card {
+        height: clamp(420px, 62svh, 560px);
+        --card-media-top: 168px;
       }
       .water-card__cta { display: none; }
 
@@ -1723,7 +1745,7 @@
         </div>
       </div>
 
-      <div class="water-card water-card--hoian">
+      <div class="water-card water-card--dark water-card--hoian">
         <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
@@ -1747,7 +1769,7 @@
         </div>
       </div>
 
-      <div class="water-card water-card--bana-night">
+      <div class="water-card water-card--dark water-card--bana-night">
         <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
