@@ -957,7 +957,37 @@
     /* Вечерний мост: кадр квадратный, сюжет в нижней части холста
        (Y 35–98%). Общая для карточек привязка к верху показывала бы чёрное
        небо, поэтому здесь кадр прижат к нижней кромке. */
-    .water-card--bana-night img { object-position: center bottom; }
+    /* ─── Кадрирование под плитку 2.18 ────────────────────────────────
+       Значения не подобраны на глаз: для каждого файла посчитан «центр
+       деталей» (средневзвешенный контраст по строкам и столбцам), и кадр
+       сдвинут так, чтобы этот центр попал в середину видимой области.
+         Хойан  1920x1280, центр Y 54%, видно 69% высоты → 63%
+         Хюэ    1800x1350, центр Y 60%, видно 61% высоты → 76%
+         Ба На  1600x1600, центр Y 71%, видно 46% высоты → 89%
+       Пересчёт: tools/crop.py */
+    .water-card--hoian img     { object-position: 50% 63%; }
+    .water-card--hue-photo img { object-position: 50% 76%; }
+    .water-card--bana-night img { object-position: 50% 89%; }
+
+    /* «Хюэ»: небо в кадре светлое, общего затемнения карточек не хватало —
+       белый заголовок давал контраст 1.4 при норме 3.0. Верх темнее. */
+    .water-card--hue-photo .water-card__overlay {
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.50) 40%, rgba(0,0,0,0.06) 72%);
+    }
+    /* «Рыбалка»: тёмные экраны телефонов оказывались ровно под текстом —
+       тёмный подзаголовок читался с контрастом 0.8. Кадр ужат по высоте и
+       прижат к нижней кромке, текст остаётся на светлом фоне карточки. */
+    .water-card--promo-light img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 62%;
+      width: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
     .water-card--device img {
       object-fit: contain;
       object-position: center center;
@@ -1693,7 +1723,7 @@
         </div>
       </div>
 
-      <div class="water-card">
+      <div class="water-card water-card--hoian">
         <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
@@ -1705,8 +1735,9 @@
         </div>
       </div>
 
-      <div class="water-card">
+      <div class="water-card water-card--hue-photo">
         <img src="images/hue-grid.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Императорский Хюэ</p>
           <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
