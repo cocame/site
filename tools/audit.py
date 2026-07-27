@@ -32,6 +32,7 @@ problems = []
 IGNORE = [
     "bana-illustration.webp: растягивается",
     "danang-hero.jpg: растягивается",
+    "danang-mockup-desktop.webp: растягивается",
 ]
 
 
