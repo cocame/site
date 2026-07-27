@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дананг за один день — Narada Travels</title>
+<meta name="description" content="Шоу Дракона, Мраморные горы, полуостров Шонча, речной круиз и ночной рынок за один день. Русскоязычный гид, трансфер от отеля.">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   ВНУТРЕННЯЯ СТРАНИЦА ЭКСКУРСИИ
+
+   Строится по тем же числам, что и главная (см. CLAUDE.md):
+   плитка 692px, заголовок 56/60px в 56px от верха, подзаголовок 28px,
+   зазор 12px, потолок ширины 2560px, панель 48px.
+
+   Шаблон: чтобы сделать страницу другой экскурсии — скопировать файл,
+   поменять тексты и картинки, помеченные комментариями ▼.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --white: #ffffff;
+  --ink:   #1d1d1f;
+  --grey:  #6e6e73;
+  --grey-bg: #f5f5f7;
+  --dark-bg: #1d1d1f;
+  --blue:  #0066cc;
+
+  --site-width: 2560px;
+  --nav-h: 48px;
+  --subnav-h: 52px;
+  --tile-h: 692px;
+  --gap: 12px;
+
+  --h1: 56px;
+  --h1-lh: 60px;
+  --sub: 28px;
+  --h2: 40px;
+  --sub-sm: 21px;
+  --text-top: 56px;
+
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("fonts/sf/sf-pro-display_bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("fonts/sf/sf-pro-text_regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.42;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* ─── Панель навигации ─── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(22, 22, 23, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav__row {
+  max-width: 980px; height: 100%; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav__link {
+  font-size: 12px; color: rgba(245,245,247,0.8);
+  transition: color 0.3s var(--ease);
+}
+.nav__link:hover { color: #f5f5f7; }
+.nav__links { display: flex; gap: 28px; }
+
+/* ─── Подшапка экскурсии: название и кнопка брони ───
+   У Apple на страницах товаров такая же липкая полоса. */
+.subnav {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  height: var(--subnav-h);
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid #d2d2d7;
+}
+.subnav__row {
+  max-width: 980px; height: 100%; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.subnav__title { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; }
+.subnav__right { display: flex; align-items: center; gap: 18px; }
+.subnav__price { font-size: 14px; color: var(--grey); white-space: nowrap; }
+
+.btn {
+  display: inline-flex; align-items: center;
+  padding: 8px 16px;
+  border-radius: 980px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 14px;
+  transition: background 0.3s var(--ease);
+  white-space: nowrap;
+}
+.btn:hover { background: #0077ed; }
+
+.page { max-width: var(--site-width); margin: 0 auto; padding-top: var(--nav-h); }
+
+/* ─── Первый экран ─── */
+.hero {
+  position: relative;
+  height: var(--tile-h);
+  overflow: hidden;
+  margin-bottom: var(--gap);
+  text-align: center;
+  background: var(--dark-bg);
+  color: var(--white);
+}
+.hero__text { position: relative; z-index: 2; padding: var(--text-top) 20px 0; }
+.hero__title { font-size: var(--h1); line-height: var(--h1-lh); font-weight: 700; }
+.hero__sub { margin: 8px 0 0; font-size: var(--sub); line-height: 1.14; }
+.hero__links { display: flex; justify-content: center; gap: 26px; margin-top: 14px; }
+.hero__link { font-size: var(--sub-sm); color: #2997ff; }
+.hero__link:hover { text-decoration: underline; }
+.hero__link::after { content: " \203A"; }
+/* ▼ ФОТО ЭКСКУРСИИ ▼ — занимает низ, обрезается по краям */
+.hero__photo { position: absolute; inset: 0; z-index: 1; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  /* Плотность 0.62 сверху: гарантирует читаемость белого текста
+     на ЛЮБОМ кадре, даже полностью белом (расчёт в CLAUDE.md). */
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 34%, rgba(0,0,0,0.12) 62%, rgba(0,0,0,0) 80%);
+}
+
+/* ─── Вкладки: «Программа тура» и «Детали экскурсии» ─── */
+.tabs { background: var(--grey-bg); }
+.tabs__bar {
+  max-width: 980px; margin: 0 auto; padding: 0 22px;
+  display: flex; gap: 32px;
+  border-bottom: 1px solid #d2d2d7;
+}
+.tab {
+  appearance: none; border: 0; background: none;
+  padding: 18px 0;
+  font-family: inherit; font-size: 17px; color: var(--grey);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.tab:hover { color: var(--ink); }
+.tab.is-active { color: var(--ink); border-bottom-color: var(--ink); }
+
+.panel { display: none; max-width: 980px; margin: 0 auto; padding: 44px 22px 64px; }
+.panel.is-active { display: block; }
+
+.panel h2 { font-size: var(--h2); line-height: 1.1; margin-bottom: 8px; }
+.panel p  { font-size: var(--sub-sm); line-height: 1.4; color: var(--grey); margin: 0 0 28px; }
+
+/* Программа: список пунктов с временем */
+.steps { list-style: none; margin: 0; padding: 0; }
+.step {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid #d2d2d7;
+}
+.step__time { font-size: 17px; color: var(--grey); }
+.step__title { font-size: 21px; font-weight: 600; margin-bottom: 4px; }
+.step__text { font-size: 17px; color: var(--grey); }
+
+/* Детали: две колонки характеристик */
+.specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; }
+.spec { padding: 20px 0; border-top: 1px solid #d2d2d7; }
+.spec__name { font-size: 14px; color: var(--grey); margin-bottom: 4px; }
+.spec__value { font-size: 21px; }
+
+/* ─── Блок брони ─── */
+.booking {
+  background: var(--dark-bg); color: var(--white);
+  text-align: center; padding: 88px 22px 96px;
+}
+.booking h2 { font-size: var(--h2); line-height: 1.1; }
+.booking p { font-size: var(--sub-sm); color: rgba(255,255,255,0.72); margin: 8px 0 24px; }
+
+/* ─── Подвал ─── */
+.footer { background: var(--grey-bg); color: var(--grey); font-size: 12px; padding: 0 22px; }
+.footer__inner { max-width: 980px; margin: 0 auto; padding: 18px 0 28px; }
+.footer__links { display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 12px; }
+.footer__links a { padding: 0 10px; border-left: 1px solid #d2d2d7; }
+.footer__links a:first-child { padding-left: 0; border-left: 0; }
+
+/* ─── Планшет и телефон ─── */
+@media (max-width: 1068px) {
+  :root { --h1: 48px; --h1-lh: 52px; --h2: 32px; --sub: 24px; }
+}
+@media (max-width: 734px) {
+  :root {
+    --tile-h: 520px; --h1: 32px; --h1-lh: 36px; --h2: 28px;
+    --sub: 19px; --sub-sm: 17px; --text-top: 40px;
+  }
+  .nav__links { gap: 18px; }
+  .subnav__price { display: none; }
+  .specs { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 76px 1fr; gap: 14px; }
+  .booking { padding: 64px 22px 72px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══ Панель ═══ -->
+<header class="nav">
+  <nav class="nav__row" aria-label="Основная навигация">
+    <a class="nav__link" href="index.html">‹ Все экскурсии</a>
+    <div class="nav__links">
+      <a class="nav__link" href="index.html#tours">Экскурсии</a>
+      <a class="nav__link" href="index.html#guide">Гид</a>
+      <a class="nav__link" href="index.html#faq">FAQ</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══ Подшапка экскурсии ═══ -->
+<div class="subnav">
+  <div class="subnav__row">
+    <!-- ▼ НАЗВАНИЕ ЭКСКУРСИИ ▼ -->
+    <span class="subnav__title">Дананг за один день</span>
+    <div class="subnav__right">
+      <span class="subnav__price">от 64 $ за человека</span>
+      <a class="btn" href="#booking">Забронировать</a>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+
+  <!-- ═══ Первый экран ═══ -->
+  <section class="hero">
+    <div class="hero__photo">
+      <!-- ▼ ФОТО ЭКСКУРСИИ ▼ -->
+      <img src="images/danang-hero.jpg" alt="Дананг за один день">
+    </div>
+    <div class="hero__scrim"></div>
+    <div class="hero__text">
+      <h1 class="hero__title">Дананг за один день</h1>
+      <p class="hero__sub">Шоу Дракона · Мраморные горы · Речной круиз</p>
+      <div class="hero__links">
+        <a class="hero__link" href="#program">Программа</a>
+        <a class="hero__link" href="#booking">Забронировать</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Вкладки ═══ -->
+  <section class="tabs" id="program">
+    <div class="tabs__bar" role="tablist">
+      <button class="tab is-active" role="tab" aria-selected="true"  data-panel="p-program">Программа тура</button>
+      <button class="tab"           role="tab" aria-selected="false" data-panel="p-specs">Детали экскурсии</button>
+    </div>
+
+    <!-- ▼ ПРОГРАММА: пункты добавляются копированием блока .step ▼ -->
+    <div class="panel is-active" id="p-program" role="tabpanel">
+      <h2>Как проходит день</h2>
+      <p>Выезд из отеля и возвращение обратно включены в стоимость.</p>
+      <ul class="steps">
+        <li class="step">
+          <span class="step__time">08:00</span>
+          <div>
+            <div class="step__title">Выезд из отеля</div>
+            <div class="step__text">Гид встречает вас в лобби, дорога до первой точки — 25 минут.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__time">09:00</span>
+          <div>
+            <div class="step__title">Мраморные горы</div>
+            <div class="step__text">Пять мраморных вершин, пещеры с алтарями и смотровая площадка над городом.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__time">12:30</span>
+          <div>
+            <div class="step__title">Полуостров Шонча</div>
+            <div class="step__text">Статуя Леди Будды, панорама залива и обед с видом на океан.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__time">17:00</span>
+          <div>
+            <div class="step__title">Речной круиз</div>
+            <div class="step__text">Прогулка по реке Хан мимо подсвеченных мостов.</div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__time">21:00</span>
+          <div>
+            <div class="step__title">Шоу Дракона и ночной рынок</div>
+            <div class="step__text">Огонь и вода на мосту Дракона, затем прогулка по рынку.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ▼ ДЕТАЛИ: строки добавляются копированием блока .spec ▼ -->
+    <div class="panel" id="p-specs" role="tabpanel">
+      <h2>Детали экскурсии</h2>
+      <p>Всё, что нужно знать до бронирования.</p>
+      <div class="specs">
+        <div class="spec"><div class="spec__name">Длительность</div><div class="spec__value">13 часов</div></div>
+        <div class="spec"><div class="spec__name">Стоимость</div><div class="spec__value">64 $ за человека</div></div>
+        <div class="spec"><div class="spec__name">Группа</div><div class="spec__value">до 8 человек</div></div>
+        <div class="spec"><div class="spec__name">Язык</div><div class="spec__value">русский</div></div>
+        <div class="spec"><div class="spec__name">Трансфер</div><div class="spec__value">от отеля и обратно</div></div>
+        <div class="spec"><div class="spec__name">Включено</div><div class="spec__value">билеты, обед, вода</div></div>
+        <div class="spec"><div class="spec__name">Что взять</div><div class="spec__value">головной убор, удобная обувь</div></div>
+        <div class="spec"><div class="spec__name">Отмена</div><div class="spec__value">бесплатно за 24 часа</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Бронирование ═══ -->
+  <section class="booking" id="booking">
+    <h2>Забронировать место</h2>
+    <p>Ответим в течение часа и подберём удобную дату.</p>
+    <a class="btn" href="https://wa.me/84123456789" target="_blank" rel="noopener">Написать в WhatsApp</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <nav class="footer__links" aria-label="Разделы">
+      <a href="index.html">Главная</a>
+      <a href="index.html#tours">Экскурсии</a>
+      <a href="index.html#faq">Вопросы</a>
+      <a href="https://t.me/naradatravels">Telegram</a>
+    </nav>
+    <p style="margin:0">© 2026 Narada Travels. Трансфер от отеля и обратно включён в стоимость.</p>
+  </div>
+</footer>
+
+<script>
+/* Вкладки: показываем одну панель, остальные прячем.
+   Никаких библиотек — только переключение классов. */
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById(t.dataset.panel).classList.toggle('is-active', on);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

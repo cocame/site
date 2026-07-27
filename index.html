@@ -647,7 +647,9 @@
       gap: 8px;
       margin-top: 8px;
       padding: 14px 30px;
-      background: rgba(255,255,255,0.10);
+      /* 0.28, а не 0.10: при 0.10 контраст падал до 3.7 на тёмных фото
+         (замер tools/audit.py). Так норма 4.5 держится на любом кадре. */
+      background: rgba(0,0,0,0.28);
       color: #fff;
       font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
       font-size: clamp(14px, 1.5vw, 16px);
@@ -854,13 +856,20 @@
       color: #1d1d1f;
       text-shadow: none;
     }
+    /* Фото светлое и пёстрое: тёмный текст давал контраст 2.4 при норме 3.0.
+       Светлая подложка под блоком текста — как у светлых плиток Apple. */
+    .carousel__card--sea-promo .carousel__card-gradient {
+      display: block;
+      background: linear-gradient(to top,
+        rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 38%, rgba(255,255,255,0) 66%);
+    }
     .carousel__card--sea-promo .carousel__card-cta {
       background: rgba(0,0,0,0.06);
       color: #1d1d1f;
       border: 1px solid rgba(0,0,0,0.15);
     }
     .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
-    .carousel__card--sea-promo .carousel__card-gradient { display: none; }
+    /* Плашка под текстом нужна — правило с display:none снято, см. выше */
 
     /* ─── Заготовки под туры без фото: цветной блок вместо картинки ────────────
        Двойная специфичность (--placeholder + элемент) намеренно: перебивает
@@ -1303,7 +1312,6 @@
       position: fixed;
       bottom: 0;
       left: 50%;
-      transform: translateX(-50%);
       width: 100%;
       max-width: var(--site-width);
       z-index: 200;
@@ -1571,6 +1579,13 @@
       }
       .carousel__card-cta { order: 2; font-size: 14px; padding: 9px 18px; }
 
+      /* Светлая карточка «Морская прогулка»: на мобильном текст ниже и
+         крупнее, плашка нужна плотнее — замер давал ровно 3.0 при норме 3.0. */
+      .carousel__card--sea-promo .carousel__card-gradient {
+        background: linear-gradient(to top,
+          rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 46%, rgba(255,255,255,0) 72%);
+      }
+
       /* Тёмный градиент под белый текст — только на фото-карточках.
          Светлые карточки (--light, --sea-promo) сохраняют свой тёмный текст. */
       .carousel__card:not(.carousel__card--light):not(.carousel__card--sea-promo)
@@ -1671,7 +1686,7 @@
       </h2>
       <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
       <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="tour.html" class="btn-tour">Узнать больше</a>
       </div>
     </div>
     <div class="tour-section__photo" id="danangPhoto">
@@ -1705,7 +1720,7 @@
       </h2>
       <p class="tour-section__subtitle">Сказка в облаках · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
       <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="tour.html" class="btn-tour">Узнать больше</a>
       </div>
     </div>
   </section>
@@ -1723,7 +1738,7 @@
       </h2>
       <p class="tour-section__subtitle">Снорклинг · Обед включён · 70$</p>
       <div class="tour-section__btns">
-        <a href="#" class="btn-tour">Узнать больше</a>
+        <a href="tour.html" class="btn-tour">Узнать больше</a>
       </div>
     </div>
   </section>
@@ -1740,43 +1755,40 @@
           <p class="water-card__title">Рыбалка во Вьетнаме</p>
           <p class="water-card__sub">Ночной тур · Эксклюзив · 75$</p>
           <div class="water-card__btns">
-            <a href="#" class="water-card__btn water-card__btn--dark">Узнать больше</a>
+            <a href="tour.html" class="water-card__btn water-card__btn--dark">Узнать больше</a>
           </div>
         </div>
       </div>
 
       <div class="water-card water-card--dark water-card--hoian">
         <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
-        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Древний Хойан</p>
           <p class="water-card__sub">Наследие ЮНЕСКО · Город тысяч фонариков · 65$</p>
           <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="tour.html" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
 
       <div class="water-card water-card--hue-photo">
         <img src="images/hue-grid.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
-        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Императорский Хюэ</p>
           <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
           <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="tour.html" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
 
       <div class="water-card water-card--dark water-card--bana-night">
         <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
-        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
           <p class="water-card__sub">Огни Маленькой Европы · Золотой мост · 75$</p>
           <div class="water-card__btns">
-            <a href="#" class="water-card__btn">Узнать больше</a>
+            <a href="tour.html" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
@@ -1885,12 +1897,14 @@
 
         <!-- Заготовки под 11-й и 12-й туры: фото и текст добавить позже -->
         <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-1">
+          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-label">Тур 11</span>
           </div>
         </a>
 
         <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-2">
+          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-label">Тур 12</span>
           </div>
