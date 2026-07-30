@@ -21,7 +21,8 @@ import asyncio, re, sys
 from playwright.async_api import async_playwright
 
 ROOT = "/Users/cocame/Downloads/site"
-SITE = f"file://{ROOT}/index.html"
+PAGES = [f"file://{ROOT}/index.html", f"file://{ROOT}/tour.html"]
+SITE = PAGES[0]
 VIEWPORTS = [(390, 844), (768, 1024), (1440, 900), (2880, 1700)]
 
 problems = []
@@ -246,12 +247,20 @@ async def audit_viewport(browser, w, h, source_css, first):
 
 
 async def main():
-    html = open(f"{ROOT}/index.html").read()
-    css = audit_css(html)
+    # у каждой страницы свой CSS: проверяем его против CSSOM именно этой страницы
+    css_by_page = {}
+    for page in ("index.html", "tour.html"):
+        css_by_page[f"file://{ROOT}/{page}"] = audit_css(open(f"{ROOT}/{page}").read())
     async with async_playwright() as pw:
         b = await pw.webkit.launch()
-        for i, (w, h) in enumerate(VIEWPORTS):
-            await audit_viewport(b, w, h, css, first=(i == 0))
+        # обе страницы: главная и внутренняя
+        global SITE
+        for page_url in PAGES:
+            SITE = page_url
+            name = page_url.rsplit("/", 1)[-1]
+            print(f"\nПроверяю {name} …")
+            for i, (w, h) in enumerate(VIEWPORTS):
+                await audit_viewport(b, w, h, css_by_page[page_url], first=(i == 0))
         await b.close()
 
     if not problems:
