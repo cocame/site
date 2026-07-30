@@ -30,7 +30,6 @@
   --nav-h: 48px;
   --subnav-h: 52px;
   --tile-h: 692px;
-  --section-media-top: 344px;   /* граница текста и фотографии */
   --gap: 12px;
 
   --h1: 56px;
@@ -129,10 +128,7 @@ h1, h2, h3 {
 
 .page { max-width: var(--site-width); margin: 0 auto; padding-top: var(--nav-h); }
 
-/* ─── Первый экран: то же правило, что на главной ───
-   Сплошной фон плитки, текст сверху на нём, фотография занимает низ.
-   Никаких градиентов поверх кадра — у Apple их нет, и читаемость от
-   яркости фотографии не зависит. */
+/* ─── Первый экран ─── */
 .hero {
   position: relative;
   height: var(--tile-h);
@@ -149,19 +145,15 @@ h1, h2, h3 {
 .hero__link { font-size: var(--sub-sm); color: #2997ff; }
 .hero__link:hover { text-decoration: underline; }
 .hero__link::after { content: " \203A"; }
-
-/* ▼ ФОТО ЭКСКУРСИИ ▼ — занимает низ плитки целиком, без белых дыр */
-.hero__photo {
-  position: absolute;
-  inset: var(--section-media-top) 0 0 0;
-  z-index: 1;
-  overflow: hidden;
-}
-.hero__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+/* ▼ ФОТО ЭКСКУРСИИ ▼ — занимает низ, обрезается по краям */
+.hero__photo { position: absolute; inset: 0; z-index: 1; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  /* Плотность 0.62 сверху: гарантирует читаемость белого текста
+     на ЛЮБОМ кадре, даже полностью белом (расчёт в CLAUDE.md). */
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 34%, rgba(0,0,0,0.12) 62%, rgba(0,0,0,0) 80%);
 }
 
 /* ─── Вкладки: «Программа тура» и «Детали экскурсии» ─── */
@@ -230,7 +222,6 @@ h1, h2, h3 {
   :root {
     --tile-h: 520px; --h1: 32px; --h1-lh: 36px; --h2: 28px;
     --sub: 19px; --sub-sm: 17px; --text-top: 40px;
-    --section-media-top: 260px;
   }
   .nav__links { gap: 18px; }
   .subnav__price { display: none; }
@@ -275,6 +266,7 @@ h1, h2, h3 {
       <!-- ▼ ФОТО ЭКСКУРСИИ ▼ -->
       <img src="images/danang-hero.jpg" alt="Дананг за один день">
     </div>
+    <div class="hero__scrim"></div>
     <div class="hero__text">
       <h1 class="hero__title">Дананг за один день</h1>
       <p class="hero__sub">Шоу Дракона · Мраморные горы · Речной круиз</p>

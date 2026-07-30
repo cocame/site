@@ -11,7 +11,7 @@
   <meta property="og:url"         content="https://cocame.github.io/site/" />
   <meta property="og:title"       content="Narada Travels — Экскурсии из Дананга" />
   <meta property="og:description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
-  <meta property="og:image"       content="https://cocame.github.io/site/images/danang-hero-2x.webp" />
+  <meta property="og:image"       content="https://cocame.github.io/site/images/danang-hero.jpg" />
   <meta property="og:image:width" content="1920" />
   <meta property="og:image:height" content="921" />
   <meta property="og:locale"      content="ru_RU" />
@@ -21,7 +21,7 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Narada Travels — Экскурсии из Дананга" />
   <meta name="twitter:description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
-  <meta name="twitter:image"       content="https://cocame.github.io/site/images/danang-hero-2x.webp" />
+  <meta name="twitter:image"       content="https://cocame.github.io/site/images/danang-hero.jpg" />
 
   <!-- GSAP + ScrollTrigger — only for photo effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -60,29 +60,7 @@
     :root {
       --peek: 80px;
       --sep:  12px;
-      /* 2560px — как у apple.com (замер: их секции упираются ровно в 2560
-         при окне 2880). При 1680 на широких экранах и при зуме 50% по бокам
-         оставались пустые поля, блоки казались узкими и высокими. */
-      --site-width: 2560px;
-      /* ─── Числа сняты с apple.com (WebKit, 1440x900 и 2880x1700).
-         Все блоки строятся ОТ НИХ, а не от высоты окна — у Apple плитки
-         фиксированные и не «дышат» при зуме. Проверка: python3 tools/check.py */
-      --tile-h: 692px;          /* высота крупной плитки */
-      --h2: 56px;               /* заголовок секции */
-      --h2-lh: 60px;
-      /* 56px у Apple, но не меньше высоты нашей панели плюс воздух —
-         иначе на планшете заголовок уходил под неё. */
-      --h2-top: max(56px, calc(var(--nav-h) + 12px));
-      --sub: 28px;              /* подзаголовок секции */
-      --card-ratio: 2.18;       /* пропорция плитки сетки (ш/в) */
-      --card-h2: 40px;          /* заголовок карточки сетки */
-      --card-sub: 21px;
-      --card-h: 580px;           /* высота плитки сетки — apple.com */
-      --card-media-top: 180px;   /* граница текста и фотографии */
-      --card-text-top: 56px;     /* отступ заголовка от верха плитки */
-      --section-media-top: 344px; /* граница текста и фото в большой плитке:
-                                     заголовок в две строки + подзаголовок + кнопка */
-      --nav-h: 48px;            /* у Apple панель 44px, у нас логотип крупнее */
+      --site-width: 1680px;
       /* Единая кривая Apple для всех переходов (CLAUDE.md) */
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
@@ -108,7 +86,7 @@
     /* ─── CENTRAL CONTAINER ─────────────────────────────────────── */
     .page-wrap {
       width: 100%;
-      max-width: var(--site-width);
+      max-width: 1680px;
       margin: 0 auto;
     }
 
@@ -126,7 +104,7 @@
       transform: translateX(-50%);
       width: 100%;
       z-index: 100;
-      height: var(--nav-h);
+      height: 64px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -210,11 +188,7 @@
       width: 100%;
       height: calc(100svh - 88px - var(--peek));
       min-height: 400px;
-      /* 820px — потолок высоты. У apple.com плитки фиксированные 692px, и при
-         зуме 50% или на большом мониторе видно сразу несколько блоков. У нас
-         высота считалась от экрана и упиралась в 1080: один блок занимал всё
-         окно на любом масштабе, пропорции ломались. */
-      max-height: 820px;
+      max-height: 1080px;
       background: #000;
       overflow: hidden;
     }
@@ -457,10 +431,9 @@
     .tour-section {
       position: relative;
       width: 100%;
-      /* Фиксированная высота, как у Apple: плитка не зависит от высоты окна.
-         min() — чтобы на низких окнах блок не вылезал за экран. */
-      height: min(var(--tile-h), calc(100svh - var(--sep) - 70px));
-      min-height: 420px;
+      height: 80svh;
+      min-height: 500px;
+      max-height: 900px;
       overflow: hidden;
       margin-bottom: var(--sep);
       background: #111;
@@ -497,9 +470,7 @@
 
     .tour-section__content {
       position: absolute;
-      /* Ровно как у Apple: 56px от верха плитки, не в vh — иначе на высоком
-         окне заголовок уезжает к середине. */
-      top: var(--h2-top);
+      top: clamp(80px, 10vh, 130px);
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
@@ -530,7 +501,7 @@
 
     .tour-section__subtitle {
       font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      font-size: clamp(17px, 2vw, var(--sub));    /* apple.com: 28px */
+      font-size: clamp(15px, 2vw, 20px);
       font-weight: 400;
       letter-spacing: -0.01em;
       color: #fff;
@@ -543,8 +514,132 @@
        вылезал за экран и его приходилось скроллить, а на телефоне выходил
        вполовину. Под доступное место подстраивается картинка — см. ниже
        flex + object-fit: contain у .tour-section__photo. */
-    /* Светлая секция отличается только цветом фона — раскладка общая */
-    .tour-section--light { background: #f5f5f7; color: #1d1d1f; }
+    .tour-section--light {
+      background: #f5f5f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Сверху — высота фиксированной навигации (64px) плюс воздух: секция
+         теперь во весь экран и текст начинается у верхней кромки, без
+         этого заголовок уезжал под панель. */
+      padding: calc(64px + clamp(12px, 2vw, 28px)) 24px 0;
+      overflow: hidden;
+    }
+    .tour-section--light .tour-section__gradient { display: none; }
+    /* ─── Ба На Хиллс: иллюстрация (≥769px) ────────────────────────
+       Кадр во всю секцию. Параллакс отключён и привязка к нижней кромке:
+       у остальных секций фото на 20% выше секции и ездит при прокрутке — тут
+       это срезало 14% снизу, ровно фигуры и цветы. Теперь снизу не режется
+       ничего, уходит только небо сверху.
+       Текст чёрный, затемнения нет — верх остаётся светлым и продолжает
+       белый блок «Дананг за один день» выше. */
+    @media (min-width: 769px) {
+      #tours .tour-section__photo { inset: 0; height: auto; }
+      #tours .tour-section__photo img {
+        object-fit: cover;
+        object-position: center bottom;
+      }
+      #tours .tour-section__gradient { display: none; }
+      #tours .tour-section__title,
+      #tours .tour-section__subtitle {
+        color: #1d1d1f;
+        text-shadow: none;
+      }
+      #tours .btn-tour {
+        color: #1d1d1f;
+        background: rgba(255,255,255,0.72);
+        border-color: rgba(0,0,0,0.15);
+      }
+      #tours .btn-tour:hover { background: #fff; }
+    }
+    .tour-section--light .tour-section__content {
+      position: static;
+      transform: none;
+      flex: 0 0 auto;
+      width: min(680px, 88vw);
+      margin-bottom: clamp(12px, 2vw, 24px);
+      gap: 8px;
+    }
+    .tour-section--light .tour-section__title,
+    .tour-section--light .tour-section__subtitle {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .tour-section--light .btn-tour {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.7);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .tour-section--light .btn-tour:hover { background: #fff; }
+    /* Фигуры занимают ВЕСЬ остаток высоты секции и упираются в нижний край.
+       flex: 1 1 auto + min-height: 0 отдают картинке всё, что осталось от
+       текста, а object-fit: contain вписывает её в этот остаток без обрезки:
+       широкий экран — упирается в высоту, узкий — в ширину. Из-за этого блок
+       физически не может стать выше экрана.
+       Ширину не задаём числом (было 74vw): при фиксированной ширине картинка
+       не умела ужиматься, секция вырастала под неё и на десктопе вылезала за
+       экран — приходилось скроллить.
+       Десктопный вариант danang-mockup-desktop.webp — это danang-mockup4.png,
+       обрезанный снизу до 80% (1430x543, ratio 2.63 вместо 2.106). Картинку
+       здесь ограничивает высота, а не ширина, поэтому чем она «панорамнее»,
+       тем крупнее фигуры при том же остатке места: на 1440x900 было 718px
+       ширины, стало ~900. Ниже 80% срезаются подставки ноутбуков и руки.
+       Исходники danang-mockup4.png (полный) лежат рядом — откат одной строкой. */
+    .tour-section--light .tour-section__photo {
+      position: static;
+      inset: auto;
+      width: min(1240px, 74vw);
+      max-width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: block;
+    }
+    .tour-section--light .tour-section__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      display: block;
+    }
+    /* На мобильном и планшете — фигуры в край экрана, как во всех соседних
+       секциях (у них фото через inset: 0). Боковой padding секции оставлял по
+       16px полей, а 74vw давало 518px из 700 — блок читался узким. Диапазон
+       именно до 768px: выше начинается десктопная пропорция 74vw с apple.com.
+       width: 100%, а не 100vw — 100vw не учитывает классический скроллбар.
+       Текст ширины не теряет: у .tour-section--light .tour-section__content
+       своя width: min(680px, 88vw), она специфичнее правил медиазапросов. */
+    @media (max-width: 768px) {
+      .tour-section--light { padding-left: 0; padding-right: 0; }
+      .tour-section--light .tour-section__photo { width: 100%; }
+    }
+
+    .btn-tour {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 14px 30px;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-size: clamp(14px, 1.5vw, 16px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(255,255,255,0.40);
+      border-radius: 980px;
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.3s var(--ease),
+                  border-color 0.3s var(--ease),
+                  transform 0.3s var(--ease);
+    }
+    .btn-tour:hover {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.75);
+      transform: scale(1.03);
+    }
     .btn-tour:active { transform: scale(0.97); }
     .btn-tour svg {
       width: 15px; height: 15px; flex-shrink: 0;
@@ -812,77 +907,20 @@
       gap: var(--sep);
     }
 
-
-    /* ═══ Большие секции — та же конструкция, что у плиток сетки ═══
-       Сплошной фон, текст сверху на нём, фотография занимает низ.
-       Никаких градиентов поверх фотографии: у Apple их нет. */
-    .tour-section {
-      background: #f5f5f7;
-      color: #1d1d1f;
-    }
-    .tour-section:nth-of-type(even) {
-      background: #1d1d1f;
-      color: #f5f5f7;
-    }
-    .tour-section__gradient { display: none; }
-    .tour-section__photo {
-      position: absolute;
-      inset: var(--section-media-top) 0 0 0;
-      height: auto;
-      overflow: hidden;
-    }
-    .tour-section__photo img,
-    .tour-section__photo video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-    .tour-section__title,
-    .tour-section__subtitle {
-      color: inherit;
-      text-shadow: none;
-    }
-    .tour-section .btn-tour {
-      color: inherit;
-      background: rgba(127,127,127,0.16);
-      border-color: currentColor;
-    }
-
-    /* ═══ УНИВЕРСАЛЬНАЯ ПЛИТКА (правило одно на все плитки сайта) ═══
-       Устройство одинаковое для любой карточки и любого фото:
-         • у плитки сплошной фон — светлый или тёмный, целиком;
-         • текст сверху на этом фоне, с фотографией не пересекается;
-         • фотография занимает низ плитки от --card-media-top до самого края
-           и растягивается по нему (cover) — белых дыр быть не может,
-           какое бы фото ни загрузили.
-       Светлые и тёмные чередуются автоматически по позиции в сетке,
-       отдельные классы на карточках для этого не нужны. */
     .water-card {
       position: relative;
-      height: var(--card-h);
-      overflow: hidden;
-      cursor: pointer;
-      background: #f5f5f7;
-      color: #1d1d1f;
       border-radius: 0;
-    }
-    /* Чередование: левая светлая, правая тёмная */
-    .water-grid__grid > .water-card:nth-child(even) {
-      background: #1d1d1f;
-      color: #f5f5f7;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      min-height: 300px;
+      cursor: pointer;
+      background: #1a1a1a;
     }
 
     .water-card img {
-      position: absolute;
-      top: var(--card-media-top);
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: calc(100% - var(--card-media-top));
-      object-fit: cover;          /* заполняет низ целиком, без белых дыр */
-      object-position: center;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
       display: block;
       transition: transform 0.55s var(--ease);
     }
@@ -891,58 +929,68 @@
     /* На мобильном карточка портретная, а фото квадратное: cover срезал
        ноутбуку края — читалось как ошибка, а не как кадрирование. Вписываем
        целиком; фон карточки чёрный, поэтому поля от contain незаметны. */
-    /* Вечерний мост: кадр квадратный, сюжет в нижней части холста
-       (Y 35–98%). Общая для карточек привязка к верху показывала бы чёрное
-       небо, поэтому здесь кадр прижат к нижней кромке. */
-    /* ─── Кадрирование под плитку 2.18 ────────────────────────────────
-       Значения не подобраны на глаз: для каждого файла посчитан «центр
-       деталей» (средневзвешенный контраст по строкам и столбцам), и кадр
-       сдвинут так, чтобы этот центр попал в середину видимой области.
-         Хойан  1920x1280, центр Y 54%, видно 69% высоты → 63%
-         Хюэ    1800x1350, центр Y 60%, видно 61% высоты → 76%
-         Ба На  1600x1600, центр Y 71%, видно 46% высоты → 89%
-       Пересчёт: tools/crop.py */
-
-
+    /* Вечерний мост: кадр горизонтальный (1.54), карточка на мобильном
+       портретная — по умолчанию в неё попадала только середина. Смещаем
+       фокус влево, на подсвеченные пальцы и изгиб моста. */
+    @media (max-width: 600px) {
+      .water-card--bana-night img { object-position: 38% 45%; }
+    }
+    .water-card--device img {
+      object-fit: contain;
+      object-position: center center;
+    }
     .water-card:hover img { transform: scale(1.05); }
     .water-card--device:hover img { transform: scale(1.03); }
 
-    /* Шторки не нужны: текст лежит на сплошном фоне плитки */
-    .water-card__overlay { display: none; }
+    .water-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%);
+    }
 
     /* ─── Светлый вариант карточки — как чередование у Apple (iPad Air, Watch) ── */
+    .water-card--light .water-card__overlay {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 55%);
+    }
     .water-card--light .water-card__title,
     .water-card--light .water-card__sub {
-      color: inherit;
+      color: #1d1d1f;
       text-shadow: none;
+    }
+    .water-card--light .water-card__btn {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.55);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .water-card--light .water-card__btn:hover {
+      background: rgba(255,255,255,0.85);
     }
 
     .water-card__body {
       position: absolute;
-      top: var(--card-text-top);
+      top: clamp(16px, 8%, 40px);
       left: 0; right: 0;
-      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       padding: 0 24px;
       gap: 8px;
+      z-index: 1;
     }
 
     .water-card__title {
-      font-size: clamp(22px, 2.4vw, var(--card-h2));   /* apple.com: 40px */
+      font-size: clamp(19px, 1.6vw, 24px);
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: inherit;        /* цвет задаёт плитка: светлая — тёмный, тёмная — светлый */
+      color: #fff;
       line-height: 1.15;
     }
 
     .water-card__sub {
-      font-size: clamp(14px, 1.3vw, var(--card-sub));  /* apple.com: 21px */
+      font-size: clamp(13px, 1vw, 15px);
       font-weight: 400;
-      color: inherit;
-      opacity: 0.86;
+      color: rgba(255,255,255,1);
     }
 
     .water-card__btns {
@@ -951,7 +999,6 @@
       margin-top: 4px;
     }
 
-    /* Кнопка карточки: цвет и рамка от плитки, одно правило на все */
     .water-card__btn {
       display: inline-flex;
       align-items: center;
@@ -961,12 +1008,13 @@
       font-weight: 400;
       text-decoration: none;
       cursor: pointer;
-      color: inherit;
-      background: transparent;
-      border: 1px solid currentColor;
-      transition: background 0.3s var(--ease), color 0.3s var(--ease);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.35);
     }
-    .water-card__btn:hover { background: currentColor; }
 
     .water-card__btn--solid {
       background: rgba(255,255,255,0.92);
@@ -974,6 +1022,7 @@
       border-color: transparent;
     }
 
+    .water-card__btn:hover { background: rgba(255,255,255,0.22); }
     .water-card__btn--solid:hover { background: #fff; }
 
     .water-card__cta {
@@ -1002,14 +1051,47 @@
     }
     /* Рыбалка — прозрачный PNG телефонов на светлом фоне */
     .water-card--promo-light { background: #f5f5f7; }
+    .water-card--promo-light img {
+      object-fit: contain;
+      object-position: center bottom;
+    }
 
     .water-card--promo-light .water-card__body .water-card__title,
-    .water-card--promo-light .water-card__body .water-card__sub { color: inherit; text-shadow: none; }
+    .water-card--promo-light .water-card__body .water-card__sub { color: #1d1d1f; text-shadow: none; }
+    .water-card--promo-light .water-card__body .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.7);
+    }
+    .water-card__overlay--top {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 30%);
+    }
+    .water-card--hue img {
+      filter: brightness(1.45) saturate(0.75);
+    }
     .water-card--hue .water-card__title,
-    .water-card--hue .water-card__sub { color: inherit; text-shadow: none; }
+    .water-card--hue .water-card__sub { color: #1d1d1f; text-shadow: none; }
+    .water-card--hue .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.75);
+    }
     .water-card__body--device .water-card__title,
+    .water-card__body--device .water-card__sub {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    .water-card__body--device .water-card__btn {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.7);
+      border-color: rgba(0,0,0,0.15);
+    }
+    .water-card__body--device .water-card__btn:hover {
+      background: #fff;
+    }
 
     @media (max-width: 600px) {
+      .water-card--device { aspect-ratio: unset; height: 80svh; }
     }
 
 
@@ -1139,6 +1221,7 @@
       position: fixed;
       bottom: 0;
       left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: var(--site-width);
       z-index: 200;
@@ -1198,14 +1281,13 @@
 
     /* ─── ПЛАНШЕТ: 601–1024px — раньше этого диапазона не было вообще ── */
     @media (min-width: 601px) and (max-width: 1024px) {
-      :root { --nav-h: 60px; }
       .nav-left { display: none; }
       .nav-logo { position: static; transform: none; flex-shrink: 0; }
       .nav-right { display: flex; align-items: center; margin-left: auto; }
       .nav-burger { display: flex !important; }
       .nav {
         display: flex; align-items: center; gap: 10px;
-        height: var(--nav-h); padding: 0 24px;
+        height: 60px; padding: 0 24px;
         background: rgba(22, 22, 23, 0.8);   /* та же альфа, что у десктопной панели */
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -1224,8 +1306,15 @@
         border-bottom: 1px solid rgba(255,255,255,0.08);
       }
 
-      /* Высота плитки фиксированная — как у Apple, одна на всех */
-      .tour-section { height: var(--tile-h); }
+      .tour-section { height: auto; min-height: 640px; max-height: 900px; }
+      /* height: auto выше работает только для тёмных секций: у них фото
+         абсолютное, контента в потоке нет, и все они выходят ровно min-height.
+         У светлой секции контент в потоке, поэтому auto растил её до 711–753 —
+         блок снова оказывался выше соседей. Фиксируем ту же высоту. */
+      .tour-section--light { height: 640px; }
+      .tour-section__content { padding: 0 48px 64px; }
+
+      .hero__content { width: 90%; }
     }
 
     /* ─── Burger button ─────────────────────────────────────────── */
@@ -1249,12 +1338,10 @@
 
     /* ─── Mobile ────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      :root { --nav-h: 56px; --section-media-top: 300px; }
-      .water-card { --card-media-top: 210px; --card-text-top: 40px; }
       /* Nav: logo left — button + burger right */
       .nav {
         display: flex; align-items: center; gap: 10px;
-        height: var(--nav-h); padding: 0 16px;
+        height: 56px; padding: 0 16px;
         background: rgba(22, 22, 23, 0.8);   /* та же альфа, что у десктопной панели */
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -1315,9 +1402,104 @@
         height: calc(100svh - var(--sep) - 70px);
         aspect-ratio: unset; min-height: 380px; max-height: none;
       }
-      /* Фотография и здесь занимает низ плитки — конструкция одна на всех */
-      .tour-section__photo { inset: var(--section-media-top) 0 0 0; }
-      .tour-section__photo img { object-position: center; }
+      .tour-section__photo { inset: 0; }
+      .tour-section__photo img { object-position: center center; }
+
+      /* Высота «Дананга» = высота соседних секций: правило .tour-section выше
+         действует и на него, отдельных значений тут нет намеренно. */
+      /* Мобильная навигация ниже десктопной (56px) */
+      .tour-section--light { padding-top: calc(56px + 16px); padding-bottom: 0; }
+      #dongGiangPhoto { background-image: url('images/dong-giang-mobile.webp'); background-size: cover; background-position: center center; }
+      /* 28px уводило заголовок под фиксированную панель (56px). Пока заголовки
+         были двухстрочными, пряталась только верхняя строка и это не бросалось
+         в глаза; у «Ba Na Hills» строка одна — пряталась целиком. */
+      .tour-section__content { top: calc(56px + 12px); gap: 8px; width: 92vw; }
+      #banaPhoto img { object-position: center 65%; }
+      .tour-section__btns { margin-top: 0; gap: 8px; }
+      .btn-tour { padding: 9px 18px; font-size: 13px; }
+
+      /* Water cards — single column, каждая = весь экран как tour-section */
+      .water-grid { padding: 0; }
+      .water-grid__grid { grid-template-columns: 1fr; gap: var(--sep); }
+      .water-card { aspect-ratio: unset; height: 80vh; height: 80svh; min-height: 300px; max-height: none; }
+      /* Рыбалка на мобильном тоже 80svh, картинка в нижних 46% карточки */
+      .water-card--promo-light { height: 80vh; height: 80svh; aspect-ratio: unset; }
+      .water-card--promo-light img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+        transform: scale(1.7);
+        transform-origin: center center;
+      }
+      .water-card__cta { display: none; }
+
+      /* Типографика блоков */
+      .tour-section__title { font-size: clamp(2rem, 9vw, 2.8rem); line-height: 1.05; }
+      .tour-section__subtitle { font-size: clamp(13px, 3.5vw, 16px); }
+      .water-card__title { font-size: clamp(17px, 5vw, 22px); }
+      .water-card__sub { font-size: clamp(13px, 3.5vw, 16px); }
+
+      /* Карусель на мобильном — портретные карточки как у Apple */
+      .carousel-section { padding: clamp(24px, 6vw, 40px) 0 clamp(28px, 6vw, 44px); }
+      /* Заголовок одной строкой, как на apple.com. Ширина текста = 12.42 × font-size
+         (замерено для «Бесконечные путешествия», SF Pro 700, letter-spacing -0.02em).
+         6.9vw влезает в доступные 100vw-40px на всех ширинах от 320px.
+         Если менять текст заголовка — перемерить коэффициент. */
+      .carousel-section__title {
+        font-size: min(38px, 6.9vw);
+        text-align: center;
+        white-space: nowrap;
+      }
+      /* Заголовок прижат к карточкам (было clamp(24px,4vw,40px) — отрывался) */
+      .carousel-section__head { margin-bottom: 16px; }
+
+      /* Лента как у Apple: активная карточка строго по центру, соседние
+         выглядывают на ~10% своей ширины. Padding 12vw = выступ + gap,
+         поэтому центрируется и первая, и последняя карточка. */
+      .carousel__track {
+        gap: 16px;
+        padding: 0 12vw;
+      }
+      .carousel__card {
+        width: 76vw;
+        aspect-ratio: 9/16;
+      }
+
+      /* Контент внутри картинки, у нижнего края, по центру.
+         Порядок сверху вниз: заголовок → описание → кнопка. */
+      .carousel__card-body {
+        bottom: 24px;
+        padding: 0 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+      .carousel__card-title {
+        order: 1;
+        display: block;            /* снимаем -webkit-box, чтобы описание встало своей строкой */
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        font-size: clamp(17px, 5vw, 22px);
+      }
+      .carousel__card-dot { display: none; }
+      .carousel__card-title .carousel__card-sub-inline {
+        display: block;
+        margin-top: 6px;
+        font-size: clamp(13px, 3.6vw, 16px);
+        line-height: 1.35;
+      }
+      .carousel__card-cta { order: 2; font-size: 14px; padding: 9px 18px; }
+
+      /* Тёмный градиент под белый текст — только на фото-карточках.
+         Светлые карточки (--light, --sea-promo) сохраняют свой тёмный текст. */
+      .carousel__card:not(.carousel__card--light):not(.carousel__card--sea-promo)
+        .carousel__card-gradient {
+        background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 55%);
+      }
     }
   </style>
 </head>
@@ -1357,7 +1539,7 @@
     <!-- Background — Ken Burns on load, parallax on scroll (GSAP only) -->
     <div class="hero__photo" id="heroPhoto">
       <img
-        src="images/danang-hero-2x.webp"
+        src="images/danang-hero.jpg"
         alt="Панорама Дананга"
         fetchpriority="high"
         decoding="async"
@@ -1412,7 +1594,7 @@
       </h2>
       <p class="tour-section__subtitle">Шоу Дракона · Мраморные горы · Полуостров · Речной круиз · Ночной рынок · 64$</p>
       <div class="tour-section__btns">
-        <a href="tour.html" class="btn-tour">Узнать больше</a>
+        <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
     <div class="tour-section__photo" id="danangPhoto">
@@ -1446,7 +1628,7 @@
       </h2>
       <p class="tour-section__subtitle">Сказка в облаках · Золотой мост «Руки Бога» · Канатка с рекордами Гиннесса</p>
       <div class="tour-section__btns">
-        <a href="tour.html" class="btn-tour">Узнать больше</a>
+        <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
   </section>
@@ -1464,7 +1646,7 @@
       </h2>
       <p class="tour-section__subtitle">Снорклинг · Обед включён · 70$</p>
       <div class="tour-section__btns">
-        <a href="tour.html" class="btn-tour">Узнать больше</a>
+        <a href="#" class="btn-tour">Узнать больше</a>
       </div>
     </div>
   </section>
@@ -1477,48 +1659,46 @@
 
       <div class="water-card water-card--promo-light">
         <img src="images/fishing-mockup-transparent-cropped.png" alt="Рыбалка во Вьетнаме" loading="lazy" />
-        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Рыбалка во Вьетнаме</p>
           <p class="water-card__sub">Ночной тур · Эксклюзив · 75$</p>
           <div class="water-card__btns">
-            <a href="tour.html" class="water-card__btn water-card__btn--dark">Узнать больше</a>
+            <a href="#" class="water-card__btn water-card__btn--dark">Узнать больше</a>
           </div>
         </div>
       </div>
 
-      <div class="water-card water-card--hoian">
+      <div class="water-card">
         <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Древний Хойан</p>
           <p class="water-card__sub">Наследие ЮНЕСКО · Город тысяч фонариков · 65$</p>
           <div class="water-card__btns">
-            <a href="tour.html" class="water-card__btn">Узнать больше</a>
+            <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
 
-      <div class="water-card water-card--hue-photo">
+      <div class="water-card">
         <img src="images/hue-grid.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
-        <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Императорский Хюэ</p>
           <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
           <div class="water-card__btns">
-            <a href="tour.html" class="water-card__btn">Узнать больше</a>
+            <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
 
       <div class="water-card water-card--bana-night">
-        <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
+        <img src="images/bana-evening-night.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
           <p class="water-card__sub">Огни Маленькой Европы · Золотой мост · 75$</p>
           <div class="water-card__btns">
-            <a href="tour.html" class="water-card__btn">Узнать больше</a>
+            <a href="#" class="water-card__btn">Узнать больше</a>
           </div>
         </div>
       </div>
@@ -1917,10 +2097,18 @@
 
       if (window.innerWidth > 600) {
       if (!document.querySelector('#bana-old.tour-section--light')) {
+      gsap.to('#danangPhoto', {
+        yPercent: 12, ease: 'none',
+        scrollTrigger: { trigger: '#bana-old', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+      });
       }
       /* Параллакс #banaPhoto отключён: он двигает фото внутри бокса и срезал
          нижний край иллюстрации — там фигуры и цветы. */
 
+      gsap.to('#chamPhoto', {
+        yPercent: 12, ease: 'none',
+        scrollTrigger: { trigger: '#cham-hero', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+      });
       } // end mobile parallax check
     }
 
