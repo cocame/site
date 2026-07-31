@@ -526,42 +526,22 @@
       overflow: hidden;
     }
     .tour-section--light .tour-section__gradient { display: none; }
-    /* ─── Ба На Хиллс: иллюстрация (≥769px) ────────────────────────
-       Кадр во всю секцию. Параллакс отключён и привязка к нижней кромке:
-       у остальных секций фото на 20% выше секции и ездит при прокрутке — тут
-       это срезало 14% снизу, ровно фигуры и цветы. Теперь снизу не режется
-       ничего, уходит только небо сверху.
-       У кадра bana-gate верхние 25% файла прозрачны (alpha 0) — это поле
-       оставлено под заголовок, срезать его нельзя. Свожу на белый.
-       Секция 1440×720 (2.0) против кадра 1536×1024 (1.5): при cover по высоте
-       уходит 25%, и выбор только между двумя потерями — либо белое поле сверху
-       (Y=bottom), либо ноги бегущих фигур снизу, они на 0.88…0.95 высоты файла
-       (Y=top). Поэтому cover тут не годится: беру contain по нижней кромке —
-       кадр виден целиком, поле под заголовок сохранено, фигуры стоят на низу
-       секции. Фон секции белый, поэтому поля contain по бокам не читаются как
-       дыра — тот же приём уже применён у .water-card--device и --promo-light.
-       Текст чёрный, затемнение снято: под заголовком белое поле (255), к 0.4
-       файла спадает до 218, контраст #1d1d1f — 12.2 при норме 4.5. */
-    #tours { background: #fff; }
-    #tours .tour-section__gradient { display: none; }
-    #tours .tour-section__title,
-    #tours .tour-section__subtitle {
-      color: #1d1d1f;
-      text-shadow: none;
-    }
-    #tours .btn-tour {
-      color: #1d1d1f;
-      background: rgba(255,255,255,0.72);
-      border-color: rgba(0,0,0,0.15);
-    }
-    #tours .btn-tour:hover { background: #fff; }
-    @media (min-width: 769px) {
-      #tours .tour-section__photo { inset: 0; height: auto; }
-      #tours .tour-section__photo img {
-        object-fit: contain;
-        object-position: center bottom;
-      }
-    }
+    /* ─── Ба На Хиллс ───────────────────────────────────────────────
+       Секция переведена на .tour-section--light — ту же конструкцию, что у
+       «Дананга за один день»: подложка #f5f5f7, текст сверху потоком, фото
+       ниже с contain по нижней кромке. Своих правил под #tours больше нет,
+       раньше здесь лежал набор с фоном #fff и снятым затемнением.
+       Заплатка и белые полосы по бокам были не от contain, а от несовпадения
+       фонов: кадр сводился на #ffffff, подложка секции тоже была #ffffff, но
+       у самой иллюстрации непрозрачная часть — прямоугольник уже секции, и его
+       кромка читалась как край наклейки. Теперь bana-gate.webp сведён ровно на
+       #f5f5f7 (углы файла замерены: 245,245,247), совпадает с подложкой в ноль
+       — поля contain не видны, границы у фото нет.
+       Пустой верх файла (276 строк из 1024, alpha 0) срезан: он был полем под
+       заголовок, а в этой конструкции заголовок стоит выше фото и поле только
+       уменьшало иллюстрацию. Файл 1536×748, пропорция 2.053.
+       Фон сайта при этом остаётся #ffffff (body), и блок мягко выделяется на
+       нём разницей #ffffff / #f5f5f7 — как секции на apple.com. */
     .tour-section--light .tour-section__content {
       position: static;
       transform: none;
@@ -1441,11 +1421,9 @@
          были двухстрочными, пряталась только верхняя строка и это не бросалось
          в глаза; у «Ba Na Hills» строка одна — пряталась целиком. */
       .tour-section__content { top: calc(56px + 12px); gap: 8px; width: 92vw; }
-      /* Кадр 1.5 в портретной секции 390×692 (0.564): cover масштабирует по
-         высоте, видно 37.6% ширины файла, Y не действует. Врата занимают
-         x 0.46…0.97, мост входит в них с 0.42 — окно 0.42…0.80 даёт X = 67%:
-         в кадр попадают вход на мост, вся левая колонна арки и бегущие фигуры. */
-      #banaPhoto img { object-position: 67% center; }
+      /* Кадрирования у #banaPhoto больше нет: с .tour-section--light фото
+         вписывается целиком (contain), а object-position сдвигал бы его вбок
+         внутри подложки. Правило снято вместе с прежним center 65%. */
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
@@ -1645,11 +1623,10 @@
 
 
   <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
-  <section class="tour-section" id="tours">
-    <div class="tour-section__photo" id="banaPhoto">
-      <img src="images/bana-gate.webp" alt="Ба На Хиллс — Золотой мост и врата" decoding="async" loading="lazy" />
-    </div>
-    <div class="tour-section__gradient"></div>
+  <section class="tour-section tour-section--light" id="tours">
+    <!-- Порядок как у «Дананга»: сначала текст, потом фото. В статичном потоке
+         .tour-section--light порядок в разметке = порядок на экране, и прежняя
+         последовательность (фото первым) опускала заголовок под иллюстрацию. -->
     <div class="tour-section__content">
       <h2 class="tour-section__title">
         Ба На Хиллс
@@ -1658,6 +1635,10 @@
       <div class="tour-section__btns">
         <a href="#" class="btn-tour">Узнать больше</a>
       </div>
+    </div>
+    <div class="tour-section__gradient"></div>
+    <div class="tour-section__photo" id="banaPhoto">
+      <img src="images/bana-gate.webp" alt="Ба На Хиллс — Золотой мост и врата" decoding="async" loading="lazy" />
     </div>
   </section>
 
