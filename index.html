@@ -1068,9 +1068,12 @@
     }
     /* «Вечерний Ba Na Hills»: заметное содержимое кадра (пальцы и мост)
        начинается с 49% высоты файла. При выравнивании по верху оно попадало
-       ровно под заголовок и кнопку. Прижимаем кадр к нижней кромке — руки
-       уходят ниже текста, сверху остаётся тёмное небо. */
-    .water-card--bana-night img { object-position: 50% 100%; }
+       ровно под заголовок и кнопку, а сдвигать было некуда: горизонтальный
+       кадр в карточке 4:3 виден по вертикали целиком.
+       Взят квадратный вариант того же снимка — в нём над мостом есть тёмное
+       небо. Выравнивание по верху: надпись ложится на небо, руки и мост
+       начинаются ниже кнопки. Яркость под текстом 6 из 255. */
+    .water-card--bana-night img { object-position: 50% 0%; }
 
     .water-card--hue img {
       filter: brightness(1.45) saturate(0.75);
@@ -1698,7 +1701,7 @@
       </div>
 
       <div class="water-card water-card--bana-night">
-        <img src="images/bana-evening-night.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
+        <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
