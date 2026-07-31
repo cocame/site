@@ -531,26 +531,36 @@
        у остальных секций фото на 20% выше секции и ездит при прокрутке — тут
        это срезало 14% снизу, ровно фигуры и цветы. Теперь снизу не режется
        ничего, уходит только небо сверху.
-       Текст чёрный, затемнения нет — верх остаётся светлым и продолжает
-       белый блок «Дананг за один день» выше. */
+       У кадра bana-gate верхние 25% файла прозрачны (alpha 0) — это поле
+       оставлено под заголовок, срезать его нельзя. Свожу на белый.
+       Секция 1440×720 (2.0) против кадра 1536×1024 (1.5): при cover по высоте
+       уходит 25%, и выбор только между двумя потерями — либо белое поле сверху
+       (Y=bottom), либо ноги бегущих фигур снизу, они на 0.88…0.95 высоты файла
+       (Y=top). Поэтому cover тут не годится: беру contain по нижней кромке —
+       кадр виден целиком, поле под заголовок сохранено, фигуры стоят на низу
+       секции. Фон секции белый, поэтому поля contain по бокам не читаются как
+       дыра — тот же приём уже применён у .water-card--device и --promo-light.
+       Текст чёрный, затемнение снято: под заголовком белое поле (255), к 0.4
+       файла спадает до 218, контраст #1d1d1f — 12.2 при норме 4.5. */
+    #tours { background: #fff; }
+    #tours .tour-section__gradient { display: none; }
+    #tours .tour-section__title,
+    #tours .tour-section__subtitle {
+      color: #1d1d1f;
+      text-shadow: none;
+    }
+    #tours .btn-tour {
+      color: #1d1d1f;
+      background: rgba(255,255,255,0.72);
+      border-color: rgba(0,0,0,0.15);
+    }
+    #tours .btn-tour:hover { background: #fff; }
     @media (min-width: 769px) {
       #tours .tour-section__photo { inset: 0; height: auto; }
       #tours .tour-section__photo img {
-        object-fit: cover;
+        object-fit: contain;
         object-position: center bottom;
       }
-      #tours .tour-section__gradient { display: none; }
-      #tours .tour-section__title,
-      #tours .tour-section__subtitle {
-        color: #1d1d1f;
-        text-shadow: none;
-      }
-      #tours .btn-tour {
-        color: #1d1d1f;
-        background: rgba(255,255,255,0.72);
-        border-color: rgba(0,0,0,0.15);
-      }
-      #tours .btn-tour:hover { background: #fff; }
     }
     .tour-section--light .tour-section__content {
       position: static;
@@ -929,11 +939,19 @@
     /* На мобильном карточка портретная, а фото квадратное: cover срезал
        ноутбуку края — читалось как ошибка, а не как кадрирование. Вписываем
        целиком; фон карточки чёрный, поэтому поля от contain незаметны. */
-    /* Вечерний мост: кадр горизонтальный (1.54), карточка на мобильном
-       портретная — по умолчанию в неё попадала только середина. Смещаем
-       фокус влево, на подсвеченные пальцы и изгиб моста. */
-    @media (max-width: 600px) {
-      .water-card--bana-night img { object-position: 38% 45%; }
+    /* Вечерний мост, узкое окно. Портретной карточка становится с 768px, а не
+       с 600px: там .water-card переходит на height: 80svh во всю ширину
+       (390×675 против кадра 1600×1321 = 1.211). Cover масштабирует по высоте,
+       вертикального overflow нет — Y не действует, кадрирует только X, и видно
+       47.7% ширины файла. Замер подсветки (порог 110/255): X 0.195…0.815,
+       медиана 0.36. Центрирование окна на 0.36 даёт X = 23%: окно 0.12…0.60,
+       весь изгиб моста и подсвеченные пальцы внутри. При прежних 50% окно
+       начиналось с 0.24 и срезало левый край подсветки, при 38% центр уходил
+       на 0.44 — мост смещался к левому краю карточки.
+       Y: 0% — как на десктопе, страховка для коротких окон, где карточка
+       упирается в min-height: 300px и вертикальный overflow всё же возникает. */
+    @media (max-width: 768px) {
+      .water-card--bana-night img { object-position: 23% 0%; }
     }
     .water-card--device img {
       object-fit: contain;
@@ -1070,9 +1088,9 @@
        начинается с 49% высоты файла. При выравнивании по верху оно попадало
        ровно под заголовок и кнопку, а сдвигать было некуда: горизонтальный
        кадр в карточке 4:3 виден по вертикали целиком.
-       Взят квадратный вариант того же снимка — в нём над мостом есть тёмное
-       небо. Выравнивание по верху: надпись ложится на небо, руки и мост
-       начинаются ниже кнопки. Яркость под текстом 6 из 255. */
+       Взят квадратный кадр того же снимка, у которого срезан лишний верх:
+       мост стоит на 38% высоты файла. Меньше — надпись ложилась бы на руки,
+       больше — в узком окне между текстом и мостом зияла пустота. */
     .water-card--bana-night img { object-position: 50% 0%; }
 
     .water-card--hue img {
@@ -1423,7 +1441,11 @@
          были двухстрочными, пряталась только верхняя строка и это не бросалось
          в глаза; у «Ba Na Hills» строка одна — пряталась целиком. */
       .tour-section__content { top: calc(56px + 12px); gap: 8px; width: 92vw; }
-      #banaPhoto img { object-position: center 65%; }
+      /* Кадр 1.5 в портретной секции 390×692 (0.564): cover масштабирует по
+         высоте, видно 37.6% ширины файла, Y не действует. Врата занимают
+         x 0.46…0.97, мост входит в них с 0.42 — окно 0.42…0.80 даёт X = 67%:
+         в кадр попадают вход на мост, вся левая колонна арки и бегущие фигуры. */
+      #banaPhoto img { object-position: 67% center; }
       .tour-section__btns { margin-top: 0; gap: 8px; }
       .btn-tour { padding: 9px 18px; font-size: 13px; }
 
@@ -1625,10 +1647,7 @@
   <!-- ═══════════════════ BA NA HILLS ═══════════════════ -->
   <section class="tour-section" id="tours">
     <div class="tour-section__photo" id="banaPhoto">
-      <picture>
-        <source media="(max-width: 768px)" srcset="images/bana-mobile.jpg?v=3">
-        <img src="images/bana-illustration.webp" alt="Ба На Хиллс — Золотой мост" decoding="async" loading="lazy" />
-      </picture>
+      <img src="images/bana-gate.webp" alt="Ба На Хиллс — Золотой мост и врата" decoding="async" loading="lazy" />
     </div>
     <div class="tour-section__gradient"></div>
     <div class="tour-section__content">
@@ -1701,7 +1720,7 @@
       </div>
 
       <div class="water-card water-card--bana-night">
-        <img src="images/bana-evening-night2.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
+        <img src="images/bana-evening-night-crop.webp" alt="Вечерний Ba Na Hills" loading="lazy" />
         <div class="water-card__overlay"></div>
         <div class="water-card__body">
           <p class="water-card__title">Вечерний Ba Na Hills</p>
