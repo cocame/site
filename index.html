@@ -1096,19 +1096,14 @@
        больше — в узком окне между текстом и мостом зияла пустота. */
     .water-card--bana-night img { object-position: 50% 0%; }
 
-    /* Подсветка кадра под тёмный текст. 1.45 выбивало светлые места в чистый
-       белый — при средней яркости файла 181 это давало пересвет; 1.18
-       поднимает тёмные пятна, не сжигая небо. */
-    .water-card--hue img {
-      filter: brightness(1.18) saturate(0.85);
-    }
-    .water-card--hue .water-card__title,
-    .water-card--hue .water-card__sub { color: #1d1d1f; text-shadow: none; }
-    .water-card--hue .water-card__btn {
-      color: #1d1d1f;
-      border-color: rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.75);
-    }
+    /* Хюэ: кадр квадратный (1600x1600), карточка 4:3 — по высоте уходит 25%.
+       Привязка к низу: ноутбук занимает 0.38…0.82 высоты файла, ладонь под
+       ним 0.80…1.0, при center top ладонь срезалась бы целиком. При bottom
+       видно 0.25…1.0 — всё на месте.
+       Подсветка кадра и тёмный текст отсюда убраны вместе с прежним светлым
+       фото: у нового файла полоса заголовка — чистый чёрный (0 из 255),
+       подзаголовка 13, белый текст по умолчанию даёт контраст 21. */
+    .water-card--hue img { object-position: center bottom; }
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
       color: #1d1d1f;
@@ -1724,11 +1719,8 @@
         </div>
       </div>
 
-      <!-- Класс --hue обязателен: фото светлое, под заголовком средняя
-           яркость 181 из 255, и белый текст по умолчанию давал контраст 2.1
-           при норме 4.5 — надпись читалась белым по белому. -->
       <div class="water-card water-card--hue">
-        <img src="images/hue-grid.jpg" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <img src="images/hue-macbook.webp?v=1" alt="Хюэ — Императорская цитадель на экране" loading="lazy" />
         <div class="water-card__body">
           <p class="water-card__title">Императорский Хюэ</p>
           <p class="water-card__sub">Запретный город · Величие династий · 85$</p>
