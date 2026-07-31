@@ -1066,6 +1066,12 @@
     .water-card__overlay--top {
       background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 30%);
     }
+    /* «Вечерний Ba Na Hills»: заметное содержимое кадра (пальцы и мост)
+       начинается с 49% высоты файла. При выравнивании по верху оно попадало
+       ровно под заголовок и кнопку. Прижимаем кадр к нижней кромке — руки
+       уходят ниже текста, сверху остаётся тёмное небо. */
+    .water-card--bana-night img { object-position: 50% 100%; }
+
     .water-card--hue img {
       filter: brightness(1.45) saturate(0.75);
     }
