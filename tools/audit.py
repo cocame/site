@@ -34,11 +34,19 @@ IGNORE = [
     "bana-illustration.webp: растягивается",
     "danang-hero.jpg: растягивается",
     "danang-mockup-desktop.webp: растягивается",
+    # Мокап монитора «Ба На»: исходник владелицы 1536x1024, вырезка по альфе
+    # 1072x847. На 2880 при удвоенном DPR это 1.6x — больше пикселей взять
+    # неоткуда, апскейл лишь сымитировал бы разрешение. Лечится только
+    # исходником большего размера.
+    "bana-display.webp: растягивается",
 ]
 
 
 def bug(group, msg):
-    if any(ig in msg for ig in IGNORE):
+    # ?v=N в пути к файлу отбрасываем: версия меняется при каждой замене
+    # картинки, а исключение должно продолжать действовать.
+    clean = re.sub(r"\?v=\d+", "", msg)
+    if any(ig in clean for ig in IGNORE):
         return
     problems.append((group, msg))
 
