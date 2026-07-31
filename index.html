@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- GitHub Pages отдаёт странице cache-control: max-age=600 — браузер
+       держит её 10 минут и за новой версией не ходит. Заголовки Pages менять
+       нельзя, поэтому запрет ставится в самом документе: браузер обязан
+       спросить сервер при каждом открытии. Картинки этим не затрагиваются —
+       у них своя защита версией пути (?v=N). -->
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Narada Travels — Экскурсии из Дананга</title>
   <meta name="description" content="Премиальные экскурсии из Дананга с русскоязычным гидом. Трансфер от отеля включён." />
 
