@@ -899,11 +899,13 @@
        bana-cloud-display-mobile.webp 1080×1920 — 94% ширины, центр на 43%
        высоты, ниже остаётся поле под заголовок и кнопку. */
 
-    /* Квадратное фото, субъект в центре (Хюэ). Базовое center top показало бы
-       верхние 56% — то есть потолок галереи; центр нужен на обеих раскладках,
-       медиазапрос не требуется: на мобильном 9/16 вертикальный overflow
-       отсутствует и Y всё равно не действует. */
-    .carousel__card--sq-center img { object-position: center center; }
+    /* Широкое фото 1400×911 (Хюэ), субъект стоит на полу у нижнего края.
+       Десктоп 16/9: по высоте видно 788 из 911 px, базовое center top срезало бы
+       нижние 123 px — то есть ноги фигуры (она заканчивается на y 870).
+       Отсюда привязка к низу. На мобильном 9/16 вертикального overflow нет,
+       Y не действует, а по X центр даёт окно 444..956 — фигура (x 600..850)
+       попадает целиком, отдельного правила не нужно. */
+    .carousel__card--wide-bottom img { object-position: center bottom; }
 
     /* ─── Квадратные фото в портретных карточках (9/16 мобильный) ────────────── */
     /* Субъект в нижней половине фото: добавь класс sq-low */
@@ -1892,8 +1894,8 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--sq-center">
-          <img src="images/hue-new.webp" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <a href="#" class="carousel__card carousel__card--wide-bottom">
+          <img src="images/hue-corridor.webp" alt="Хюэ — галерея Императорской цитадели" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
