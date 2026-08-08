@@ -847,24 +847,6 @@
     .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
     .carousel__card--sea-promo .carousel__card-gradient { display: none; }
 
-    /* ─── Заготовки под туры без фото: цветной блок вместо картинки ────────────
-       Двойная специфичность (--placeholder + элемент) намеренно: перебивает
-       мобильные правила .carousel__card-body независимо от порядка в файле. */
-    .carousel__card--placeholder .carousel__card-body {
-      inset: 0;
-      padding: 20px;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .carousel__card--placeholder .carousel__card-label {
-      font-size: clamp(15px, 2vw, 19px);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: rgba(0, 0, 0, 0.42);
-    }
-    .carousel__card--ph-1 { background: #cdd6e0; }
-    .carousel__card--ph-2 { background: #e3d8cd; }
     @media (max-width: 768px) {
       .carousel__card--sea-promo img {
         height: 100%;
@@ -897,12 +879,14 @@
        bana-cloud-display-mobile.webp 1080×1920 — 94% ширины, центр на 43%
        высоты, ниже остаётся поле под заголовок и кнопку. */
 
-    /* Широкое фото 1400×911 (Хюэ), субъект стоит на полу у нижнего края.
-       Десктоп 16/9: по высоте видно 788 из 911 px, базовое center top срезало бы
-       нижние 123 px — то есть ноги фигуры (она заканчивается на y 870).
-       Отсюда привязка к низу. На мобильном 9/16 вертикального overflow нет,
-       Y не действует, а по X центр даёт окно 444..956 — фигура (x 600..850)
-       попадает целиком, отдельного правила не нужно. */
+    /* Широкое фото, субъект прижат к нижнему краю кадра. На десктопе 16/9
+       обрезается именно низ, поэтому привязка к нему обязательна:
+       Хюэ 1400×911 — видно 788 px, базовое center top срезало бы ноги фигуры
+       (она кончается на y 870); Хайван 1400×893 — видно 788 px, срезало бы
+       виадук с поездом (низ на y 830). На мобильном 9/16 вертикального
+       overflow нет, Y не действует, а центр по X даёт удачное окно обоим:
+       Хюэ 444..956 — фигура (x 600..850), Хайван 449..951 — локомотив и
+       скалистый берег. Отдельных мобильных правил не нужно. */
     .carousel__card--wide-bottom img { object-position: center bottom; }
 
     /* ─── Квадратные фото в портретных карточках (9/16 мобильный) ────────────── */
@@ -1898,11 +1882,12 @@
           </div>
         </a>
 
-        <!-- Заготовка под 12-й тур: фото и текст добавить позже -->
-
-        <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-2">
+        <a href="#" class="carousel__card carousel__card--wide-bottom">
+          <img src="images/haivan-pass.webp" alt="Перевал Хайван — поезд над морем" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
-            <span class="carousel__card-label">Тур 12</span>
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Легендарный перевал Хайван<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Горный серпантин · Купание в водопадах · 65$</span></p>
           </div>
         </a>
 
