@@ -882,6 +882,18 @@
       .carousel__card--sq-right img { object-position: 68% center; }
     }
 
+    /* ─── Дананг за один день: разные кадры на десктопе и телефоне ─────────────
+       Десктоп: danang-collage.webp 1280×720 = ровно 16/9 карточки, коллаж виден
+       целиком, object-position не действует.
+       Телефон: карточка 9/16 показала бы 405 из 1280 px (31.6%) — из коллажа
+       пришлось бы выбирать одну сцену из трёх (Золотой мост x 0..500, рыбак
+       x 400..800, Мост Дракона x 875..1280). Взят Мост Дракона: он отвечает
+       подзаголовку «Шоу Дракона» и не повторяет карточку Ba Na Hills, где тот
+       же Золотой мост. Кроп вынесен в отдельный файл danang-collage-mobile.webp
+       (source x 900..1280, y 0..676 = 0.562 ≈ 9/16), а не сделан
+       object-position: 100%: окно кропа начиналось бы с x 875 и захватывало
+       хвост буквы «g» из вшитого «Đà Nẵng» — 13×40 px чёрного пятна на небе. */
+
     /* Квадратное фото, субъект в центре (Хюэ). Базовое center top показало бы
        верхние 56% — то есть потолок галереи; центр нужен на обеих раскладках,
        медиазапрос не требуется: на мобильном 9/16 вертикальный overflow
@@ -1815,12 +1827,12 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--light">
-          <img src="images/danang-mockup3.png" alt="Дананг за один день" loading="lazy" />
+        <a href="#" class="carousel__card">
+          <img src="images/fishing-boat.jpg" alt="Морская рыбалка" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Дананг за один день<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Шоу Дракона · Мраморные горы · 64$</span></p>
+            <p class="carousel__card-title">Рыбалка в открытом море<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Тралловый бот · Удочки · Свежий улов</span></p>
           </div>
         </a>
 
@@ -1852,11 +1864,14 @@
         </a>
 
         <a href="#" class="carousel__card">
-          <img src="images/fishing-boat.jpg" alt="Морская рыбалка" loading="lazy" />
+          <picture>
+            <source media="(max-width: 600px)" srcset="images/danang-collage-mobile.webp" type="image/webp">
+            <img src="images/danang-collage.webp" alt="Дананг за один день" loading="lazy" />
+          </picture>
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Рыбалка в открытом море<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Тралловый бот · Удочки · Свежий улов</span></p>
+            <p class="carousel__card-title">Дананг за один день<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Шоу Дракона · Мраморные горы · 64$</span></p>
           </div>
         </a>
 
