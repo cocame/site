@@ -882,13 +882,11 @@
       .carousel__card--sq-right img { object-position: 68% center; }
     }
 
-    /* ─── Дананг за один день: два кадра из квадратной афиши ────────────────────
-       Исходник 1254×1254 со вшитым «DANANG» (y 380..490) — живой заголовок
-       карточки его дублирует, поэтому оба кадра режутся ниже логотипа:
-       danang-poster.webp 1254×705 = 16/9 (от y 549),
-       danang-poster-mobile.webp 424×754 = 9/16 (от y 500, окно на драконе и
-       башне Чам), увеличен ×2 Ланцошем — плоская заливка это переносит.
-       Низ афиши светлый, поэтому карточка идёт с --light: тёмный текст. */
+    /* Дананг за один день: danang-bay.webp 1400×787 — своих правил не требует.
+       1.779 против 1.778 у карточки: на десктопе кадр виден целиком. На
+       мобильном 9/16 окно 443 px из 1400 по центру (базовое center top, Y при
+       отсутствии вертикального overflow не действует) забирает бухту, пляж,
+       небоскрёбы и склон внизу — то есть весь сюжет, кроп не нужен. */
 
     /* ─── Ба На Хиллс «Сказка в облаках» — карточка-мокап (класс --light) ───────
        Монитор вырезан из чёрного фона исходника (заливка от углов с допуском 3
@@ -1873,11 +1871,8 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--light">
-          <picture>
-            <source media="(max-width: 600px)" srcset="images/danang-poster-mobile.webp" type="image/webp">
-            <img src="images/danang-poster.webp" alt="Дананг за один день" loading="lazy" />
-          </picture>
+        <a href="#" class="carousel__card">
+          <img src="images/danang-bay.webp" alt="Дананг — панорама бухты и города" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
