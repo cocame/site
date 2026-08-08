@@ -882,17 +882,22 @@
       .carousel__card--sq-right img { object-position: 68% center; }
     }
 
-    /* ─── Дананг за один день: разные кадры на десктопе и телефоне ─────────────
-       Десктоп: danang-collage.webp 1280×720 = ровно 16/9 карточки, коллаж виден
-       целиком, object-position не действует.
-       Телефон: карточка 9/16 показала бы 405 из 1280 px (31.6%) — из коллажа
-       пришлось бы выбирать одну сцену из трёх (Золотой мост x 0..500, рыбак
-       x 400..800, Мост Дракона x 875..1280). Взят Мост Дракона: он отвечает
-       подзаголовку «Шоу Дракона» и не повторяет карточку Ba Na Hills, где тот
-       же Золотой мост. Кроп вынесен в отдельный файл danang-collage-mobile.webp
-       (source x 900..1280, y 0..676 = 0.562 ≈ 9/16), а не сделан
-       object-position: 100%: окно кропа начиналось бы с x 875 и захватывало
-       хвост буквы «g» из вшитого «Đà Nẵng» — 13×40 px чёрного пятна на небе. */
+    /* ─── Дананг за один день: два кадра из квадратной афиши ────────────────────
+       Исходник 1254×1254 со вшитым «DANANG» (y 380..490) — живой заголовок
+       карточки его дублирует, поэтому оба кадра режутся ниже логотипа:
+       danang-poster.webp 1254×705 = 16/9 (от y 549),
+       danang-poster-mobile.webp 424×754 = 9/16 (от y 500, окно на драконе и
+       башне Чам), увеличен ×2 Ланцошем — плоская заливка это переносит.
+       Низ афиши светлый, поэтому карточка идёт с --light: тёмный текст. */
+
+    /* ─── Ба На Хиллс «Сказка в облаках» — карточка-мокап (класс --light) ───────
+       Монитор вырезан из чёрного фона исходника (заливка от углов с допуском 3
+       по соседнему пикселю: фон — плавный градиент, границы корпуса дают шаг
+       больше допуска) и положен на #f5f5f7. Кадры собраны точно под пропорции
+       карточки, поэтому contain не оставляет полос и ничего не масштабирует
+       сверх заданного: bana-cloud-display.webp 1920×1080 — монитор 50% ширины,
+       bana-cloud-display-mobile.webp 1080×1920 — 94% ширины, центр на 43%
+       высоты, ниже остаётся поле под заголовок и кнопку. */
 
     /* Квадратное фото, субъект в центре (Хюэ). Базовое center top показало бы
        верхние 56% — то есть потолок галереи; центр нужен на обеих раскладках,
@@ -1836,12 +1841,15 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--sq-center">
-          <img src="images/hue-new.webp" alt="Хюэ — Императорская цитадель" loading="lazy" />
+        <a href="#" class="carousel__card carousel__card--light">
+          <picture>
+            <source media="(max-width: 600px)" srcset="images/bana-cloud-display-mobile.webp" type="image/webp">
+            <img src="images/bana-cloud-display.webp" alt="Ба На Хиллс — врата в сказку над облаками на экране" loading="lazy" />
+          </picture>
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Императорский Хюэ<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Запретный город · Величие династий · 85$</span></p>
+            <p class="carousel__card-title">Ба На Хиллс<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Сказка в облаках · Золотой мост</span></p>
           </div>
         </a>
 
@@ -1863,10 +1871,10 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card">
+        <a href="#" class="carousel__card carousel__card--light">
           <picture>
-            <source media="(max-width: 600px)" srcset="images/danang-collage-mobile.webp" type="image/webp">
-            <img src="images/danang-collage.webp" alt="Дананг за один день" loading="lazy" />
+            <source media="(max-width: 600px)" srcset="images/danang-poster-mobile.webp" type="image/webp">
+            <img src="images/danang-poster.webp" alt="Дананг за один день" loading="lazy" />
           </picture>
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
@@ -1884,12 +1892,16 @@
           </div>
         </a>
 
-        <!-- Заготовки под 11-й и 12-й туры: фото и текст добавить позже -->
-        <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-1">
+        <a href="#" class="carousel__card carousel__card--sq-center">
+          <img src="images/hue-new.webp" alt="Хюэ — Императорская цитадель" loading="lazy" />
+          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
-            <span class="carousel__card-label">Тур 11</span>
+            <span class="carousel__card-cta">Узнать больше</span>
+            <p class="carousel__card-title">Императорский Хюэ<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Запретный город · Величие династий · 85$</span></p>
           </div>
         </a>
+
+        <!-- Заготовка под 12-й тур: фото и текст добавить позже -->
 
         <a href="#" class="carousel__card carousel__card--placeholder carousel__card--ph-2">
           <div class="carousel__card-body">
