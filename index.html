@@ -798,61 +798,6 @@
     }
     .carousel__card-cta:hover { background: #f0f0f0; }
 
-    /* ─── Карточки-мокапы с прозрачным фоном (Дананг, Рыбалка) — нужен светлый фон ── */
-    .carousel__card--light {
-      background: #f5f5f7;
-    }
-    .carousel__card--light img { object-fit: contain; }
-    /* убираем полосы по бокам/сверху-снизу — точная пропорция под каждую картинку */
-    .carousel__card--light .carousel__card-gradient {
-      background: linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%);
-    }
-    .carousel__card--light .carousel__card-title,
-    .carousel__card--light .carousel__card-sub-inline,
-    .carousel__card--light .carousel__card-dot {
-      color: #1d1d1f;
-      text-shadow: none;
-    }
-
-    .carousel__card--light .carousel__card-cta {
-      background: rgba(0,0,0,0.06);
-      color: #1d1d1f;
-      border: 1px solid rgba(0,0,0,0.15);
-    }
-    .carousel__card--light .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
-
-    /* ─── Морская прогулка — планшеты на белом фоне ── */
-    .carousel__card--sea-promo {
-      background: #f5f5f7;
-    }
-    .carousel__card--sea-promo img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 65%;
-    }
-    .carousel__card--sea-promo .carousel__card-title,
-    .carousel__card--sea-promo .carousel__card-sub-inline,
-    .carousel__card--sea-promo .carousel__card-dot {
-      color: #1d1d1f;
-      text-shadow: none;
-    }
-    .carousel__card--sea-promo .carousel__card-cta {
-      background: rgba(0,0,0,0.06);
-      color: #1d1d1f;
-      border: 1px solid rgba(0,0,0,0.15);
-    }
-    .carousel__card--sea-promo .carousel__card-cta:hover { background: rgba(0,0,0,0.1); }
-    .carousel__card--sea-promo .carousel__card-gradient { display: none; }
-
-    @media (max-width: 768px) {
-      .carousel__card--sea-promo img {
-        height: 100%;
-      }
-    }
-
     /* ─── Квадратное фото, субъект справа-внизу (Донг Зянг) ────────────────────
        Здесь transform НЕ нужен — работает object-position, но по разным осям:
        десктоп 16/9 + квадрат -> overflow по вертикали -> действует Y;
@@ -1130,6 +1075,35 @@
       border-color: rgba(0,0,0,0.2);
       background: rgba(255,255,255,0.7);
     }
+    /* ─── Третий ряд сетки: монитор Ба На и планшеты «Морской прогулки».
+       Рецепт тот же, что у «Хюэ» и «Рыбалки»: вырезка на прозрачном фоне,
+       contain, верх плитки отдан тексту через padding 168px. Обе плитки
+       светлые по решению владелицы — то есть ряд не чередуется, в отличие
+       от первых двух (светлая/тёмная). */
+    .water-card--bana-cloud,
+    .water-card--sea-tablets { background: #f5f5f7; }
+    .water-card--bana-cloud img,
+    .water-card--sea-tablets img {
+      object-fit: contain;
+      object-position: center bottom;
+      padding: 168px 6% 0;
+      box-sizing: border-box;
+    }
+    /* Планшеты — не устройство, стоящее на плоскости, а веер в воздухе:
+       прижатый к нижней кромке он читался как срезанный. Ноутбук «Хюэ» и
+       монитор Ба На стоят на подставках, им низ нужен вплотную. */
+    .water-card--sea-tablets img { padding-bottom: 8%; }
+    .water-card--bana-cloud .water-card__body .water-card__title,
+    .water-card--bana-cloud .water-card__body .water-card__sub,
+    .water-card--sea-tablets .water-card__body .water-card__title,
+    .water-card--sea-tablets .water-card__body .water-card__sub { color: #1d1d1f; text-shadow: none; }
+    .water-card--bana-cloud .water-card__body .water-card__btn,
+    .water-card--sea-tablets .water-card__body .water-card__btn {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.7);
+    }
+
     .water-card__body--device .water-card__title,
     .water-card__body--device .water-card__sub {
       color: #1d1d1f;
@@ -1496,6 +1470,22 @@
         transform: scale(1.7);
         transform-origin: center center;
       }
+      /* Третий ряд на мобильном: плитка становится 80svh, а вырезка вписана по
+         ширине — при привязке к низу между кнопкой и устройством оставалось
+         ~500px пустой подложки. Центрируем в остатке и увеличиваем, как у
+         «Рыбалки». Коэффициенты от пропорции вырезки: монитор 1176×981 (1.20)
+         в 344px ширины даёт 287px высоты, планшеты 601×395 (1.52) — 226px;
+         свободных под текстом ~500px. Потолок увеличения — 1.13: при 6%
+         отступов вырезка уже 344px из 390, дальше веер планшетов уходит за
+         правый край и читается как обрезанный, а не как кадрирование. */
+      .water-card--bana-cloud img,
+      .water-card--sea-tablets img {
+        object-position: center center;
+        padding: 150px 6% 6%;
+        transform: scale(1.12);
+        transform-origin: center 58%;
+      }
+
       .water-card__cta { display: none; }
 
       /* Типографика блоков */
@@ -1556,10 +1546,9 @@
       }
       .carousel__card-cta { order: 2; font-size: 14px; padding: 9px 18px; }
 
-      /* Тёмный градиент под белый текст — только на фото-карточках.
-         Светлые карточки (--light, --sea-promo) сохраняют свой тёмный текст. */
-      .carousel__card:not(.carousel__card--light):not(.carousel__card--sea-promo)
-        .carousel__card-gradient {
+      /* Тёмный градиент под белый текст: мокапы уехали в сетку, в ленте
+         остались только фотографии во весь кадр. */
+      .carousel__card .carousel__card-gradient {
         background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 55%);
       }
     }
@@ -1767,6 +1756,28 @@
           </div>
         </div>
       </div>
+
+      <div class="water-card water-card--bana-cloud">
+        <img src="images/bana-monitor-cut.webp" alt="Ба На Хиллс — врата в сказку над облаками на экране" loading="lazy" />
+        <div class="water-card__body">
+          <p class="water-card__title">Ба На Хиллс</p>
+          <p class="water-card__sub">Сказка в облаках · Золотой мост</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn water-card__btn--dark">Узнать больше</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="water-card water-card--sea-tablets">
+        <img src="images/sea-tablets-cut.webp" alt="Морская прогулка на экранах планшетов" loading="lazy" />
+        <div class="water-card__body">
+          <p class="water-card__title">Морская прогулка</p>
+          <p class="water-card__sub">Закат на воде · Ужин на борту</p>
+          <div class="water-card__btns">
+            <a href="#" class="water-card__btn">Узнать больше</a>
+          </div>
+        </div>
+      </div>
       </div>
 
     </div>
@@ -1780,9 +1791,14 @@
     <div class="carousel" id="carouselTrack">
       <div class="carousel__track">
 
-        <a href="#" class="carousel__card carousel__card--sea-promo carousel__card--sq-fit">
-          <img src="images/sea-promo.png" alt="Морская прогулка" loading="lazy" />
-          <div class="carousel__card-gradient carousel__card-gradient--light"></div>
+        <a href="#" class="carousel__card carousel__card--wide-bottom">
+          <picture>
+            <source media="(max-width: 600px)" srcset="images/sea-sup-mobile.webp" type="image/webp">
+            <!-- Первая карточка ленты видна сразу, lazy ей только вредит: до
+                 загрузки на её месте белое поле, и белый заголовок пропадает. -->
+            <img src="images/sea-sup.webp" alt="Морская прогулка — сапбординг" decoding="async" />
+          </picture>
+          <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Смотрите прямо сейчас</span>
             <p class="carousel__card-title">Морская прогулка<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Закат на воде · Ужин на борту</span></p>
@@ -1825,18 +1841,6 @@
           </div>
         </a>
 
-        <a href="#" class="carousel__card carousel__card--light">
-          <picture>
-            <source media="(max-width: 600px)" srcset="images/bana-cloud-display-mobile.webp" type="image/webp">
-            <img src="images/bana-cloud-display.webp" alt="Ба На Хиллс — врата в сказку над облаками на экране" loading="lazy" />
-          </picture>
-          <div class="carousel__card-gradient"></div>
-          <div class="carousel__card-body">
-            <span class="carousel__card-cta">Узнать больше</span>
-            <p class="carousel__card-title">Ба На Хиллс<span class="carousel__card-dot"> · </span><span class="carousel__card-sub-inline">Сказка в облаках · Золотой мост</span></p>
-          </div>
-        </a>
-
         <a href="#" class="carousel__card">
           <img src="images/hoian-new2.webp" alt="Хойан — древний город ЮНЕСКО" loading="lazy" />
           <div class="carousel__card-gradient"></div>
@@ -1856,7 +1860,7 @@
         </a>
 
         <a href="#" class="carousel__card">
-          <img src="images/danang-bay.webp" alt="Дананг — панорама бухты и города" loading="lazy" />
+          <img src="images/danang-fireworks.webp" alt="Дананг — Мост Дракона и фейерверк" loading="lazy" />
           <div class="carousel__card-gradient"></div>
           <div class="carousel__card-body">
             <span class="carousel__card-cta">Узнать больше</span>
